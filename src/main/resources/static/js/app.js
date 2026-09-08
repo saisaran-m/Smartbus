@@ -27,6 +27,15 @@ const SmartBus = {
             SmartBusTheme.init();
         }
 
+        // Register Service Worker for Mobile PWA / APK install
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SmartBus PWA Service Worker Registered', reg.scope))
+                    .catch(err => console.log('SW Registration error:', err));
+            });
+        }
+
         this.setupNavigation();
         this.setupAutocomplete();
         this.setupSearchForm();
