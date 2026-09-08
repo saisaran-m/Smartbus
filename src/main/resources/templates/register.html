@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBus - Create Account</title>
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #E55C00;
+            --bg: #F8F9FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #6C757D;
+            --border: #E9ECEF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --danger: #DC3545;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .register-card {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+        .logo-container {
+            margin-bottom: 24px;
+        }
+        .logo-svg {
+            width: 200px;
+            height: auto;
+        }
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
+        }
+        .error-message {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+        }
+        .has-error .form-input {
+            border-color: var(--danger);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 12px;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .login-link {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 480px) {
+            .register-card { padding: 30px 20px; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <div class="logo-container">
+        <svg class="logo-svg" viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg">
+            <!-- Modern Aerodynamic Long-Distance Transit Bus -->
+            <g transform="translate(2, 8)">
+                <!-- Shadow underneath -->
+                <ellipse cx="32" cy="38" rx="27" ry="2.5" fill="#000000" opacity="0.12"/>
+                
+                <!-- Roof Air Conditioner (Signature interstate coach feature) -->
+                <rect x="18" y="0" width="22" height="4" rx="2" fill="#D95300"/>
+                
+                <!-- Main Aerodynamic Coach Body -->
+                <path d="M3,34 L3,10 C3,5 6,2 13,2 L48,2 C55,2 59,5 61,11 L63,24 C64,30 61,34 56,34 Z" fill="#FF6B00"/>
+                
+                <!-- Front Aerodynamic Windshield -->
+                <path d="M50,5 L56,11 L57,19 L48,19 L48,5 Z" fill="#FFFFFF"/>
+                
+                <!-- 4 Distinct Passenger Windows -->
+                <rect x="37" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                <rect x="26" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                <rect x="15" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                <rect x="5" y="5" width="7.5" height="14" rx="2" fill="#FFFFFF"/>
+
+                <!-- Contrast Speed Stripe -->
+                <rect x="3" y="24" width="58" height="2.5" fill="#E55C00"/>
+
+                <!-- Rear Wheel -->
+                <circle cx="15" cy="34" r="6.5" fill="#1E293B"/>
+                <circle cx="15" cy="34" r="3.2" fill="#E2E8F0"/>
+                <circle cx="15" cy="34" r="1.2" fill="#1E293B"/>
+
+                <!-- Front Wheel -->
+                <circle cx="49" cy="34" r="6.5" fill="#1E293B"/>
+                <circle cx="49" cy="34" r="3.2" fill="#E2E8F0"/>
+                <circle cx="49" cy="34" r="1.2" fill="#1E293B"/>
+
+                <!-- Amber Front Headlight -->
+                <path d="M62,23 L65,24 L62,26 Z" fill="#FBBF24"/>
+            </g>
+
+            <!-- Clean Modern Typography -->
+            <text x="74" y="37" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#1A1A2E" letter-spacing="-0.5">
+                Smart<tspan fill="#FF6B00">Bus</tspan>
+            </text>
+        </svg>
+    </div>
+
+    <h1 class="page-title">Create an Account</h1>
+
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <div class="form-group" th:classappend="${#fields.hasErrors('fullName')} ? 'has-error'">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" th:field="*{fullName}" class="form-input" required autocomplete="name">
+            <span class="error-message" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
+        </div>
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('username')} ? 'has-error'">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}" class="form-input" required autocomplete="username">
+            <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
+        </div>
+        
+        <div class="grid-2">
+            <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}" class="form-input" required autocomplete="email">
+                <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+            </div>
+            
+            <div class="form-group" th:classappend="${#fields.hasErrors('phone')} ? 'has-error'">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" th:field="*{phone}" class="form-input" required autocomplete="tel">
+                <span class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
+            </div>
+        </div>
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" class="form-input" required autocomplete="new-password">
+            <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+        </div>
+        
+        <button type="submit" class="btn-primary">Create Account</button>
+    </form>
+    
+    <div class="login-link">
+        Already have an account? <a th:href="@{/login}">Sign In</a>
+    </div>
+</div>
+
+</body>
+</html>
