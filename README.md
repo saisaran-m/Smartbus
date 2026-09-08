@@ -3,7 +3,12 @@
 [![Java](https://img.shields.io/badge/Java-17%20%2F%2026-orange.svg?style=flat-square&logo=openjdk)](https://www.oracle.com/java/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-brightgreen.svg?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
 [![Leaflet](https://img.shields.io/badge/Maps-Google%20Maps%20%2F%20Leaflet-blue.svg?style=flat-square&logo=leaflet)](https://leafletjs.com/)
+[![Android APK](https://img.shields.io/badge/Android-Download%20APK%20(v1.0)-success?style=flat-square&logo=android)](https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+
+> ### 📲 **Direct Mobile Download:**  
+> **[👉 Click Here to Download Android APK (SmartBus.apk)](https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk)**  
+> *Ready to install on any Android mobile phone with zero setup.*
 
 **SmartBus** is an end-to-end intelligent passenger assistance and live bus tracking platform designed especially for rural, semi-urban, and interstate bus transit across **Tamil Nadu, India**. 
 
