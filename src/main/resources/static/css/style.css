@@ -1239,6 +1239,8 @@ textarea:focus {
   border-bottom: none;
   box-shadow: 0 4px 20px rgba(255,107,0,0.25), 0 1px 3px rgba(0,0,0,0.08);
   padding-top: max(env(safe-area-inset-top, 0px), 12px) !important;
+}
+
 .header .logo svg text { fill: #FFFFFF !important; font-weight: 900 !important; }
 .header .logo svg text tspan { fill: #FFE066 !important; font-weight: 900 !important; }
 .header .logo svg path, .header .logo svg rect, .header .logo svg ellipse, .header .logo svg circle { opacity: 1; }
