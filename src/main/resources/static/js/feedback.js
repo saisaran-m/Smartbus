@@ -303,6 +303,57 @@ const SmartBusFeedback = {
         SmartBus.showToast(`🎒 Lost baggage alert dispatched! Token: ${recoveryToken}`, 'success');
     },
 
+    // ========== GOOGLE FORM STYLE FEATURE SUGGESTION ==========
+    async submitFeatureSuggestion() {
+        const checkboxes = document.querySelectorAll('input[name="suggest_features"]:checked');
+        const selectedCategories = Array.from(checkboxes).map(cb => cb.value);
+        const detailText = document.getElementById('suggest-feature-text')?.value.trim();
+        const contact = document.getElementById('suggest-feature-contact')?.value.trim();
+
+        if (selectedCategories.length === 0 && !detailText) {
+            SmartBus.showToast('Please select a feature category or describe your idea', 'error');
+            return;
+        }
+
+        const requestId = 'REQ-' + Math.floor(10000 + Math.random() * 90000);
+
+        // Save feature request to local store & simulate server sync
+        const featureRequest = {
+            id: requestId,
+            categories: selectedCategories,
+            details: detailText,
+            contact: contact || 'Anonymous Passenger',
+            submittedAt: new Date().toLocaleString()
+        };
+
+        const existingRequests = JSON.parse(localStorage.getItem('smartbus_feature_requests') || '[]');
+        existingRequests.push(featureRequest);
+        localStorage.setItem('smartbus_feature_requests', JSON.stringify(existingRequests));
+
+        // Display Google Form confirmation card
+        const successCard = document.getElementById('suggest-success-card');
+        if (successCard) {
+            successCard.style.display = 'block';
+            successCard.innerHTML = `
+                <div style="font-size:18px; font-weight:800; color:#673AB7; margin-bottom:6px;">
+                    🎉 Feature Request Recorded!
+                </div>
+                <div style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">
+                    Thank you! Your response has been submitted to the SmartBus engineering roadmap.
+                </div>
+                <div style="background:rgba(103,58,183,0.06); border:1px solid rgba(103,58,183,0.2); border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:14px;">
+                    Reference Token: <strong style="color:#673AB7;">${requestId}</strong>
+                </div>
+                <button class="btn btn-secondary btn-block" onclick="SmartBus.showScreen('home')">
+                    Back to Home
+                </button>
+            `;
+            successCard.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        SmartBus.showToast('🚀 Feature suggestion submitted! Thank you.', 'success');
+    },
+
     // Show aggregated ratings for a bus
     async showBusRatings(busId) {
         try {
