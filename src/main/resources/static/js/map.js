@@ -113,11 +113,11 @@ const SmartBusMap = {
             // Default layer: Google Roadmap
             googleRoadmap.addTo(this.homeMap);
 
-            // Clean, uncluttered 2-option layer switcher: Google Maps & Google Satellite only
-            L.control.layers({
+            // Clean, uncluttered 2-option layer switcher removed as requested
+            /* L.control.layers({
                 "Google Maps": googleRoadmap,
                 "Google Satellite": googleSatellite
-            }, null, { position: 'topright' }).addTo(this.homeMap);
+            }, null, { position: 'topright' }).addTo(this.homeMap); */
 
             // Google Watermark
             const GoogleWatermark = L.Control.extend({
@@ -364,11 +364,11 @@ const SmartBusMap = {
         // Set Google Maps as active base layer
         googleRoadmap.addTo(this.map);
 
-        // Strict 2-option switcher: Google Maps & Google Satellite only
-        L.control.layers({
+        // Strict 2-option switcher removed as requested
+        /* L.control.layers({
             "Google Maps": googleRoadmap,
             "Google Satellite": googleSatellite
-        }, null, { position: 'topright' }).addTo(this.map);
+        }, null, { position: 'topright' }).addTo(this.map); */
 
         // Google Watermark
         const GoogleWatermark = L.Control.extend({

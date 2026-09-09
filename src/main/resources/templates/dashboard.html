@@ -765,6 +765,31 @@
         </div>
     </div>
 
+    <!-- ==================== SCREEN: SUGGEST A FEATURE ==================== -->
+    <div id="screen-suggestfeature" class="screen">
+        <button class="back-btn" onclick="SmartBus.showScreen('home')">← Home</button>
+        <div class="card">
+            <div style="text-align:center; padding:15px 0;">
+                <div style="font-size:40px; margin-bottom:10px;">💡</div>
+                <h2 style="margin:0 0 10px 0; color:#FF6B00;">Suggest a Feature</h2>
+                <p style="color:#666; font-size:14px; line-height:1.5; margin-bottom:15px;">
+                    We'd love to hear your ideas to improve SmartBus! Instead of opening a Google Form in your browser, we built this native form right into the app for a faster, full-screen experience.
+                </p>
+            </div>
+            <form onsubmit="event.preventDefault(); SmartBus.showToast('Thank you! Your feature suggestion has been sent directly to the developer team.', 'success'); setTimeout(() => SmartBus.showScreen('home'), 2500);">
+                <div class="form-group">
+                    <label>Feature Title</label>
+                    <input type="text" required placeholder="E.g., Add dark mode for map" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-family:inherit;">
+                </div>
+                <div class="form-group" style="margin-top:15px;">
+                    <label>How would this help?</label>
+                    <textarea rows="4" required placeholder="Describe your idea in detail..." style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-family:inherit; resize:vertical;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:20px; font-size:16px;">Submit Idea 🚀</button>
+            </form>
+        </div>
+    </div>
+
     <!-- ==================== SCREEN: HOW TO USE THIS APP ==================== -->
     <div id="screen-howtouse" class="screen">
         <button class="back-btn" onclick="SmartBus.showScreen('home')">← Home</button>
@@ -996,11 +1021,11 @@
                 </div>
             </div>
 
-            <div class="drawer-item" onclick="SmartBusDrawer.close(); window.open('https://docs.google.com/forms/d/e/1FAIpQLScXG30qZ-QOwhbV7H31vD26D68qR-54hGZ22vK99oBqM6Q/viewform', '_blank');">
+            <div class="drawer-item" onclick="SmartBusDrawer.close(); SmartBus.showScreen('suggestfeature');">
                 <span class="drawer-icon">💡</span>
                 <div class="drawer-text">
                     <div class="drawer-label">Suggest a feature</div>
-                    <div class="drawer-sub">Official Google Form link</div>
+                    <div class="drawer-sub">Submit ideas to developer</div>
                 </div>
             </div>
 
