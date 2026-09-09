@@ -1,5 +1,6 @@
-// SmartBus Service Worker for PWA
-const CACHE_NAME = 'smartbus-v1';
+// SmartBus 2.0 Elite — Enhanced Service Worker
+// Caches app shell, tickets, and schedule data for offline access
+const CACHE_NAME = 'smartbus-v2';
 const ASSETS = [
   '/dashboard',
   '/css/style.css',
@@ -9,8 +10,16 @@ const ASSETS = [
   '/js/guardian.js',
   '/js/voice.js',
   '/js/feedback.js',
-  '/manifest.json'
+  '/js/ticket.js',
+  '/js/driver.js',
+  '/manifest.json',
+  '/images/icon-192.png',
+  '/images/icon-512.png'
 ];
+
+// Dynamic caches for API responses
+const API_CACHE = 'smartbus-api-v2';
+const TICKET_CACHE = 'smartbus-tickets-v2';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -25,7 +34,8 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+        keys.filter(key => ![CACHE_NAME, API_CACHE, TICKET_CACHE].includes(key))
+            .map(key => caches.delete(key))
       );
     })
   );
@@ -34,7 +44,53 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+
+  // Cache ticket data for offline boarding pass
+  if (url.pathname.startsWith('/api/tickets/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(TICKET_CACHE).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache bus/route data for offline schedule viewing
+  if (url.pathname.startsWith('/api/buses/') || url.pathname.startsWith('/api/routes/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(API_CACHE).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Network-first for other requests, fallback to cache
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    fetch(event.request)
+      .catch(() => caches.match(event.request))
   );
+});
+
+// Listen for messages to cache specific ticket data
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'CACHE_TICKET') {
+    const ticketData = event.data.ticket;
+    caches.open(TICKET_CACHE).then(cache => {
+      const response = new Response(JSON.stringify(ticketData), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      cache.put(`/offline-ticket/${ticketData.pnrNumber}`, response);
+    });
+  }
 });

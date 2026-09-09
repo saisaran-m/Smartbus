@@ -16,7 +16,7 @@ const SmartBus = {
         csrfHeader: ''
     },
 
-    screens: ['home', 'search', 'journey', 'guardian', 'recovery', 'voice', 'senior', 'feedback', 'safety', 'nextbus', 'ai', 'fare'],
+    screens: ['home', 'search', 'journey', 'guardian', 'recovery', 'voice', 'senior', 'feedback', 'safety', 'nextbus', 'ai', 'fare', 'ticket', 'boardingpass', 'mytickets', 'driver'],
 
     init() {
         this.state.csrfToken = document.querySelector('meta[name="_csrf"]')?.content || '';
@@ -429,9 +429,17 @@ const SmartBus = {
                     <span>🛡️ ${bus.safetyRating?.toFixed(1) || '4.0'}</span>
                     ${bus.nextStop ? `<span>▶ Next: ${bus.nextStop}</span>` : ''}
                 </div>
-                <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="SmartBus.selectBus(${i})">
-                    Select This Bus
-                </button>
+                <div class="capacity-meter" title="Crowd capacity: ${bus.crowdLevel}">
+                    <div class="capacity-meter-fill ${bus.crowdLevel.toLowerCase()}"></div>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:14px;">
+                    <button class="btn btn-secondary" style="flex:1; font-size:14px; padding:10px 14px;" onclick="SmartBus.selectBus(${i})">
+                        📍 Track Bus
+                    </button>
+                    <button class="btn btn-primary" style="flex:1.2; font-size:14px; padding:10px 14px;" onclick="SmartBus.bookBusTicket(${i})">
+                        🎫 Book Seat
+                    </button>
+                </div>
             </div>
         `).join('');
     },
@@ -462,6 +470,29 @@ const SmartBus = {
                 }
             } catch (e2) {}
             this.showToast('Error starting journey: ' + e.message, 'error');
+        }
+    },
+
+    bookBusTicket(index) {
+        const bus = this.state.searchResults[index];
+        if (!bus) return;
+        if (window.SmartBusTicket) {
+            const busInfoEl = document.getElementById('ticket-bus-details');
+            if (busInfoEl) {
+                busInfoEl.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:18px; font-weight:800; color:var(--primary);">🚌 ${bus.busNumber}</div>
+                            <div style="font-size:14px; font-weight:600; margin-top:2px;">${bus.source} → ${bus.destination}</div>
+                            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">${bus.busType} • Departs: ${bus.departureTime}</div>
+                        </div>
+                        <span class="crowd-badge crowd-${bus.crowdLevel.toLowerCase()}">${bus.crowdLevel}</span>
+                    </div>
+                `;
+            }
+            SmartBusTicket.openBooking(bus);
+        } else {
+            this.showToast('Ticketing module loading...', 'info');
         }
     },
 

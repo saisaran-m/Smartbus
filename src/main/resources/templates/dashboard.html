@@ -82,12 +82,18 @@
         <nav class="desktop-nav" style="display:none;">
             <button class="desktop-nav-link active" data-screen="home" onclick="SmartBus.showScreen('home')">🏠 Home</button>
             <button class="desktop-nav-link" data-screen="search" onclick="SmartBus.showScreen('search')">🔍 Search</button>
+            <button class="desktop-nav-link" data-screen="mytickets" onclick="SmartBus.showScreen('mytickets'); if(window.SmartBusTicket) SmartBusTicket.loadMyTickets();">🎫 My Tickets</button>
             <button class="desktop-nav-link" data-screen="journey" onclick="SmartBus.showScreen('journey')">📍 Live Journey</button>
+            <button class="desktop-nav-link" data-screen="driver" onclick="SmartBus.showScreen('driver'); if(window.SmartBusDriver) SmartBusDriver.init();">🕹️ Driver</button>
             <button class="desktop-nav-link" data-screen="ai" onclick="SmartBus.showScreen('ai')">🤖 SmartBus AI</button>
             <button class="desktop-nav-link" data-screen="fare" onclick="SmartBus.showScreen('fare')">💰 Fare</button>
         </nav>
 
         <div style="flex:1"></div>
+        <button class="notification-bell" onclick="SmartBusGuardian.requestNotificationPermission().then(granted => SmartBus.showToast(granted ? 'Background push notifications enabled!' : 'Notifications disabled', granted ? 'success' : 'info'))" title="Enable Smart Bus Stop Guardian Notifications" style="margin-right:8px;">
+            🔔
+            <span class="bell-badge"></span>
+        </button>
         <button class="btn btn-danger header-btn" onclick="SmartBus.openSosModal()" style="padding:6px 12px; font-size:13px; font-weight:700; border-radius:20px; background:#DC3545; color:white; margin-right:6px; animation:pulse 2s infinite;">
             🚨 SOS
         </button>
@@ -225,6 +231,16 @@
                 <div class="icon">🎤</div>
                 <div class="title">Voice Assistant</div>
                 <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Speak Tamil or English</div>
+            </div>
+            <div class="card feature-card" onclick="SmartBus.showScreen('mytickets'); if(window.SmartBusTicket) SmartBusTicket.loadMyTickets();">
+                <div class="icon">🎫</div>
+                <div class="title">My Tickets</div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Digital QR Boarding Pass</div>
+            </div>
+            <div class="card feature-card" onclick="SmartBus.showScreen('driver'); if(window.SmartBusDriver) SmartBusDriver.init();">
+                <div class="icon">🕹️</div>
+                <div class="title">Driver Portal</div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Live GPS Companion</div>
             </div>
             <div class="card feature-card" data-screen="senior">
                 <div class="icon">👴</div>
@@ -645,6 +661,145 @@
         </div>
     </div>
 
+    <!-- ==================== SCREEN: TICKET BOOKING ==================== -->
+    <div id="screen-ticket" class="screen">
+        <button class="back-btn" onclick="SmartBus.showScreen('search')">← Back to Search</button>
+        <div class="section-title">🎫 Book Digital Ticket</div>
+
+        <div id="ticket-bus-info" class="card" style="border-left:4px solid var(--primary);">
+            <div id="ticket-bus-details">Select a bus to book a ticket</div>
+        </div>
+
+        <div class="card">
+            <div style="font-size:14px; font-weight:700; margin-bottom:12px; text-align:center;">🪑 Select Your Seat</div>
+            <div class="seat-legend">
+                <div class="seat-legend-item"><div class="seat-legend-dot" style="background:#E8F5E9; border-color:#66BB6A;"></div> Available</div>
+                <div class="seat-legend-item"><div class="seat-legend-dot" style="background:var(--primary); border-color:var(--primary);"></div> Selected</div>
+                <div class="seat-legend-item"><div class="seat-legend-dot" style="background:#F1F3F5; border-color:#CED4DA;"></div> Booked</div>
+            </div>
+            <div id="ticket-seat-grid" class="seat-grid"></div>
+            <div id="ticket-seat-info" style="text-align:center; font-size:13px; color:var(--text-secondary); margin-top:8px;"></div>
+        </div>
+
+        <div class="card">
+            <div class="form-group">
+                <label>📅 Travel Date</label>
+                <input type="date" id="ticket-travel-date" class="form-input">
+            </div>
+        </div>
+
+        <div id="ticket-fare-display" class="card" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <div style="font-size:12px; color:var(--text-secondary);">Total Fare</div>
+                    <div id="ticket-fare-amount" style="font-size:28px; font-weight:800; color:var(--primary);">₹0</div>
+                </div>
+                <button class="btn btn-primary" onclick="SmartBusTicket.showPaymentSheet()" style="font-size:15px;">
+                    💳 Pay via UPI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN: BOARDING PASS ==================== -->
+    <div id="screen-boardingpass" class="screen">
+        <button class="back-btn" onclick="SmartBus.showScreen('mytickets')">← My Tickets</button>
+        <div class="section-title">🎫 Digital Boarding Pass</div>
+        <div id="boarding-pass"></div>
+        <div style="margin-top:16px; display:flex; gap:8px;">
+            <button class="btn btn-secondary" style="flex:1;" onclick="SmartBusTicket.downloadPass()">📥 Save Offline</button>
+            <button class="btn btn-danger" style="flex:1;" id="cancel-ticket-btn">❌ Cancel Ticket</button>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN: MY TICKETS ==================== -->
+    <div id="screen-mytickets" class="screen">
+        <div class="section-title">🎫 My Tickets</div>
+        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
+            Your digital bus tickets & boarding passes. Show QR to conductor.
+        </p>
+        <div id="my-tickets-list">
+            <div style="text-align:center; padding:40px 0; color:var(--text-secondary);">
+                <div style="font-size:48px; margin-bottom:12px;">🎟️</div>
+                <p>No tickets booked yet</p>
+                <p style="font-size:13px;">Search buses and book your first digital ticket!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN: DRIVER CONSOLE ==================== -->
+    <div id="screen-driver" class="screen">
+        <div class="section-title">🚌 Driver Companion Console</div>
+        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
+            For bus crew only. Broadcasts live GPS location to passengers.
+        </p>
+
+        <div class="driver-console">
+            <div class="driver-status-bar">
+                <div id="driver-status-dot" class="driver-status-dot"></div>
+                <div>
+                    <div style="font-weight:700; font-size:14px;" id="driver-status-text">Offline — Not Broadcasting</div>
+                    <div style="font-size:12px; color:#94A3B8;" id="driver-bus-label">Select a bus to begin</div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:16px;">
+                <label style="color:#94A3B8; font-size:12px;">Select Your Bus</label>
+                <select id="driver-bus-select" class="form-input" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); color:white;">
+                    <option value="">-- Select Bus --</option>
+                </select>
+            </div>
+
+            <button id="driver-toggle-btn" class="btn btn-primary btn-block" onclick="SmartBusDriver.toggleBroadcast()" style="margin-bottom:16px;">
+                📡 Start GPS Broadcasting
+            </button>
+
+            <div id="driver-speed-display" class="driver-speed-display" style="display:none;">
+                <div class="speed-value" id="driver-speed-value">0</div>
+                <div class="speed-unit">km/h</div>
+            </div>
+
+            <div id="driver-map"></div>
+
+            <div style="margin-top:16px;">
+                <div style="font-size:12px; font-weight:600; color:#94A3B8; margin-bottom:8px;">Report Crowd Level:</div>
+                <div class="driver-occupancy-bar">
+                    <button class="driver-occupancy-btn" data-level="EMPTY" onclick="SmartBusDriver.updateOccupancy('EMPTY', this)">😴 Empty</button>
+                    <button class="driver-occupancy-btn" data-level="LOW" onclick="SmartBusDriver.updateOccupancy('LOW', this)">🟢 Low</button>
+                    <button class="driver-occupancy-btn" data-level="MEDIUM" onclick="SmartBusDriver.updateOccupancy('MEDIUM', this)">🟡 Medium</button>
+                    <button class="driver-occupancy-btn" data-level="HIGH" onclick="SmartBusDriver.updateOccupancy('HIGH', this)">🟠 High</button>
+                    <button class="driver-occupancy-btn" data-level="FULL" onclick="SmartBusDriver.updateOccupancy('FULL', this)">🔴 Full</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== UPI PAYMENT OVERLAY & SHEET ==================== -->
+    <div id="payment-overlay" class="payment-overlay" onclick="SmartBusTicket.closePaymentSheet()"></div>
+    <div id="payment-sheet" class="payment-sheet">
+        <div class="payment-sheet-handle"></div>
+        <div style="font-size:16px; font-weight:700; margin-bottom:16px;">💳 Pay via UPI</div>
+        <div id="payment-sheet-content">
+            <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('UPI_GPAY')">
+                <div class="app-icon" style="background:#E8F5E9;">💚</div>
+                <div>Google Pay</div>
+            </button>
+            <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('UPI_PHONEPE')">
+                <div class="app-icon" style="background:#EDE7F6;">💜</div>
+                <div>PhonePe</div>
+            </button>
+            <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('UPI_PAYTM')">
+                <div class="app-icon" style="background:#E3F2FD;">💙</div>
+                <div>Paytm</div>
+            </button>
+            <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('UPI_BHIM')">
+                <div class="app-icon" style="background:#FFF3E0;">🧡</div>
+                <div>BHIM UPI</div>
+            </button>
+        </div>
+    </div>
+
+
     <!-- ==================== BOTTOM NAVIGATION ==================== -->
     <nav class="bottom-nav">
         <div class="nav-item active" data-screen="home">
@@ -655,17 +810,17 @@
             <span class="nav-icon">🔍</span>
             <span>Search</span>
         </div>
+        <div class="nav-item" data-screen="mytickets" onclick="if(window.SmartBusTicket) SmartBusTicket.loadMyTickets()">
+            <span class="nav-icon">🎫</span>
+            <span>Tickets</span>
+        </div>
         <div class="nav-item" data-screen="journey">
             <span class="nav-icon">📍</span>
             <span>Journey</span>
         </div>
         <div class="nav-item" data-screen="ai">
             <span class="nav-icon">🤖</span>
-            <span>SmartBus AI</span>
-        </div>
-        <div class="nav-item" data-screen="fare">
-            <span class="nav-icon">💰</span>
-            <span>Fare</span>
+            <span>AI</span>
         </div>
     </nav>
 
@@ -679,6 +834,8 @@
     <script src="/js/guardian.js"></script>
     <script src="/js/voice.js"></script>
     <script src="/js/feedback.js"></script>
+    <script src="/js/ticket.js"></script>
+    <script src="/js/driver.js"></script>
 
 </body>
 </html>

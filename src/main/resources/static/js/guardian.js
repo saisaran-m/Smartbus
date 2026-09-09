@@ -6,6 +6,97 @@
 const SmartBusGuardian = {
     alertShown: {},
     speechEnabled: true,
+    notificationsEnabled: false,
+    audioCtx: null,
+
+    // Request notification permission on first use
+    async requestNotificationPermission() {
+        if ('Notification' in window) {
+            const perm = await Notification.requestPermission();
+            this.notificationsEnabled = (perm === 'granted');
+            return this.notificationsEnabled;
+        }
+        return false;
+    },
+
+    // Send a background push notification (works even when browser minimized)
+    sendNotification(title, body, urgency = 'normal') {
+        if (!this.notificationsEnabled || !('Notification' in window)) return;
+        try {
+            const n = new Notification(title, {
+                body: body,
+                icon: '/images/icon-192.png',
+                badge: '/images/icon-192.png',
+                vibrate: urgency === 'urgent' ? [300, 100, 300, 100, 500] : [200, 100, 200],
+                tag: 'smartbus-guardian-' + urgency,
+                requireInteraction: urgency === 'urgent',
+                silent: false
+            });
+            // Auto-close non-urgent notifications after 8 seconds
+            if (urgency !== 'urgent') {
+                setTimeout(() => n.close(), 8000);
+            }
+        } catch (e) {
+            console.log('Notification error:', e);
+        }
+    },
+
+    // Web Audio API — Synthesize proximity chimes without external audio files
+    playChime(type = 'approaching') {
+        try {
+            if (!this.audioCtx) {
+                this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            const ctx = this.audioCtx;
+            const now = ctx.currentTime;
+
+            if (type === 'approaching') {
+                // Gentle ascending chime: C5 → E5 → G5
+                [523.25, 659.25, 783.99].forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0, now + i * 0.2);
+                    gain.gain.linearRampToValueAtTime(0.3, now + i * 0.2 + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.2 + 0.4);
+                    osc.connect(gain).connect(ctx.destination);
+                    osc.start(now + i * 0.2);
+                    osc.stop(now + i * 0.2 + 0.5);
+                });
+            } else if (type === 'warning') {
+                // Urgent two-tone alarm: alternating high-low
+                for (let i = 0; i < 4; i++) {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.value = i % 2 === 0 ? 880 : 660;
+                    gain.gain.setValueAtTime(0.25, now + i * 0.15);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.15 + 0.12);
+                    osc.connect(gain).connect(ctx.destination);
+                    osc.start(now + i * 0.15);
+                    osc.stop(now + i * 0.15 + 0.15);
+                }
+            } else if (type === 'urgent') {
+                // Loud continuous siren-like sweep
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.linearRampToValueAtTime(880, now + 0.3);
+                osc.frequency.linearRampToValueAtTime(440, now + 0.6);
+                osc.frequency.linearRampToValueAtTime(880, now + 0.9);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.setValueAtTime(0.35, now + 0.8);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+                osc.connect(gain).connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 1.3);
+            }
+        } catch (e) {
+            console.log('Web Audio chime error:', e);
+        }
+    },
 
     async checkStatus(journeyId) {
         try {
@@ -30,6 +121,8 @@ const SmartBusGuardian = {
                     this.showApproachingAlert(status, 10);
                     this.alertShown['10'] = true;
                     this.speak(`Your destination ${status.destination} is approaching. About 10 minutes away.`);
+                    this.playChime('approaching');
+                    this.sendNotification('🔔 Destination Approaching', `${status.destination} is about 10 minutes away`, 'normal');
                 }
                 break;
 
@@ -38,6 +131,8 @@ const SmartBusGuardian = {
                     this.showWarningAlert(status, 5);
                     this.alertShown['5'] = true;
                     this.speak(`${status.destination} is 5 minutes away. Please prepare to get down.`);
+                    this.playChime('warning');
+                    this.sendNotification('⚠️ 5 Minutes Away!', `${status.destination} — Please prepare to get down`, 'urgent');
                     this.triggerVibration();
                 }
                 break;
@@ -47,6 +142,8 @@ const SmartBusGuardian = {
                     this.showUrgentAlert(status);
                     this.alertShown['1'] = true;
                     this.speak(`YOUR STOP IS APPROACHING! ${status.destination} is the next stop. Get ready now!`);
+                    this.playChime('urgent');
+                    this.sendNotification('🚨 YOUR STOP IS NOW!', `GET DOWN! ${status.destination} is the next stop!`, 'urgent');
                     this.triggerVibration();
                     this.triggerVibration();
                 }

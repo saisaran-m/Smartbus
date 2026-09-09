@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,9 +17,39 @@ public class TrackingService {
     private final BusRepository busRepository;
     private final RouteRepository routeRepository;
 
+    // Live driver GPS telemetry: busId -> {lat, lng, speed, nextStop, timestamp}
+    private final ConcurrentHashMap<Long, Map<String, Object>> liveDriverPositions = new ConcurrentHashMap<>();
+
     public TrackingService(BusRepository busRepository, RouteRepository routeRepository) {
         this.busRepository = busRepository;
         this.routeRepository = routeRepository;
+    }
+
+    // Store live GPS position from driver device
+    public void updateDriverPosition(Long busId, double lat, double lng, double speed, String nextStop) {
+        Map<String, Object> position = new LinkedHashMap<>();
+        position.put("busId", busId);
+        position.put("lat", lat);
+        position.put("lng", lng);
+        position.put("speed", speed);
+        position.put("nextStop", nextStop);
+        position.put("timestamp", LocalDateTime.now().toString());
+        liveDriverPositions.put(busId, position);
+    }
+
+    // Get live driver position if available
+    public Map<String, Object> getDriverPosition(Long busId) {
+        return liveDriverPositions.get(busId);
+    }
+
+    // Get all buses with active driver GPS
+    public List<Map<String, Object>> getActiveDriverPositions() {
+        return new ArrayList<>(liveDriverPositions.values());
+    }
+
+    // Check if a bus has live driver GPS
+    public boolean hasLiveDriverGPS(Long busId) {
+        return liveDriverPositions.containsKey(busId);
     }
 
     public Map<String, Object> getTrackingData(Long busId) {
