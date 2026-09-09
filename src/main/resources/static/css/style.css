@@ -2355,3 +2355,126 @@ body.dark-mode .drawer-hamburger span {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* ===================================================
+   SYSTEM-WIDE DARK & LIGHT MODE THEME OVERRIDES
+   When switching mode in 'Where is my train' drawer,
+   the WHOLE app updates together seamlessly.
+   =================================================== */
+body.dark-mode {
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border: #334155;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+  background-color: #0F172A !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .header {
+  background: #1E293B !important;
+  border-bottom: 1px solid #334155 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .header .logo text {
+  fill: #F8FAFC !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .search-form,
+body.dark-mode .feature-card,
+body.dark-mode .bus-card {
+  background: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .form-input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: #0F172A !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode .btn-secondary {
+  background: #1E293B !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode .bottom-nav {
+  background: #1E293B !important;
+  border-top: 1px solid #334155 !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .bottom-nav .nav-item {
+  color: #94A3B8 !important;
+}
+
+body.dark-mode .bottom-nav .nav-item.active {
+  color: var(--primary) !important;
+}
+
+body.dark-mode .city-chip {
+  background: #0F172A !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+
+/* Light mode drawer support */
+body:not(.dark-mode) .drawer-menu {
+  background: #FFFFFF !important;
+  color: #1A1A2E !important;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+body:not(.dark-mode) .drawer-header {
+  background: #F8F9FA !important;
+  border-bottom: 1px solid #E9ECEF !important;
+}
+
+body:not(.dark-mode) .drawer-header-title {
+  color: #1A1A2E !important;
+}
+
+body:not(.dark-mode) .drawer-header-subtitle {
+  color: #6C757D !important;
+}
+
+body:not(.dark-mode) .drawer-label {
+  color: #1A1A2E !important;
+}
+
+body:not(.dark-mode) .drawer-sub {
+  color: #6C757D !important;
+}
+
+body:not(.dark-mode) .drawer-item:hover,
+body:not(.dark-mode) .drawer-item:active {
+  background: #F1F5F9 !important;
+}
+
+body:not(.dark-mode) .drawer-divider {
+  background: #E2E8F0 !important;
+}
+
+body:not(.dark-mode) .theme-dialog-card {
+  background: #FFFFFF !important;
+  color: #1A1A2E !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+body:not(.dark-mode) .theme-radio-text {
+  color: #1A1A2E !important;
+}
+
+body:not(.dark-mode) .theme-radio-option:hover {
+  background: #F8F9FA !important;
+}
+

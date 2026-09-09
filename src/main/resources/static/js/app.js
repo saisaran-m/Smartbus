@@ -16,7 +16,7 @@ const SmartBus = {
         csrfHeader: ''
     },
 
-    screens: ['home', 'search', 'journey', 'guardian', 'recovery', 'voice', 'senior', 'feedback', 'safety', 'nextbus', 'ai', 'fare', 'ticket', 'boardingpass', 'mytickets', 'driver', 'lostbaggage', 'howtouse', 'suggestfeature'],
+    screens: ['home', 'search', 'journey', 'guardian', 'recovery', 'voice', 'senior', 'feedback', 'safety', 'nextbus', 'ai', 'fare', 'ticket', 'boardingpass', 'mytickets', 'driver', 'lostbaggage', 'howtouse'],
 
     init() {
         this.state.csrfToken = document.querySelector('meta[name="_csrf"]')?.content || '';
