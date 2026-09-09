@@ -1231,14 +1231,21 @@ textarea:focus {
   box-shadow: 0 2px 8px rgba(255,107,0,0.3);
 }
 
-/* Premium Header with Gradient Border */
+/* Glassmorphism Header — native app feel, covers browser chrome area */
 .header {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  background: linear-gradient(135deg, rgba(255,107,0,0.92) 0%, rgba(255,140,50,0.95) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: none;
+  box-shadow: 0 4px 20px rgba(255,107,0,0.25), 0 1px 3px rgba(0,0,0,0.08);
+  padding-top: max(env(safe-area-inset-top, 0px), 12px) !important;
 }
+.header .logo svg text { fill: #FFFFFF !important; }
+.header .logo svg path, .header .logo svg rect, .header .logo svg ellipse, .header .logo svg circle { opacity: 1; }
+.header .header-btn { background: rgba(255,255,255,0.2) !important; color: #FFFFFF !important; border: 1px solid rgba(255,255,255,0.3) !important; }
+.header .header-btn:hover { background: rgba(255,255,255,0.35) !important; }
+.header .notification-bell { background: rgba(255,255,255,0.18) !important; color: #FFFFFF !important; }
+.header .drawer-hamburger span { background: #FFFFFF !important; }
 
 /* Notification Bell */
 .notification-bell {
@@ -1787,10 +1794,11 @@ body.dark-mode {
 }
 
 body.dark-mode .header {
-  background: rgba(15, 20, 25, 0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid #1E2732;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(200,80,0,0.92) 0%, rgba(180,70,0,0.95) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: none !important;
+  box-shadow: 0 4px 20px rgba(180,70,0,0.3), 0 1px 3px rgba(0,0,0,0.15) !important;
 }
 
 body.dark-mode .card,
@@ -2381,13 +2389,13 @@ body.dark-mode {
 }
 
 body.dark-mode .header {
-  background: #1E293B !important;
-  border-bottom: 1px solid #334155 !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(135deg, rgba(200,80,0,0.92) 0%, rgba(180,70,0,0.95) 100%) !important;
+  border-bottom: none !important;
+  box-shadow: 0 4px 20px rgba(180,70,0,0.3), 0 1px 3px rgba(0,0,0,0.15) !important;
 }
 
 body.dark-mode .header .logo text {
-  fill: #F8FAFC !important;
+  fill: #FFFFFF !important;
 }
 
 body.dark-mode .card,

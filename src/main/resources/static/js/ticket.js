@@ -144,52 +144,12 @@ const SmartBusTicket = {
         }
     },
     
-    // 100% Authentic Official Brand Vector SVGs for Indian UPI Apps
+    // Real official brand logos from CDN (no fake SVGs)
     BRAND_ICONS: {
-        // Official Google Pay: Multi-color brand mark with G-Pay typography
-        GPAY: `<svg width="34" height="34" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="10" fill="#FFFFFF"/>
-            <path fill="#4285F4" d="M24 10c3.55 0 6.08 1.54 7.46 2.82l5.52-5.52C33.56 4.24 29.18 2.5 24 2.5 14.64 2.5 6.78 7.88 3.06 15.68l6.83 5.3C11.5 14.9 17.18 10 24 10z"/>
-            <path fill="#34A853" d="M24 45.5c6.48 0 11.93-2.13 15.9-5.81l-6.42-5.23c-2.15 1.45-4.91 2.3-9.48 2.3-6.82 0-12.5-4.9-14.11-10.98L3.06 31.08C6.78 38.88 14.64 45.5 24 45.5z"/>
-            <path fill="#FBBC05" d="M9.89 25.78c-.42-1.25-.66-2.58-.66-3.78s.24-2.53.66-3.78l-6.83-5.3C1.11 16.58 0 20.16 0 24s1.11 7.42 3.06 11.08l6.83-5.3z"/>
-            <path fill="#EA4335" d="M24 18.5c2.35 0 4.01.81 4.93 1.68l3.65-3.65C30.34 14.44 27.46 13 24 13c-4.48 0-8.31 2.54-10.22 6.26l6.83 5.3c.96-3.48 4.14-6.06 8.39-6.06z"/>
-            <path fill="#4285F4" d="M46.8 24.5c0-1.63-.15-3.2-.42-4.72H24v9.2h12.82c-.55 2.97-2.22 5.49-4.74 7.18l6.42 5.23c3.75-3.46 6.3-8.56 6.3-16.89z"/>
-        </svg>`,
-
-        // Official PhonePe: Purple circle with white Devanagari 'पे' glyph
-        PHONEPE: `<svg width="34" height="34" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="23" fill="#5F259F"/>
-            <path d="M30.6 13H19.2C17.4 13 16 14.4 16 16.2V29.8C16 30.7 16.7 31.5 17.7 31.5C18.6 31.5 19.4 30.7 19.4 29.8V26.2H25.4C28.9 26.2 31.8 23.3 31.8 19.8C31.8 16.2 28.9 13 25.4 13H30.6C31.5 13 32.2 12.3 32.2 11.4C32.2 10.5 31.5 9.8 30.6 9.8H15.8C14.9 9.8 14.2 10.5 14.2 11.4C14.2 12.3 14.9 13 15.8 13H16V13.8" fill="white"/>
-            <!-- Exact Devanagari Pe 'पे' mark -->
-            <path d="M22.5 16.5H25.5C27.3 16.5 28.8 17.9 28.8 19.7C28.8 21.5 27.3 22.9 25.5 22.9H22.5V16.5Z" fill="#5F259F"/>
-            <!-- Authentic PhonePe Angled Diagonal Leg / Tail -->
-            <path d="M19.5 9.5H33C33.8 9.5 34.5 10.2 34.5 11C34.5 11.8 33.8 12.5 33 12.5H28V15.5C31.6 16.1 34 19 34 22.5C34 26.6 30.6 30 26.5 30H22.5V36.5C22.5 37.3 21.8 38 21 38C20.2 38 19.5 37.3 19.5 36.5V12.5H16C15.2 12.5 14.5 11.8 14.5 11C14.5 10.2 15.2 9.5 16 9.5H19.5Z" fill="white"/>
-            <path d="M22.5 16H26.5C28.4 16 30 17.6 30 19.5C30 21.4 28.4 23 26.5 23H22.5V16Z" fill="#5F259F"/>
-            <path d="M24.8 28.5L34.2 39.2C34.7 39.8 35.6 39.9 36.2 39.4C36.8 38.9 36.9 38 36.4 37.4L27.6 27.5C26.8 28 25.8 28.3 24.8 28.5Z" fill="white"/>
-        </svg>`,
-
-        // Official Paytm: Navy Blue 'Pay' + Cyan 'tm' trademark logotype
-        PAYTM: `<svg width="34" height="34" viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="54" height="40" rx="8" fill="#F4F8FC"/>
-            <!-- 'Pay' in #002E6E -->
-            <path d="M7 11H12.8C15.8 11 17.5 12.6 17.5 15.2C17.5 17.8 15.8 19.4 12.8 19.4H9.7V27H7V11ZM9.7 17.1H12.6C14.3 17.1 15 16.3 15 15.2C15 14.1 14.3 13.3 12.6 13.3H9.7V17.1Z" fill="#002E6E"/>
-            <path d="M18.8 21.2C18.8 18.5 20.6 16.8 23.4 16.8C25.5 16.8 26.9 17.7 27.4 19.2H24.9C24.6 18.7 24.1 18.4 23.4 18.4C22 18.4 21.3 19.4 21.3 21.2C21.3 23 22 24 23.4 24C24.1 24 24.6 23.7 24.9 23.2H27.4C26.9 24.7 25.5 25.6 23.4 25.6C20.6 25.6 18.8 23.9 18.8 21.2Z" fill="#002E6E"/>
-            <path d="M28.4 17.1H31L33.3 23.5L35.6 17.1H38.2L34.6 26.5C33.7 28.8 32.5 30 30.2 30H29.1V28.3H29.8C31.2 28.3 31.9 27.6 32.4 26.2L28.4 17.1Z" fill="#002E6E"/>
-            <!-- 'tm' in #00BAF2 (Paytm Cyan) -->
-            <path d="M38.8 14.2H41.5V16.8H43.8V18.6H41.5V23.7C41.5 24.3 41.8 24.5 42.4 24.5H43.8V26.2H42C40 26.2 38.8 25.3 38.8 23.4V18.6H37.5V16.8H38.8V14.2Z" fill="#00BAF2"/>
-            <path d="M45.2 16.8H47.7V18.3C48.4 17.3 49.6 16.8 51 16.8C52.2 16.8 53.1 17.3 53.6 18.1C54.3 17.2 55.4 16.8 56.6 16.8C58.8 16.8 59.8 18.2 59.8 20.6V26.2H57.2V21.1C57.2 19.8 56.7 19.1 55.7 19.1C54.7 19.1 54 19.9 54 21.2V26.2H51.4V21.1C51.4 19.8 50.9 19.1 49.9 19.1C48.9 19.1 48.2 19.9 48.2 21.2V26.2H45.2V16.8Z" transform="scale(0.85) translate(8, 2)" fill="#00BAF2"/>
-        </svg>`,
-
-        // Official NPCI BHIM: Dual Chevron Arrow Logomark (Orange & Green)
-        BHIM: `<svg width="34" height="34" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="10" fill="#FFFFFF"/>
-            <!-- Left Chevron (NPCI Green) -->
-            <path d="M12 34L22 10H16L6 34H12Z" fill="#00843D"/>
-            <!-- Middle Chevron (NPCI Saffron/Orange) -->
-            <path d="M22 34L32 10H26L16 34H22Z" fill="#FF7900"/>
-            <!-- Right Chevron (NPCI Deep Blue) -->
-            <path d="M32 34L42 10H36L26 34H32Z" fill="#003366"/>
-        </svg>`
+        GPAY: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/120px-Google_Pay_Logo.svg.png" alt="Google Pay" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">`,
+        PHONEPE: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/120px-PhonePe_Logo.svg.png" alt="PhonePe" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">`,
+        PAYTM: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/120px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">`,
+        BHIM: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/120px-UPI-Logo-vector.svg.png" alt="BHIM UPI" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">`
     },
 
     // Show UPI payment bottom sheet with real icons and genuine UPI flow
