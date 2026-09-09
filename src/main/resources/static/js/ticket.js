@@ -551,7 +551,14 @@ const SmartBusTicket = {
     }
 };
 
-// Export for module systems if needed, but primarily intended to be included via <script> tag
+// Export for module systems and bind explicitly to global window/self
+if (typeof window !== 'undefined') {
+    window.SmartBusTicket = SmartBusTicket;
+}
+if (typeof self !== 'undefined') {
+    self.SmartBusTicket = SmartBusTicket;
+}
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = SmartBusTicket;
 }
+

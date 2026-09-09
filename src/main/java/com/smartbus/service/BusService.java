@@ -35,6 +35,7 @@ public class BusService {
         addLocation("tirupathur", 12.4930, 78.5670, "TN83");
         addLocation("ambur", 12.7904, 78.7166, "TN83");
         addLocation("tiruvannamalai", 12.2253, 79.0747, "TN25");
+        addLocation("thiruvannamalai", 12.2253, 79.0747, "TN25");
         addLocation("sriperumbudur", 12.9691, 79.9416, "TN11");
         addLocation("mahabalipuram", 12.6269, 80.1927, "TN19");
 
@@ -128,16 +129,56 @@ public class BusService {
     public String normalizeCity(String city) {
         if (city == null) return "";
         String c = city.trim().toLowerCase();
-        if (c.equals("kovai") || c.equals("coimbatore")) return "coimbatore";
-        if (c.equals("nellai") || c.equals("tirunelveli")) return "tirunelveli";
-        if (c.equals("madras") || c.equals("chennai")) return "chennai";
-        if (c.equals("kanchi") || c.equals("kanchipuram")) return "kanchipuram";
-        if (c.equals("tanjore") || c.equals("thanjavur")) return "thanjavur";
+        // Remove common prefixes/suffixes
+        c = c.replaceAll("\\b(city|town|central|bus stand|stand|junction|jn)\\b", "").trim();
+
+        // Thiruvannamalai variations
+        if (c.equals("thiruvannamalai") || c.equals("tiruvannamalai") || c.equals("tvm") || c.equals("thiruvannaamalai") || c.equals("tiruvannaamalai")) return "tiruvannamalai";
+        // Chennai / Madras
+        if (c.equals("madras") || c.equals("chennai") || c.equals("ms")) return "chennai";
+        // Coimbatore / Kovai
+        if (c.equals("kovai") || c.equals("coimbatore") || c.equals("cbe")) return "coimbatore";
+        // Tirunelveli / Nellai
+        if (c.equals("nellai") || c.equals("tirunelveli") || c.equals("thirunelveli")) return "tirunelveli";
+        // Tiruvallur / Thiruvallur
+        if (c.equals("thiruvallur") || c.equals("tiruvallur")) return "tiruvallur";
+        // Tiruppur / Thiruppur
+        if (c.equals("thiruppur") || c.equals("tiruppur") || c.equals("tirupur") || c.equals("thirupur")) return "tiruppur";
+        // Tirupathur / Thirupathur
+        if (c.equals("thirupathur") || c.equals("tirupathur") || c.equals("thirupattur") || c.equals("tirupattur")) return "tirupathur";
+        // Tiruttani / Thiruttani
+        if (c.equals("thiruttani") || c.equals("tiruttani")) return "tiruttani";
+        // Tiruvarur / Thiruvarur
+        if (c.equals("thiruvarur") || c.equals("tiruvarur")) return "tiruvarur";
+        // Thanjavur / Tanjore
+        if (c.equals("tanjore") || c.equals("thanjavur") || c.equals("tanjavur")) return "thanjavur";
+        // Trichy / Tiruchirappalli
+        if (c.equals("trichy") || c.equals("tiruchirappalli") || c.equals("tiruchirapalli") || c.equals("thiruchirapalli") || c.equals("thiruchirappalli")) return "trichy";
+        // Kanchipuram / Kanchi
+        if (c.equals("kanchi") || c.equals("kanchipuram") || c.equals("kanjeevaram")) return "kanchipuram";
+        // Pondicherry / Puducherry
         if (c.equals("pondy") || c.equals("puducherry") || c.equals("pondicherry")) return "pondicherry";
-        if (c.equals("cape") || c.equals("kanyakumari")) return "kanyakumari";
-        if (c.equals("ootacamund") || c.equals("udhagamandalam") || c.equals("ooty")) return "ooty";
-        if (c.equals("tuticorin") || c.equals("thoothukudi")) return "thoothukudi";
-        if (c.equals("trichy") || c.equals("tiruchirappalli") || c.equals("tiruchirapalli")) return "trichy";
+        // Kanyakumari / Cape
+        if (c.equals("cape") || c.equals("kanyakumari") || c.equals("kumari")) return "kanyakumari";
+        // Ooty / Udhagamandalam
+        if (c.equals("ootacamund") || c.equals("udhagamandalam") || c.equals("ooty") || c.equals("udhagai")) return "ooty";
+        // Thoothukudi / Tuticorin
+        if (c.equals("tuticorin") || c.equals("thoothukudi") || c.equals("tuticorin port")) return "thoothukudi";
+        // Kumbakonam / Kudanthai
+        if (c.equals("kumbakonam") || c.equals("kudanthai")) return "kumbakonam";
+        // Villupuram / Viluppuram
+        if (c.equals("villupuram") || c.equals("viluppuram")) return "villupuram";
+        // Virudhunagar / Virudhunagar town
+        if (c.equals("virudhunagar") || c.equals("virudunagar")) return "virudhunagar";
+        // Ramanathapuram / Ramnad
+        if (c.equals("ramnad") || c.equals("ramanathapuram")) return "ramanathapuram";
+        // Gingee / Senji
+        if (c.equals("gingee") || c.equals("senji") || c.equals("jinji")) return "gingee";
+        // Vridhachalam / Virudhachalam
+        if (c.equals("vridhachalam") || c.equals("virudhachalam") || c.equals("vriddhachalam")) return "vridhachalam";
+        // Chengalpattu / Chenglepet
+        if (c.equals("chenglepet") || c.equals("chengalpet") || c.equals("chengalpattu")) return "chengalpattu";
+
         return c;
     }
 
@@ -268,25 +309,79 @@ public class BusService {
             route.setEstimatedDurationMinutes(durationMin);
             route = routeRepository.save(route);
 
-            // Generate 4 realistic stops
+            // Generate realistic stops using real Tamil Nadu transit towns along the corridor
             // Stop 1: Origin Bus Stand
             createStop(route, fromCap + " Central Bus Stand", c1[0], c1[1], 1, 0.0, 0);
 
-            // Stop 2: 33% intermediate
-            double latMid1 = c1[0] + (c2[0] - c1[0]) * 0.33;
-            double lngMid1 = c1[1] + (c2[1] - c1[1]) * 0.33;
-            createStop(route, fromCap + " Outer Tollway", latMid1, lngMid1, 2,
-                    Math.round(distKm * 0.33 * 10.0) / 10.0, (int) Math.round(durationMin * 0.33));
+            // Find real transit towns between c1 and c2 along the highway corridor
+            List<Map.Entry<String, double[]>> corridorTowns = new ArrayList<>();
+            double lineDx = c2[1] - c1[1];
+            double lineDy = c2[0] - c1[0];
+            double lineLenSq = lineDx * lineDx + lineDy * lineDy;
 
-            // Stop 3: 66% intermediate
-            double latMid2 = c1[0] + (c2[0] - c1[0]) * 0.66;
-            double lngMid2 = c1[1] + (c2[1] - c1[1]) * 0.66;
-            createStop(route, toCap + " Bypass Junction", latMid2, lngMid2, 3,
-                    Math.round(distKm * 0.66 * 10.0) / 10.0, (int) Math.round(durationMin * 0.66));
+            if (lineLenSq > 0.0001) {
+                for (Map.Entry<String, double[]> town : TN_COORDINATES.entrySet()) {
+                    String tName = town.getKey();
+                    // Skip origin and destination towns
+                    if (tName.equalsIgnoreCase(searchFrom) || tName.equalsIgnoreCase(searchTo) ||
+                        tName.equalsIgnoreCase(fromCap) || tName.equalsIgnoreCase(toCap)) continue;
 
-            // Stop 4: Destination Bus Stand
-            createStop(route, toCap + " Central Bus Stand", c2[0], c2[1], 4,
-                    distKm, durationMin);
+                    double[] tCoord = town.getValue();
+                    // Projection t along the segment [0, 1]
+                    double t = ((tCoord[0] - c1[0]) * lineDy + (tCoord[1] - c1[1]) * lineDx) / lineLenSq;
+                    if (t >= 0.15 && t <= 0.85) {
+                        // Perpendicular distance in degrees
+                        double projLat = c1[0] + t * lineDy;
+                        double projLng = c1[1] + t * lineDx;
+                        double perpDist = Math.sqrt(Math.pow(tCoord[0] - projLat, 2) + Math.pow(tCoord[1] - projLng, 2));
+                        if (perpDist <= 0.45) { // within ~45km corridor
+                            corridorTowns.add(town);
+                        }
+                    }
+                }
+            }
+
+            // Sort corridor towns by distance along the route (from c1 to c2)
+            corridorTowns.sort((a, b) -> {
+                double ta = ((a.getValue()[0] - c1[0]) * lineDy + (a.getValue()[1] - c1[1]) * lineDx);
+                double tb = ((b.getValue()[0] - c1[0]) * lineDy + (b.getValue()[1] - c1[1]) * lineDx);
+                return Double.compare(ta, tb);
+            });
+
+            // If we found real corridor towns, pick 2-3 well-spaced towns
+            int stopSeq = 2;
+            Set<String> addedNames = new HashSet<>();
+            if (!corridorTowns.isEmpty()) {
+                // Select up to 3 intermediate towns
+                int step = Math.max(1, corridorTowns.size() / 3);
+                for (int k = 0; k < corridorTowns.size() && stopSeq <= 4; k += step) {
+                    Map.Entry<String, double[]> town = corridorTowns.get(k);
+                    String townName = capitalize(town.getKey());
+                    if (addedNames.add(townName)) {
+                        double[] tc = town.getValue();
+                        double dFromSrc = calculateDistanceKm(c1[0], c1[1], tc[0], tc[1]);
+                        int tFromSrc = (int) Math.round((dFromSrc / Math.max(distKm, 1.0)) * durationMin);
+                        createStop(route, townName + " Bus Stand", tc[0], tc[1], stopSeq++, dFromSrc, tFromSrc);
+                    }
+                }
+            }
+
+            // If no intermediate towns or only 1 found, add proportional intermediate corridor waypoints
+            if (stopSeq == 2) {
+                double latMid1 = c1[0] + (c2[0] - c1[0]) * 0.35;
+                double lngMid1 = c1[1] + (c2[1] - c1[1]) * 0.35;
+                createStop(route, fromCap + " Highway Tollway", latMid1, lngMid1, stopSeq++,
+                        Math.round(distKm * 0.35 * 10.0) / 10.0, (int) Math.round(durationMin * 0.35));
+            }
+            if (stopSeq == 3) {
+                double latMid2 = c1[0] + (c2[0] - c1[0]) * 0.70;
+                double lngMid2 = c1[1] + (c2[1] - c1[1]) * 0.70;
+                createStop(route, toCap + " Ring Junction", latMid2, lngMid2, stopSeq++,
+                        Math.round(distKm * 0.70 * 10.0) / 10.0, (int) Math.round(durationMin * 0.70));
+            }
+
+            // Final Stop: Destination Bus Stand
+            createStop(route, toCap + " Central Bus Stand", c2[0], c2[1], stopSeq, distKm, durationMin);
 
             // Refresh stops from repo into route
             List<BusStop> createdStops = busStopRepository.findByRouteIdOrderBySequenceOrder(route.getId());

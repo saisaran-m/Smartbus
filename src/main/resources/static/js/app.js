@@ -476,7 +476,8 @@ const SmartBus = {
     bookBusTicket(index) {
         const bus = this.state.searchResults[index];
         if (!bus) return;
-        if (window.SmartBusTicket) {
+        const ticketModule = window.SmartBusTicket || (typeof SmartBusTicket !== 'undefined' ? SmartBusTicket : null);
+        if (ticketModule) {
             const busInfoEl = document.getElementById('ticket-bus-details');
             if (busInfoEl) {
                 busInfoEl.innerHTML = `
@@ -490,11 +491,21 @@ const SmartBus = {
                     </div>
                 `;
             }
-            SmartBusTicket.openBooking(bus);
+            ticketModule.openBooking(bus);
         } else {
-            this.showToast('Ticketing module loading...', 'info');
+            // Lazy load ticket.js if somehow missing
+            const s = document.createElement('script');
+            s.src = '/js/ticket.js?v=2.1';
+            s.onload = () => {
+                if (window.SmartBusTicket) {
+                    window.SmartBusTicket.openBooking(bus);
+                }
+            };
+            document.head.appendChild(s);
+            this.showToast('Loading ticketing system...', 'info');
         }
     },
+
 
     showJourneyScreen(journey, bus) {
         // Set journey info

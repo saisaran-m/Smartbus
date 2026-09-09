@@ -1,6 +1,6 @@
 // SmartBus 2.0 Elite — Enhanced Service Worker
 // Caches app shell, tickets, and schedule data for offline access
-const CACHE_NAME = 'smartbus-v2';
+const CACHE_NAME = 'smartbus-v3';
 const ASSETS = [
   '/dashboard',
   '/css/style.css',
@@ -18,8 +18,8 @@ const ASSETS = [
 ];
 
 // Dynamic caches for API responses
-const API_CACHE = 'smartbus-api-v2';
-const TICKET_CACHE = 'smartbus-tickets-v2';
+const API_CACHE = 'smartbus-api-v3';
+const TICKET_CACHE = 'smartbus-tickets-v3';
 
 self.addEventListener('install', event => {
   event.waitUntil(
