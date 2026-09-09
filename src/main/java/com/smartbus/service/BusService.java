@@ -113,6 +113,232 @@ public class BusService {
         addLocation("tiruttani", 13.1800, 79.6100, "TN20");
         addLocation("pondicherry", 11.9416, 79.8083, "PY01");
         addLocation("puducherry", 11.9416, 79.8083, "PY01");
+
+        // Additional Transit Towns, Hill Stations & Junctions Across Tamil Nadu
+        addLocation("kodaikanal", 10.2381, 77.4892, "TN57");
+        addLocation("yercaud", 11.7753, 78.2093, "TN27");
+        addLocation("valparai", 10.3262, 76.9554, "TN41");
+        addLocation("gopichettipalayam", 11.4554, 77.4338, "TN36");
+        addLocation("gobichettipalayam", 11.4554, 77.4338, "TN36");
+        addLocation("sathyamangalam", 11.5034, 77.2343, "TN36");
+        addLocation("perundurai", 11.2764, 77.5828, "TN33");
+        addLocation("kangeyam", 11.0051, 77.5583, "TN42");
+        addLocation("dharapuram", 10.7289, 77.5255, "TN42");
+        addLocation("udumalaipettai", 10.5847, 77.2472, "TN78");
+        addLocation("udumalpet", 10.5847, 77.2472, "TN78");
+        addLocation("avadi", 13.1147, 80.1098, "TN12");
+        addLocation("ambattur", 13.1143, 80.1548, "TN13");
+        addLocation("poonamallee", 13.0487, 80.0937, "TN12");
+        addLocation("sholinganallur", 12.9010, 80.2279, "TN14");
+        addLocation("kelambakkam", 12.7885, 80.2209, "TN19");
+        addLocation("guduvanchery", 12.8439, 80.0597, "TN19");
+        addLocation("maraimalainagar", 12.7963, 80.0245, "TN19");
+        addLocation("melmaruvathur", 12.4333, 79.8333, "TN19");
+        addLocation("madurantakam", 12.5097, 79.8856, "TN19");
+        addLocation("manapparai", 10.6074, 78.4140, "TN45");
+        addLocation("musiri", 10.9416, 78.4556, "TN48");
+        addLocation("thuraiyur", 11.1444, 78.5960, "TN48");
+        addLocation("kulithalai", 10.9333, 78.4167, "TN47");
+        addLocation("rasipuram", 11.4589, 78.1697, "TN28");
+        addLocation("tiruchengode", 11.3808, 77.8966, "TN34");
+        addLocation("paramathi", 11.1167, 77.9833, "TN88");
+        addLocation("velur", 11.0500, 78.0167, "TN88");
+        addLocation("omallur", 11.7400, 78.0400, "TN30");
+        addLocation("mettur", 11.7967, 77.8010, "TN30");
+        addLocation("harur", 12.0600, 78.4900, "TN29");
+        addLocation("palacode", 12.3000, 78.0800, "TN29");
+        addLocation("pennagaram", 12.1300, 77.9000, "TN29");
+        addLocation("pochampalli", 12.3300, 78.3700, "TN24");
+        addLocation("bargur", 12.5500, 78.3600, "TN24");
+        addLocation("uthangarai", 12.2600, 78.5300, "TN24");
+        addLocation("vaniyambadi", 12.6825, 78.6186, "TN83");
+        addLocation("gudiyatham", 12.9461, 78.8711, "TN23");
+        addLocation("arani", 12.6710, 79.2840, "TN25");
+        addLocation("arcot", 12.9042, 79.3333, "TN73");
+        addLocation("sholinghur", 13.1111, 79.4244, "TN73");
+        addLocation("walajapet", 12.9272, 79.3564, "TN73");
+        addLocation("sirkazhi", 11.2389, 79.7333, "TN82");
+        addLocation("tarangambadi", 11.0333, 79.8500, "TN82");
+        addLocation("tranquebar", 11.0333, 79.8500, "TN82");
+        addLocation("velankanni", 10.6800, 79.8500, "TN51");
+        addLocation("veda-ranyam", 10.3700, 79.8500, "TN51");
+        addLocation("vedaranyam", 10.3700, 79.8500, "TN51");
+        addLocation("thiruthuraipoondi", 10.5333, 79.6500, "TN50");
+        addLocation("mannargudi", 10.6667, 79.4500, "TN50");
+        addLocation("pattukkottai", 10.4333, 79.3167, "TN49");
+        addLocation("peravurani", 10.2833, 79.2167, "TN49");
+        addLocation("aranthangi", 10.1667, 78.9833, "TN55");
+        addLocation("illuppur", 10.5167, 78.6333, "TN55");
+        addLocation("karaikudi", 10.0667, 78.7833, "TN63");
+        addLocation("devakottai", 9.9500, 78.8167, "TN63");
+        addLocation("kalayar-kovil", 9.8500, 78.6500, "TN63");
+        addLocation("usilampatti", 9.9667, 77.7833, "TN58");
+        addLocation("thirumangalam", 9.8242, 77.9869, "TN58");
+        addLocation("melur", 10.0333, 78.3333, "TN59");
+        addLocation("sholavandan", 10.0167, 78.0167, "TN58");
+        addLocation("vadipatti", 10.0833, 77.9667, "TN58");
+        addLocation("bodi", 10.0100, 77.3500, "TN60");
+        addLocation("bodinayakanur", 10.0100, 77.3500, "TN60");
+        addLocation("periyakulam", 10.1167, 77.5500, "TN60");
+        addLocation("cumbum", 9.7333, 77.2833, "TN60");
+        addLocation("chinnamanur", 9.8333, 77.3833, "TN60");
+        addLocation("andipatti", 9.9667, 77.6167, "TN60");
+        addLocation("nilakottai", 10.1667, 77.8667, "TN57");
+        addLocation("natham", 10.2333, 78.2333, "TN57");
+        addLocation("vedasandur", 10.5333, 77.9500, "TN57");
+        addLocation("oddanchatram", 10.4833, 77.7500, "TN57");
+        addLocation("aruppukkottai", 9.5167, 78.1000, "TN67");
+        addLocation("srivilliputhur", 9.5167, 77.6333, "TN84");
+        addLocation("srivilliputtur", 9.5167, 77.6333, "TN84");
+        addLocation("rajapalayam", 9.4500, 77.5500, "TN84");
+        addLocation("sattur", 9.3667, 77.9167, "TN67");
+        addLocation("kallidaikurichi", 8.6833, 77.4667, "TN72");
+        addLocation("ambasamudram", 8.7000, 77.4500, "TN72");
+        addLocation("cheranmahadevi", 8.6833, 77.5667, "TN72");
+        addLocation("sankarankovil", 9.1667, 77.5333, "TN76");
+        addLocation("sankarankoil", 9.1667, 77.5333, "TN76");
+        addLocation("kadayanallur", 9.0833, 77.3500, "TN76");
+        addLocation("puliyangudi", 9.1667, 77.4000, "TN76");
+        addLocation("surandai", 8.9833, 77.4333, "TN76");
+        addLocation("alangulam", 8.8833, 77.5000, "TN76");
+        addLocation("shenkottai", 8.9833, 77.2500, "TN76");
+        addLocation("courtallam", 8.9333, 77.2667, "TN76");
+        addLocation("kutralam", 8.9333, 77.2667, "TN76");
+        addLocation("tiruchendur", 8.4833, 78.1167, "TN92");
+        addLocation("thiruchendur", 8.4833, 78.1167, "TN92");
+        addLocation("kayalpattinam", 8.5667, 78.1333, "TN92");
+        addLocation("arumbavur", 11.3833, 78.7333, "TN46");
+        addLocation("kunnam", 11.2333, 79.0167, "TN46");
+        addLocation("veppanthattai", 11.3167, 78.8333, "TN46");
+        addLocation("jayankondam", 11.2167, 79.3000, "TN61");
+        addLocation("sendurai", 11.2667, 79.1667, "TN61");
+        addLocation("udayar-palayam", 11.1833, 79.3000, "TN61");
+        addLocation("udayarpalayam", 11.1833, 79.3000, "TN61");
+        addLocation("thirumayam", 10.2500, 78.7500, "TN55");
+        addLocation("alangudi", 10.3667, 78.9833, "TN55");
+        addLocation("karambakkudi", 10.4500, 79.0667, "TN55");
+        addLocation("ponnamaravathi", 10.3333, 78.5333, "TN55");
+        addLocation("gandharvakottai", 10.5833, 79.0167, "TN55");
+        addLocation("thiruvaiyaru", 10.8833, 79.1000, "TN49");
+        addLocation("orathanadu", 10.6333, 79.2500, "TN49");
+        addLocation("papanasam", 10.9333, 79.2833, "TN68");
+        addLocation("swamimalai", 10.9500, 79.3333, "TN68");
+        addLocation("nannilam", 10.8833, 79.6167, "TN50");
+        addLocation("kodavasal", 10.8667, 79.4833, "TN50");
+        addLocation("valangaiman", 10.9000, 79.4000, "TN50");
+        addLocation("needamangalam", 10.7667, 79.4167, "TN50");
+        addLocation("kilvelur", 10.7333, 79.7333, "TN51");
+        addLocation("thirukkuvalai", 10.5833, 79.7333, "TN51");
+        addLocation("poombuhar", 11.1500, 79.8500, "TN82");
+        addLocation("kuttalam", 11.1167, 79.5667, "TN82");
+        addLocation("thirumullaivasal", 11.2500, 79.8333, "TN82");
+        addLocation("thittakudi", 11.4167, 78.9667, "TN31");
+        addLocation("kattumannarkoil", 11.2667, 79.5500, "TN31");
+        addLocation("kurinjipadi", 11.5667, 79.6000, "TN31");
+        addLocation("sankarapuram", 11.8833, 78.9167, "TN15");
+        addLocation("chinna-salem", 11.6500, 78.8833, "TN15");
+        addLocation("chinnasalem", 11.6500, 78.8833, "TN15");
+        addLocation("kalrayan", 11.8500, 78.7500, "TN15");
+        addLocation("tirukoilur", 11.9667, 79.2000, "TN15");
+        addLocation("thirukoilur", 11.9667, 79.2000, "TN15");
+        addLocation("thirukovilur", 11.9667, 79.2000, "TN15");
+        addLocation("chettypalayam", 10.9167, 77.0333, "TN38");
+        addLocation("sulur", 11.0333, 77.1333, "TN38");
+        addLocation("kinathukadavu", 10.8167, 77.0167, "TN41");
+        addLocation("annur", 11.2333, 77.1833, "TN38");
+        addLocation("karamadai", 11.2500, 76.9667, "TN40");
+        addLocation("sirumugai", 11.3167, 77.0000, "TN40");
+        addLocation("avanshi", 11.1833, 77.2667, "TN39");
+        addLocation("avinashi", 11.1833, 77.2667, "TN39");
+        addLocation("palladam", 11.0000, 77.2833, "TN42");
+        addLocation("madathukulam", 10.5667, 77.3833, "TN78");
+        addLocation("vellakoil", 11.0500, 77.7167, "TN42");
+        addLocation("kodumudi", 11.0833, 77.8833, "TN33");
+        addLocation("anthiyur", 11.5833, 77.6000, "TN33");
+        addLocation("kavindapadi", 11.4333, 77.5500, "TN33");
+        addLocation("modakkurichi", 11.2667, 77.7500, "TN33");
+        addLocation("arachalur", 11.1667, 77.7000, "TN33");
+        addLocation("chennimalai", 11.1667, 77.6167, "TN33");
+        addLocation("jalakandapuram", 11.7000, 77.8833, "TN30");
+        addLocation("tharamangalam", 11.7000, 78.0000, "TN30");
+        addLocation("mecheri", 11.8333, 77.9500, "TN30");
+        addLocation("nangavalli", 11.7500, 77.8833, "TN30");
+        addLocation("kolathur", 11.9167, 77.7833, "TN30");
+        addLocation("edappadi", 11.6000, 77.8500, "TN30");
+        addLocation("idappadi", 11.6000, 77.8500, "TN30");
+        addLocation("konganapuram", 11.5833, 77.9167, "TN30");
+        addLocation("valapadi", 11.6500, 78.4167, "TN77");
+        addLocation("thalaivasal", 11.5833, 78.7500, "TN77");
+        addLocation("gangavalli", 11.4833, 78.6500, "TN77");
+        addLocation("thammampatti", 11.4333, 78.5000, "TN77");
+        addLocation("ayothiyapattinam", 11.6667, 78.2500, "TN27");
+        addLocation("karipatti", 11.6500, 78.3333, "TN27");
+        addLocation("sendamangalam", 11.2833, 78.2500, "TN28");
+        addLocation("kollihills", 11.2500, 78.3333, "TN28");
+        addLocation("kolli hills", 11.2500, 78.3333, "TN28");
+        addLocation("mohanur", 11.0500, 78.1500, "TN28");
+        addLocation("erumaipatti", 11.1500, 78.2833, "TN28");
+        addLocation("kabilarmalai", 11.1167, 77.9667, "TN88");
+        addLocation("pandamangalam", 11.1167, 78.0167, "TN88");
+        addLocation("pothanur", 11.0667, 78.0500, "TN88");
+        addLocation("aravakurichi", 10.7667, 77.9167, "TN47");
+        addLocation("pallapatti", 10.7500, 77.8833, "TN47");
+        addLocation("k-paramathi", 10.9500, 77.9167, "TN47");
+        addLocation("pugalur", 11.0833, 78.0000, "TN47");
+        addLocation("tholcopier", 10.9667, 78.1333, "TN47");
+        addLocation("velayuthampalayam", 11.0667, 78.0000, "TN47");
+        addLocation("kotagiri", 11.4333, 76.8833, "TN43");
+        addLocation("gudalur", 11.5000, 76.5000, "TN43");
+        addLocation("pandalur", 11.4833, 76.3833, "TN43");
+        addLocation("kundah", 11.2833, 76.6833, "TN43");
+        addLocation("masinagudi", 11.5667, 76.6500, "TN43");
+        addLocation("mudumalai", 11.5833, 76.5833, "TN43");
+        addLocation("thiruvadanai", 9.7833, 78.9167, "TN65");
+        addLocation("rs-mangalam", 9.6833, 78.8500, "TN65");
+        addLocation("mudukulathur", 9.3333, 78.5167, "TN65");
+        addLocation("kamuthi", 9.4000, 78.3667, "TN65");
+        addLocation("kadalaadi", 9.2333, 78.5000, "TN65");
+        addLocation("kilakarai", 9.2333, 78.7833, "TN65");
+        addLocation("keelakarai", 9.2333, 78.7833, "TN65");
+        addLocation("erwadi", 9.2167, 78.7167, "TN65");
+        addLocation("sayalkudi", 9.1833, 78.3667, "TN65");
+        addLocation("kariapatti", 9.6667, 78.1000, "TN67");
+        addLocation("mallankinaru", 9.6333, 77.9833, "TN67");
+        addLocation("tiruchuli", 9.5333, 78.2000, "TN67");
+        addLocation("watrap", 9.6333, 77.6333, "TN84");
+        addLocation("seithur", 9.4167, 77.4833, "TN84");
+        addLocation("elanji", 8.9500, 77.2833, "TN76");
+        addLocation("ayikudi", 8.9833, 77.3333, "TN76");
+        addLocation("sambavarvadakarai", 9.0167, 77.3667, "TN76");
+        addLocation("panpoli", 8.9833, 77.2667, "TN76");
+        addLocation("achankovil", 9.0667, 77.1500, "TN76");
+        addLocation("veeravanallur", 8.6833, 77.5167, "TN72");
+        addLocation("mukkudal", 8.7333, 77.5167, "TN72");
+        addLocation("kalakkad", 8.5167, 77.5500, "TN72");
+        addLocation("nanguneri", 8.4833, 77.6500, "TN72");
+        addLocation("radhapuram", 8.3000, 77.6833, "TN72");
+        addLocation("thisayanvilai", 8.3333, 77.8667, "TN72");
+        addLocation("udangudi", 8.4333, 78.0333, "TN92");
+        addLocation("sathankulam", 8.4500, 77.9167, "TN92");
+        addLocation("srivaikuntam", 8.6167, 77.9167, "TN69");
+        addLocation("alwarthirunagari", 8.6000, 77.9500, "TN69");
+        addLocation("erall", 8.6333, 78.0167, "TN69");
+        addLocation("authoor", 8.5833, 78.0667, "TN92");
+        addLocation("kudankulam", 8.1667, 77.7000, "TN72");
+        addLocation("chettikulam", 8.2167, 77.6500, "TN72");
+        addLocation("suchindram", 8.1500, 77.4667, "TN74");
+        addLocation("thuckalay", 8.2500, 77.3167, "TN75");
+        addLocation("marthandam", 8.3000, 77.2167, "TN75");
+        addLocation("kuzhithurai", 8.3167, 77.1833, "TN75");
+        addLocation("kaliyakkavilai", 8.3333, 77.1500, "TN75");
+        addLocation("colachel", 8.1833, 77.2500, "TN75");
+        addLocation("karungal", 8.2167, 77.2333, "TN75");
+        addLocation("kulasekharam", 8.3667, 77.3000, "TN75");
+        addLocation("padmanabhapuram", 8.2500, 77.3333, "TN75");
+        addLocation("eriel", 8.2000, 77.3500, "TN75");
+        addLocation("asambu", 8.2833, 77.4333, "TN74");
+        addLocation("boothapandi", 8.2667, 77.4500, "TN74");
+        addLocation("aranthangi", 10.1667, 78.9833, "TN55");
     }
 
     private static void addLocation(String name, double lat, double lng, String rto) {
@@ -461,16 +687,67 @@ public class BusService {
 
     public double[] getCoordinatesForCity(String cityName) {
         String norm = normalizeCity(cityName);
+        if (norm.isEmpty()) {
+            return new double[]{13.0827, 80.2707}; // default Chennai
+        }
+
+        // 1. Exact or substring match
         for (Map.Entry<String, double[]> entry : TN_COORDINATES.entrySet()) {
-            if (norm.contains(entry.getKey()) || entry.getKey().contains(norm)) {
+            String key = entry.getKey();
+            if (norm.equals(key) || norm.contains(key) || key.contains(norm)) {
                 return entry.getValue();
             }
         }
+
+        // 2. Tokenized word matching (e.g. "North Tiruvannamalai" -> matches "tiruvannamalai")
+        String[] tokens = norm.split("[\\s,-]+");
+        for (String token : tokens) {
+            if (token.length() >= 4) {
+                for (Map.Entry<String, double[]> entry : TN_COORDINATES.entrySet()) {
+                    if (entry.getKey().contains(token) || token.contains(entry.getKey())) {
+                        return entry.getValue();
+                    }
+                }
+            }
+        }
+
+        // 3. Closest Prefix / Edit-distance match (handles typos e.g. "thiruvannamlai" or "coimbatre")
+        String closestMatch = null;
+        int minDistance = Integer.MAX_VALUE;
+        for (String candidate : TN_COORDINATES.keySet()) {
+            if (Math.abs(candidate.length() - norm.length()) <= 3) {
+                int dist = computeLevenshteinDistance(norm, candidate);
+                if (dist < minDistance && dist <= 2) {
+                    minDistance = dist;
+                    closestMatch = candidate;
+                }
+            }
+        }
+        if (closestMatch != null) {
+            return TN_COORDINATES.get(closestMatch);
+        }
+
         // Fallback: Deterministic coordinate within Tamil Nadu bounds (lat 8.5 to 13.0, lng 76.5 to 80.2)
         int hash = Math.abs(norm.hashCode());
         double lat = 9.0 + (hash % 380) / 100.0;
         double lng = 77.0 + ((hash / 380) % 280) / 100.0;
         return new double[]{lat, lng};
+    }
+
+    private int computeLevenshteinDistance(String s1, String s2) {
+        int[] costs = new int[s2.length() + 1];
+        for (int j = 0; j < costs.length; j++) costs[j] = j;
+        for (int i = 1; i <= s1.length(); i++) {
+            costs[0] = i;
+            int nw = i - 1;
+            for (int j = 1; j <= s2.length(); j++) {
+                int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]),
+                        s1.charAt(i - 1) == s2.charAt(j - 1) ? nw : nw + 1);
+                nw = costs[j];
+                costs[j] = cj;
+            }
+        }
+        return costs[s2.length()];
     }
 
     private String getRtoForCity(String cityName) {
