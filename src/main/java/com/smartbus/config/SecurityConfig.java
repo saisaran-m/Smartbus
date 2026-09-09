@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/manifest.json", "/sw.js", "/css/**", "/js/**", "/images/**", "/downloads/**", "/api/auth/**", "/api/buses/**", "/api/tracking/**", "/api/routes/**", "/api/ai/**", "/api/fare/**", "/api/tickets/**", "/api/driver/**", "/driver", "/h2-console/**").permitAll()
+                .requestMatchers("/", "/login", "/register", "/dashboard", "/manifest.json", "/sw.js", "/css/**", "/js/**", "/images/**", "/downloads/**", "/api/**", "/driver", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

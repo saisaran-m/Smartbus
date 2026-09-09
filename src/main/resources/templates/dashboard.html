@@ -484,6 +484,29 @@
                 <textarea id="safety-description" placeholder="Please provide specific details about the issue..."></textarea>
             </div>
 
+            <!-- Live Camera Photo Attachment -->
+            <div class="form-group" style="margin-top:16px;">
+                <label style="font-weight:700; font-size:13px; display:flex; align-items:center; gap:6px;">
+                    <span>📸</span> Attach Live Incident Photo (Camera)
+                </label>
+                <div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">
+                    Take a live photo of the bus condition, speeding dashboard, ticket, or issue.
+                </div>
+                
+                <input type="file" id="safety-camera-input" accept="image/*" capture="environment" style="display:none;" onchange="SmartBusFeedback.handlePhotoCapture(event)">
+                
+                <button type="button" class="btn btn-secondary btn-block" style="padding:12px; font-size:14px; border:2px dashed var(--primary); color:var(--primary); background:rgba(255,107,0,0.05);" onclick="document.getElementById('safety-camera-input').click()">
+                    📷 Open Camera & Take Photo
+                </button>
+
+                <!-- Photo Preview Container -->
+                <div id="safety-photo-preview-wrap" style="display:none; margin-top:12px; text-align:center; position:relative;">
+                    <img id="safety-photo-preview" src="" alt="Captured incident" style="width:100%; max-height:220px; object-fit:cover; border-radius:10px; border:2px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                    <button type="button" onclick="SmartBusFeedback.removeCapturedPhoto()" style="position:absolute; top:8px; right:8px; background:rgba(220,53,69,0.9); color:white; border:none; border-radius:50%; width:28px; height:28px; font-size:14px; cursor:pointer; font-weight:bold;">✕</button>
+                    <div style="font-size:11px; color:#28A745; margin-top:4px; font-weight:600;">✓ Photo attached ready for verification</div>
+                </div>
+            </div>
+
             <button class="btn btn-danger btn-block" onclick="SmartBusFeedback.submitSafetyReport()">Submit Report</button>
 
             <p style="font-size:12px; color:var(--text-secondary); text-align:center; margin-top:12px;">
@@ -620,6 +643,112 @@
         </div>
     </div>
 
+    <!-- ==================== SCREEN: LOST & FOUND BAGGAGE RECOVERY ==================== -->
+    <div id="screen-lostbaggage" class="screen">
+        <button class="back-btn" onclick="SmartBus.showScreen('home')">← Home</button>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:42px; height:42px; border-radius:12px; background:#FFF3E0; display:flex; align-items:center; justify-content:center; font-size:24px; color:#E65100;">
+                🎒
+            </div>
+            <div>
+                <h2 style="font-size:20px; font-weight:800; margin:0;">Lost Baggage Recovery</h2>
+                <div style="font-size:12px; color:var(--text-secondary);">Forgot something on the bus? Get it back even from home!</div>
+            </div>
+        </div>
+
+        <div class="card" style="background:#FFF8E1; border:1px solid #FFE082; margin-bottom:16px;">
+            <div style="font-weight:700; font-size:14px; color:#E65100; margin-bottom:4px;">💡 How SmartBus Recovery Works:</div>
+            <div style="font-size:12px; color:#5D4037; line-height:1.5;">
+                Even after reaching home, submitting this report immediately dispatches an urgent priority alert to the <strong>Depot Station Master</strong> and the <strong>Bus Conductor</strong> at their destination terminal before the bus departs on its next trip.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="form-group">
+                <label for="lost-bus-number">Bus Number (பஸ் எண்)</label>
+                <input type="text" id="lost-bus-number" class="form-input" placeholder="e.g. TN01-AB-1234 or TNSTC 21G" style="font-weight:700;">
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                    <label for="lost-source">From (ஏறிய இடம்)</label>
+                    <input type="text" id="lost-source" class="form-input" placeholder="e.g. Chennai">
+                </div>
+                <div class="form-group">
+                    <label for="lost-destination">To (இறங்கிய இடம்)</label>
+                    <input type="text" id="lost-destination" class="form-input" placeholder="e.g. Tiruvannamalai">
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                    <label for="lost-seat-no">Seat No / Location</label>
+                    <input type="text" id="lost-seat-no" class="form-input" placeholder="e.g. Seat 4B, Overhead rack">
+                </div>
+                <div class="form-group">
+                    <label for="lost-date">Travel Date</label>
+                    <input type="date" id="lost-date" class="form-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lost-item-type">Item Category</label>
+                <select id="lost-item-type" class="form-input" style="height:46px;">
+                    <option value="BAG">🎒 Travel Bag / Backpack / Luggage</option>
+                    <option value="ELECTRONICS">📱 Mobile Phone / Laptop / Charger</option>
+                    <option value="DOCUMENTS">📁 Wallet / ID Card / Documents</option>
+                    <option value="CLOTHING">🧥 Clothes / Jacket / Blanket</option>
+                    <option value="OTHER">📦 Other Personal Belongings</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="lost-description">Item Description & Identifying Marks</label>
+                <textarea id="lost-description" placeholder="Color, brand, size, distinctive stickers, or what is inside the bag..." style="min-height:80px;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="lost-contact-phone">Your Contact Phone Number</label>
+                <input type="tel" id="lost-contact-phone" class="form-input" placeholder="e.g. 9876543210" style="font-weight:700;">
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" onclick="SmartBusFeedback.submitLostBaggageReport()">
+                🚀 File Urgent Recovery Request
+            </button>
+        </div>
+
+        <div id="lost-success-card" class="card" style="display:none; border-left:5px solid #28A745; margin-top:16px;">
+            <!-- Populated dynamically -->
+        </div>
+
+        <!-- TNSTC Central Depot Helplines -->
+        <div class="card" style="margin-top:16px;">
+            <div style="font-weight:700; font-size:14px; margin-bottom:10px;">📞 Major Depot Lost Property Helplines</div>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>Chennai CMBT Koyambedu Depot:</span>
+                    <a href="tel:04424794707" style="color:var(--primary); font-weight:700; text-decoration:none;">044-24794707</a>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>Tiruvannamalai Central Depot:</span>
+                    <a href="tel:04175236233" style="color:var(--primary); font-weight:700; text-decoration:none;">04175-236233</a>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>Salem New Bus Stand Depot:</span>
+                    <a href="tel:04272445880" style="color:var(--primary); font-weight:700; text-decoration:none;">0427-2445880</a>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>Madurai Mattuthavani Depot:</span>
+                    <a href="tel:04522566085" style="color:var(--primary); font-weight:700; text-decoration:none;">0452-2566085</a>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                    <span>State Transport 24x7 Control Room:</span>
+                    <a href="tel:18004194287" style="color:var(--primary); font-weight:700; text-decoration:none;">1800-419-4287</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ==================== EMERGENCY SOS MODAL ==================== -->
     <div id="sos-modal" class="modal-overlay" style="display:none;">
         <div class="modal-card">
@@ -737,6 +866,22 @@
                 <div class="drawer-text">
                     <div class="drawer-label" style="color:#DC3545; font-weight:700;">Emergency SOS</div>
                     <div class="drawer-sub">112, 108, 1091 Helplines</div>
+                </div>
+            </div>
+
+            <div class="drawer-item" onclick="SmartBusDrawer.close(); SmartBus.showScreen('safety');">
+                <span class="drawer-icon">📸</span>
+                <div class="drawer-text">
+                    <div class="drawer-label">Report Bus Issue (Camera)</div>
+                    <div class="drawer-sub">Snap photo & report rash driving/dirty bus</div>
+                </div>
+            </div>
+
+            <div class="drawer-item" onclick="SmartBusDrawer.close(); SmartBus.showScreen('lostbaggage');">
+                <span class="drawer-icon">🎒</span>
+                <div class="drawer-text">
+                    <div class="drawer-label">Lost & Found Baggage</div>
+                    <div class="drawer-sub">Recover bags left in bus from home</div>
                 </div>
             </div>
 
