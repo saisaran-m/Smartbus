@@ -861,48 +861,118 @@ const SmartBus = {
 };
 
 // ============================================
-// SmartBus Theme (Dark Mode / Night Theme)
+// ============================================
+// SmartBus Theme (Dark Mode / Night Theme / System Default)
 // ============================================
 const SmartBusTheme = {
-    isDark: false,
+    mode: 'dark', // 'light', 'dark', 'system'
 
     init() {
-        const saved = localStorage.getItem('smartbus_theme');
-        if (saved === 'dark') {
-            this.setDark(true, false);
+        const saved = localStorage.getItem('smartbus_theme_mode') || localStorage.getItem('smartbus_theme') || 'dark';
+        this.applyTheme(saved, false);
+    },
+
+    applyTheme(mode, showNotification = true) {
+        this.mode = mode;
+        localStorage.setItem('smartbus_theme_mode', mode);
+
+        let isDark = false;
+        if (mode === 'system') {
+            isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         } else {
-            this.setDark(false, false);
+            isDark = (mode === 'dark');
         }
-    },
 
-    toggle() {
-        this.setDark(!this.isDark, true);
-    },
-
-    setDark(dark, showNotification = true) {
-        this.isDark = dark;
-        if (dark) {
+        if (isDark) {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
         }
-        localStorage.setItem('smartbus_theme', dark ? 'dark' : 'light');
+
+        // Update drawer label & toggle button
+        const drawerSub = document.getElementById('drawer-current-theme');
+        if (drawerSub) {
+            drawerSub.textContent = mode === 'dark' ? 'Dark Theme' : (mode === 'light' ? 'Light Theme' : 'System Default');
+        }
 
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
-            toggleBtn.innerHTML = dark ? '☀️ Day' : '🌙 Night';
-            toggleBtn.title = dark ? 'Switch to Day Mode' : 'Switch to Night Mode';
+            toggleBtn.innerHTML = isDark ? '☀️ Day' : '🌙 Night';
         }
 
         if (window.SmartBusMap && SmartBusMap.setMapTheme) {
-            SmartBusMap.setMapTheme(dark);
+            SmartBusMap.setMapTheme(isDark);
         }
 
         if (showNotification) {
-            SmartBus.showToast(dark ? '🌙 Night Mode activated' : '☀️ Day Mode activated', 'info');
+            SmartBus.showToast(isDark ? '🌙 Dark Mode activated' : '☀️ Light Mode activated', 'info');
         }
+    },
+
+    toggle() {
+        const isCurrentDark = document.body.classList.contains('dark-mode');
+        this.applyTheme(isCurrentDark ? 'light' : 'dark', true);
     }
 };
+
+// ============================================
+// 'Where is my Train' Style Drawer Menu
+// ============================================
+const SmartBusDrawer = {
+    open() {
+        const backdrop = document.getElementById('drawer-backdrop');
+        const menu = document.getElementById('drawer-menu');
+        if (backdrop) backdrop.classList.add('active');
+        if (menu) menu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+
+    close() {
+        const backdrop = document.getElementById('drawer-backdrop');
+        const menu = document.getElementById('drawer-menu');
+        if (backdrop) backdrop.classList.remove('active');
+        if (menu) menu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+};
+
+// ============================================
+// 'Where is my Train' Style Theme Selection Dialog
+// ============================================
+const SmartBusThemeDialog = {
+    tempSelected: 'dark',
+
+    open() {
+        const overlay = document.getElementById('theme-modal-overlay');
+        if (!overlay) return;
+
+        this.tempSelected = localStorage.getItem('smartbus_theme_mode') || 'dark';
+
+        const radio = document.getElementById(`theme-radio-${this.tempSelected}`);
+        if (radio) radio.checked = true;
+
+        overlay.style.display = 'flex';
+    },
+
+    close() {
+        const overlay = document.getElementById('theme-modal-overlay');
+        if (overlay) overlay.style.display = 'none';
+    },
+
+    select(mode) {
+        this.tempSelected = mode;
+        const radio = document.getElementById(`theme-radio-${mode}`);
+        if (radio) radio.checked = true;
+    },
+
+    save() {
+        SmartBusTheme.applyTheme(this.tempSelected, true);
+        this.close();
+    }
+};
+
+window.SmartBusDrawer = SmartBusDrawer;
+window.SmartBusThemeDialog = SmartBusThemeDialog;
 
 // ============================================
 // SmartBus AI (Transit AI Assistant with Voice)

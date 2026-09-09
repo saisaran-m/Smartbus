@@ -6,10 +6,19 @@ const SmartBusTicket = {
     openBooking(bus) {
         this.currentBus = bus;
         this.selectedSeat = null;
+        
+        // Ensure default travel date is set to today
+        const dateInput = document.getElementById('ticket-travel-date');
+        if (dateInput && !dateInput.value) {
+            dateInput.value = new Date().toISOString().split('T')[0];
+        }
+
         this.renderSeatPicker();
+        
         if (typeof SmartBus !== 'undefined' && SmartBus.showScreen) {
             SmartBus.showScreen('ticket');
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     
     // Render 5×4 seat grid (window-aisle-aisle-window pattern)
@@ -107,167 +116,175 @@ const SmartBusTicket = {
     
     updateProceedButton() {
         const btn = document.getElementById('btn-proceed-payment');
-        if (!btn) return;
+        const fareContainer = document.getElementById('ticket-fare-display');
+        const fareAmountEl = document.getElementById('ticket-fare-amount');
+        const seatInfoEl = document.getElementById('ticket-seat-info');
         
+        const fare = this.currentBus && (this.currentBus.fare || this.currentBus.price) ? (this.currentBus.fare || this.currentBus.price) : 250;
+
         if (this.selectedSeat) {
-            btn.disabled = false;
-            btn.style.cursor = 'pointer';
-            btn.style.opacity = '1';
-            btn.innerHTML = `Book Seat ${this.selectedSeat} • ₹${this.currentBus && this.currentBus.price ? this.currentBus.price : 500}`;
+            if (btn) {
+                btn.disabled = false;
+                btn.style.cursor = 'pointer';
+                btn.style.opacity = '1';
+                btn.innerHTML = `Book Seat ${this.selectedSeat} • ₹${fare}`;
+            }
+            if (fareContainer) fareContainer.style.display = 'block';
+            if (fareAmountEl) fareAmountEl.textContent = `₹${fare}`;
+            if (seatInfoEl) seatInfoEl.innerHTML = `Selected Seat: <strong style="color:var(--primary); font-size:15px;">${this.selectedSeat}</strong> (₹${fare})`;
         } else {
-            btn.disabled = true;
-            btn.style.cursor = 'not-allowed';
-            btn.style.opacity = '0.5';
-            btn.innerHTML = 'Proceed to Payment';
+            if (btn) {
+                btn.disabled = true;
+                btn.style.cursor = 'not-allowed';
+                btn.style.opacity = '0.5';
+                btn.innerHTML = 'Select a Seat to Continue';
+            }
+            if (fareContainer) fareContainer.style.display = 'none';
+            if (seatInfoEl) seatInfoEl.innerHTML = 'Please tap an available green seat above to select';
         }
     },
     
     // Show UPI payment bottom sheet with app options
     showPaymentSheet() {
-        const sheetContainer = document.getElementById('payment-sheet');
-        if (!sheetContainer) return;
+        if (!this.selectedSeat) {
+            if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                SmartBus.showToast('Please select a seat first', 'error');
+            }
+            return;
+        }
+
+        const overlay = document.getElementById('payment-overlay');
+        const sheet = document.getElementById('payment-sheet');
+        if (!sheet) return;
         
-        const amount = this.currentBus && this.currentBus.price ? this.currentBus.price : 500;
+        const fare = this.currentBus && (this.currentBus.fare || this.currentBus.price) ? (this.currentBus.fare || this.currentBus.price) : 250;
         
-        sheetContainer.innerHTML = `
-            <div class="payment-backdrop" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; opacity: 0; transition: opacity 0.3s ease;" onclick="document.querySelector('.payment-bottom-sheet').style.transform = 'translateY(100%)'; setTimeout(() => document.getElementById('payment-sheet').innerHTML = '', 300)"></div>
-            <div class="payment-bottom-sheet" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a; border-top-left-radius: 25px; border-top-right-radius: 25px; padding: 25px; box-sizing: border-box; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); z-index: 1000; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff;">
-                <div style="width: 40px; height: 5px; background: #444; border-radius: 5px; margin: 0 auto 20px;"></div>
-                <h3 style="margin-top: 0; padding-bottom: 15px; font-weight: 500; color: #ddd;">Select Payment Method</h3>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <p style="margin: 0; font-size: 14px; color: #aaa;">Total Amount</p>
-                        <p style="margin: 5px 0 0; font-size: 24px; font-weight: bold; color: #4CAF50;">₹${amount}</p>
-                    </div>
-                    <div style="text-align: right;">
-                        <p style="margin: 0; font-size: 12px; color: #888;">Seat ${this.selectedSeat}</p>
-                    </div>
-                </div>
-                
-                <div id="payment-options" style="display: flex; flex-direction: column; gap: 12px;">
-                    <button class="upi-btn" onclick="SmartBusTicket.processPayment('GPay')" style="padding: 15px; border-radius: 12px; border: 1px solid #333; background: #222; color: white; display: flex; align-items: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease;">
-                        <div style="width: 30px; height: 30px; background: #fff; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #4285F4; font-weight: bold; font-size: 12px;">G</div> Google Pay
-                    </button>
-                    <button class="upi-btn" onclick="SmartBusTicket.processPayment('PhonePe')" style="padding: 15px; border-radius: 12px; border: 1px solid #333; background: #222; color: white; display: flex; align-items: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease;">
-                        <div style="width: 30px; height: 30px; background: #5f259f; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">P</div> PhonePe
-                    </button>
-                    <button class="upi-btn" onclick="SmartBusTicket.processPayment('Paytm')" style="padding: 15px; border-radius: 12px; border: 1px solid #333; background: #222; color: white; display: flex; align-items: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease;">
-                        <div style="width: 30px; height: 30px; background: #00b9f5; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">Pt</div> Paytm
-                    </button>
-                    <button class="upi-btn" onclick="SmartBusTicket.processPayment('BHIM')" style="padding: 15px; border-radius: 12px; border: 1px solid #333; background: #222; color: white; display: flex; align-items: center; font-size: 16px; cursor: pointer; transition: all 0.2s ease;">
-                        <div style="width: 30px; height: 30px; background: #FA8072; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">B</div> BHIM UPI
-                    </button>
-                </div>
-                
-                <div id="payment-loading" style="display: none; text-align: center; padding: 30px 0;">
-                    <div class="spinner" style="width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #4CAF50; border-radius: 50%; animation: smartbus-spin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite; margin: 0 auto;"></div>
-                    <p style="margin-top: 20px; font-size: 16px; color: #ddd;">Opening <span id="payment-method-name" style="font-weight: bold;"></span>...</p>
-                    <p style="margin-top: 5px; font-size: 12px; color: #888;">Please complete the payment in the app</p>
-                </div>
-                
-                <style>@keyframes smartbus-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+        sheet.innerHTML = `
+            <div class="payment-sheet-handle"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <div style="font-size:17px; font-weight:800;">💳 Select UPI App</div>
+                <div style="font-size:18px; font-weight:800; color:var(--primary);">₹${fare}</div>
             </div>
+            <div style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
+                Seat <strong>${this.selectedSeat}</strong> • ${this.currentBus ? this.currentBus.source + ' → ' + this.currentBus.destination : ''}
+            </div>
+            <div id="payment-options">
+                <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('Google Pay')">
+                    <div class="app-icon" style="background:#E8F5E9;">🟢</div>
+                    <div style="flex:1; text-align:left;">Google Pay</div>
+                    <span style="color:var(--text-secondary); font-size:12px;">Instant</span>
+                </button>
+                <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('PhonePe')">
+                    <div class="app-icon" style="background:#EDE7F6;">🟣</div>
+                    <div style="flex:1; text-align:left;">PhonePe</div>
+                    <span style="color:var(--text-secondary); font-size:12px;">Instant</span>
+                </button>
+                <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('Paytm')">
+                    <div class="app-icon" style="background:#E3F2FD;">🔵</div>
+                    <div style="flex:1; text-align:left;">Paytm UPI</div>
+                    <span style="color:var(--text-secondary); font-size:12px;">Instant</span>
+                </button>
+                <button class="payment-app-btn" onclick="SmartBusTicket.processPayment('BHIM UPI')">
+                    <div class="app-icon" style="background:#FFF3E0;">🟠</div>
+                    <div style="flex:1; text-align:left;">BHIM UPI</div>
+                    <span style="color:var(--text-secondary); font-size:12px;">Direct Bank</span>
+                </button>
+            </div>
+            <div id="payment-loading" style="display:none;" class="payment-processing">
+                <div class="payment-spinner"></div>
+                <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Connecting to <span id="payment-method-name">UPI</span>...</div>
+                <div style="font-size:13px; color:var(--text-secondary);">Authorizing payment securely</div>
+            </div>
+            <button class="btn btn-secondary btn-block" style="margin-top:14px;" onclick="SmartBusTicket.closePaymentSheet()">
+                Cancel
+            </button>
         `;
         
-        // Animate in
-        setTimeout(() => {
-            const backdrop = sheetContainer.querySelector('.payment-backdrop');
-            const sheet = sheetContainer.querySelector('.payment-bottom-sheet');
-            if (backdrop) backdrop.style.opacity = '1';
-            if (sheet) sheet.style.transform = 'translateY(0)';
-        }, 10);
+        if (overlay) overlay.classList.add('active');
+        sheet.classList.add('active');
+    },
+
+    closePaymentSheet() {
+        const overlay = document.getElementById('payment-overlay');
+        const sheet = document.getElementById('payment-sheet');
+        if (overlay) overlay.classList.remove('active');
+        if (sheet) sheet.classList.remove('active');
     },
     
-    // Process mock UPI payment (simulate 2-second delay, then confirm)
-    processPayment(method) {
-        const sheetContainer = document.getElementById('payment-sheet');
-        if (!sheetContainer) return;
-        const sheet = sheetContainer.querySelector('.payment-bottom-sheet');
-        
-        // Hide options, show loading
-        const options = sheet.querySelector('#payment-options');
+    // Process mock UPI payment (simulate 1.5-second delay, then confirm)
+    async processPayment(method) {
+        const options = document.getElementById('payment-options');
+        const loading = document.getElementById('payment-loading');
+        const nameEl = document.getElementById('payment-method-name');
+
         if (options) options.style.display = 'none';
-        
-        const loading = sheet.querySelector('#payment-loading');
-        if (loading) {
-            loading.style.display = 'block';
-            sheet.querySelector('#payment-method-name').textContent = method;
-        }
-        
-        // Call real backend API and simulate UPI processing
-        setTimeout(async () => {
+        if (loading) loading.style.display = 'block';
+        if (nameEl) nameEl.textContent = method;
+
+        const bus = this.currentBus;
+        const busId = bus ? (bus.busId || bus.id || 1) : 1;
+        const busNumber = bus ? (bus.busNumber || 'TN01-AB-1234') : 'TN01-AB-1234';
+        const source = bus ? (bus.source || 'Chennai') : 'Chennai';
+        const destination = bus ? (bus.destination || 'Salem') : 'Salem';
+        const fareAmount = bus && (bus.fare || bus.price) ? (bus.fare || bus.price) : 250.0;
+        const travelDate = document.getElementById('ticket-travel-date')?.value || new Date().toISOString().split('T')[0];
+
+        try {
+            // Fast backend call
+            let bookedTicket = null;
             try {
-                const bus = this.currentBus;
-                const busId = bus ? (bus.busId || bus.id || 1) : 1;
-                const busNumber = bus ? (bus.busNumber || 'TN01-AB-1234') : 'TN01-AB-1234';
-                const source = bus ? (bus.source || 'Chennai') : 'Chennai';
-                const destination = bus ? (bus.destination || 'Salem') : 'Salem';
-                const fareAmount = bus && bus.fare ? bus.fare : 250.0;
-                const travelDate = document.getElementById('ticket-travel-date')?.value || new Date().toISOString().split('T')[0];
-
-                // Call backend API
-                let bookedTicket = null;
-                try {
-                    const response = await fetch('/api/tickets/book', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...(SmartBus && SmartBus.state && SmartBus.state.csrfToken ? { [SmartBus.state.csrfHeader]: SmartBus.state.csrfToken } : {})
-                        },
-                        body: JSON.stringify({
-                            busId: busId,
-                            busNumber: busNumber,
-                            source: source,
-                            destination: destination,
-                            seatNumber: this.selectedSeat || '1A',
-                            fareAmount: fareAmount,
-                            paymentMethod: method,
-                            travelDate: travelDate
-                        })
-                    });
-                    if (response.ok) {
-                        bookedTicket = await response.json();
-                        // Confirm payment
-                        await fetch(`/api/tickets/confirm/${bookedTicket.pnrNumber}`, { method: 'POST' });
-                        bookedTicket.paymentStatus = 'PAID';
-                    }
-                } catch (apiErr) {
-                    console.warn('Backend ticket API fallback to offline:', apiErr);
+                const response = await fetch('/api/tickets/book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        busId: busId,
+                        busNumber: busNumber,
+                        source: source,
+                        destination: destination,
+                        seatNumber: this.selectedSeat || '1A',
+                        fareAmount: fareAmount,
+                        paymentMethod: method,
+                        travelDate: travelDate
+                    })
+                });
+                if (response.ok) {
+                    bookedTicket = await response.json();
+                    await fetch(`/api/tickets/confirm/${bookedTicket.pnrNumber}`, { method: 'POST' });
+                    bookedTicket.paymentStatus = 'PAID';
                 }
+            } catch (apiErr) {
+                console.warn('API fallback to local ticket:', apiErr);
+            }
 
-                const pnr = bookedTicket ? bookedTicket.pnrNumber : ('SB' + Date.now().toString().slice(-8));
-                const ticket = {
-                    pnr: pnr,
-                    busId: busId,
-                    busName: busNumber,
-                    route: `${source} → ${destination}`,
-                    seat: this.selectedSeat || '1A',
-                    date: travelDate,
-                    status: 'CONFIRMED',
-                    paymentMethod: method,
-                    amount: fareAmount
-                };
+            const pnr = bookedTicket ? bookedTicket.pnrNumber : ('SB' + Date.now().toString().slice(-8));
+            const ticket = {
+                pnr: pnr,
+                busId: busId,
+                busName: busNumber,
+                route: `${source} → ${destination}`,
+                seat: this.selectedSeat || '1A',
+                date: travelDate,
+                status: 'CONFIRMED',
+                paymentMethod: method,
+                amount: fareAmount
+            };
 
-                if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
-                    SmartBus.showToast('Payment successful! Boarding pass issued.', 'success');
-                }
-
-                // Clean up sheet
-                sheetContainer.innerHTML = '';
-                const overlay = document.getElementById('payment-overlay');
-                if (overlay) overlay.classList.remove('active');
-
-                // Save and show pass
+            setTimeout(() => {
+                this.closePaymentSheet();
                 this.saveTicketOffline(ticket);
                 this.showBoardingPass(ticket);
-            } catch (err) {
-                console.error('Payment flow error:', err);
                 if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
-                    SmartBus.showToast('Booking complete!', 'success');
+                    SmartBus.showToast('✅ Ticket booked successfully! QR Boarding Pass issued.', 'success');
                 }
+            }, 1200);
+
+        } catch (err) {
+            console.error('Payment flow error:', err);
+            this.closePaymentSheet();
+            if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                SmartBus.showToast('Booking complete!', 'success');
             }
-        }, 1500);
+        }
     },
     
     // Generate QR code on a canvas element using pure JS (no external lib)
@@ -503,7 +520,13 @@ const SmartBusTicket = {
         }
     },
     
-    // Cancel a ticket
+    // Download / Save boarding pass
+    downloadPass() {
+        if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+            SmartBus.showToast('📥 Boarding pass saved to device and offline storage!', 'success');
+        }
+        window.print();
+    },
     cancelTicket(pnr) {
         if (confirm('Are you sure you want to cancel this ticket? Cancellation charges may apply.')) {
             // Mock API call

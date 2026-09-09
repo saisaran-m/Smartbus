@@ -1977,3 +1977,228 @@ body.dark-mode .toast-info {
   border-left-color: #1976D2;
 }
 
+/* ===================================================
+   WHERE IS MY TRAIN — HAMBURGER & SIDEBAR DRAWER STYLES
+   =================================================== */
+.drawer-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 6px;
+  margin-right: 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.drawer-hamburger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.drawer-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+body.dark-mode .drawer-hamburger span {
+  background: #F7F9F9;
+}
+
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(4px);
+}
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 82%;
+  max-width: 320px;
+  background: #1C2430; /* Dark slate blue matching Where is my Train */
+  color: #FFFFFF;
+  z-index: 2001;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.drawer-menu.active {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 24px 20px;
+  background: #151D28;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.drawer-header-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1D9BF0, #0284C7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+}
+.drawer-header-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+.drawer-header-subtitle {
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.drawer-body {
+  padding: 12px 0 30px;
+  flex: 1;
+}
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+.drawer-item:hover, .drawer-item:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+.drawer-icon {
+  font-size: 20px;
+  width: 26px;
+  text-align: center;
+  color: #94A3B8;
+}
+.drawer-text {
+  flex: 1;
+}
+.drawer-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #E2E8F0;
+}
+.drawer-sub {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 1px;
+}
+.drawer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 0;
+}
+
+/* ===================================================
+   WHERE IS MY TRAIN — THEME SELECTION MODAL
+   =================================================== */
+.theme-dialog-card {
+  max-width: 320px !important;
+  background: #1C2430 !important;
+  color: #FFFFFF !important;
+  border-radius: 16px !important;
+  padding: 24px 20px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.theme-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.theme-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+.theme-radio-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.theme-radio-option input[type="radio"] {
+  display: none;
+}
+.theme-radio-custom {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.theme-radio-option input[type="radio"]:checked + .theme-radio-custom {
+  border-color: #38BDF8;
+}
+.theme-radio-option input[type="radio"]:checked + .theme-radio-custom::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #38BDF8;
+}
+.theme-radio-text {
+  font-size: 15px;
+  color: #F1F5F9;
+  font-weight: 500;
+}
+
+/* Header button responsiveness on mobile */
+@media (max-width: 819px) {
+  .header {
+    padding: 10px 14px !important;
+    height: 60px !important;
+  }
+  .header .logo svg {
+    height: 30px !important;
+  }
+  .header-btn {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+  /* On mobile, collapse extra header buttons into the drawer menu */
+  .header-ai-btn,
+  .header-senior-btn,
+  .header-logout-btn {
+    display: none !important;
+  }
+  .header-theme-btn {
+    padding: 5px 8px !important;
+    font-size: 12px !important;
+    margin-right: 4px !important;
+  }
+}
