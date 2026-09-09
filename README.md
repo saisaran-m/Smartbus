@@ -3,11 +3,12 @@
 [![Java](https://img.shields.io/badge/Java-17%20%2F%2026-orange.svg?style=flat-square&logo=openjdk)](https://www.oracle.com/java/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-brightgreen.svg?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
 [![Cloud Live](https://img.shields.io/badge/Live%20Demo-smartbus--sxre.onrender.com-blue?style=flat-square&logo=render)](https://smartbus-sxre.onrender.com)
-[![Android APK](https://img.shields.io/badge/Android-Download%20APK-success?style=flat-square&logo=android)](https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk)
+[![Android APK](https://img.shields.io/badge/Android-Download%20APK-success?style=flat-square&logo=android)](https://smartbus-sxre.onrender.com/downloads/SmartBus.apk)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
 > 🌐 **Live 24/7 Cloud App:** **[https://smartbus-sxre.onrender.com](https://smartbus-sxre.onrender.com)**  
-> 📲 **Direct Mobile APK Download:** **[👉 Download SmartBus.apk](https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk)**  
+> 📲 **Native Android APK (Instant Direct Download):** **[👉 Download SmartBus.apk (998 KB)](https://smartbus-sxre.onrender.com/downloads/SmartBus.apk)**  
+> 📁 **GitHub Repository APK File:** **[SmartBus.apk in /apk folder](https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk)**  
 > 🔑 **Demo Credentials:** `demo` / `demo123` *(or register a new account)*
 
 **SmartBus** is an end-to-end intelligent passenger assistance and live bus tracking platform designed especially for rural, semi-urban, and interstate bus transit across **Tamil Nadu, India**. 
