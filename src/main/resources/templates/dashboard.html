@@ -1055,7 +1055,7 @@
                 </div>
             </div>
 
-            <div class="drawer-item" onclick="SmartBusDrawer.close(); window.location.href='https://github.com/saisaran-m/Smartbus/raw/main/apk/SmartBus.apk';">
+            <div class="drawer-item" onclick="SmartBusDrawer.close(); var a=document.createElement('a'); a.href='/downloads/SmartBus.apk'; a.download='SmartBus.apk'; document.body.appendChild(a); a.click(); document.body.removeChild(a);">
                 <span class="drawer-icon">🤖</span>
                 <div class="drawer-text">
                     <div class="drawer-label">Download Android APK (Native)</div>
