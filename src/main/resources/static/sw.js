@@ -75,10 +75,46 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Network-first for other requests, fallback to cache
+  // Static assets (CSS, JS, images, icons, fonts) - Cache First for instant opening
+  if (ASSETS.includes(url.pathname) || url.pathname.startsWith('/css/') || url.pathname.startsWith('/js/') || url.pathname.startsWith('/images/')) {
+    event.respondWith(
+      caches.match(event.request).then(cached => {
+        if (cached) {
+          // Fetch updated version in background (stale-while-revalidate)
+          fetch(event.request).then(res => {
+            if (res.ok) caches.open(CACHE_NAME).then(c => c.put(event.request, res));
+          }).catch(() => {});
+          return cached;
+        }
+        return fetch(event.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
+          return res;
+        });
+      })
+    );
+    return;
+  }
+
+  // Dashboard / HTML Pages: Try Cache first so the app opens in 0.1 seconds without waiting for Render spin-up
+  if (url.pathname === '/' || url.pathname === '/dashboard') {
+    event.respondWith(
+      caches.match('/dashboard').then(cached => {
+        const networkFetch = fetch(event.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put('/dashboard', clone));
+          return res;
+        }).catch(() => cached);
+
+        return cached || networkFetch;
+      })
+    );
+    return;
+  }
+
+  // Fallback for general requests
   event.respondWith(
-    fetch(event.request)
-      .catch(() => caches.match(event.request))
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
 
