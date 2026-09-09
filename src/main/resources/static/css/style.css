@@ -2179,16 +2179,21 @@ body.dark-mode .drawer-hamburger span {
 
 /* Header button responsiveness on mobile */
 @media (max-width: 819px) {
+  body {
+    padding-top: 60px !important;
+    padding-bottom: 120px !important; /* CRITICAL: Prevent bottom nav from covering content */
+  }
+
   .header {
-    padding: 10px 14px !important;
-    height: 60px !important;
+    padding: 8px 12px !important;
+    height: 56px !important;
   }
   .header .logo svg {
-    height: 30px !important;
+    height: 28px !important;
   }
   .header-btn {
-    padding: 5px 10px !important;
-    font-size: 12px !important;
+    padding: 4px 8px !important;
+    font-size: 11px !important;
   }
   /* On mobile, collapse extra header buttons into the drawer menu */
   .header-ai-btn,
@@ -2197,8 +2202,48 @@ body.dark-mode .drawer-hamburger span {
     display: none !important;
   }
   .header-theme-btn {
-    padding: 5px 8px !important;
-    font-size: 12px !important;
+    padding: 4px 8px !important;
+    font-size: 11px !important;
     margin-right: 4px !important;
+  }
+
+  .screen {
+    padding: 12px 14px 120px 14px !important; /* Deep bottom padding so all buttons & feature cards are 100% visible */
+    max-width: 100% !important;
+  }
+
+  .hero-section {
+    padding: 16px 10px 12px !important;
+  }
+  .hero-title {
+    font-size: 20px !important;
+    margin-bottom: 4px !important;
+  }
+  .hero-section p {
+    font-size: 12px !important;
+  }
+
+  /* Make sure search form & cards don't get cut off */
+  .search-form {
+    padding: 16px 14px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Feature grid clearly visible with no overlap */
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 16px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .feature-card {
+    padding: 14px 10px !important;
+  }
+  .feature-card .icon {
+    font-size: 26px !important;
+  }
+  .feature-card .title {
+    font-size: 13px !important;
   }
 }
