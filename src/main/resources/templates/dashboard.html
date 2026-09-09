@@ -118,21 +118,6 @@
 
     <!-- ==================== SCREEN: HOME ==================== -->
     <div id="screen-home" class="screen active">
-        <!-- PWA / Full-Screen App Banner (Shown only when opened in mobile browser to remove URL bar) -->
-        <div id="pwa-install-banner" class="card" style="display:none; background:linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border:2px solid #FB923C; margin-bottom:14px; padding:12px 14px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="font-size:28px;">📱</div>
-                    <div>
-                        <div style="font-size:14px; font-weight:800; color:#9A3412;">Open in Full-Screen App Mode</div>
-                        <div style="font-size:11.5px; color:#C2410C;">Removes browser URL bar & enables real fullscreen app experience</div>
-                    </div>
-                </div>
-                <button id="pwa-install-btn" class="btn btn-primary" onclick="SmartBus.triggerPwaInstall()" style="padding:7px 14px; font-size:12.5px; white-space:nowrap; border-radius:8px;">
-                    Install App
-                </button>
-            </div>
-        </div>
 
         <div class="hero-section">
             <div style="font-size:44px; margin-bottom:6px;">🚌</div>
@@ -199,6 +184,9 @@
                             </button>
                             <button class="btn btn-secondary" onclick="SmartBusMap.locateUser()" style="padding:4px 8px; font-size:11px; border-radius:6px;" title="Find my live GPS location">
                                 🎯 Locate Me
+                            </button>
+                            <button id="home-map-satellite-btn" class="btn btn-secondary" onclick="SmartBusMap.toggleSatellite('home')" style="padding:4px 8px; font-size:11px; border-radius:6px; font-weight:700; border-color:#FF6B00; color:#FF6B00; background:#FFF;" title="Switch between Google Maps and Satellite">
+                                🛰️ Satellite
                             </button>
                             <button id="map-expand-btn" class="btn btn-secondary" onclick="SmartBusMap.toggleFullscreen()" style="padding:4px 8px; font-size:11px; border-radius:6px;" title="Expand map full screen">
                                 ⛶ Expand
@@ -293,7 +281,18 @@
             </div>
         </div>
 
-        <!-- Map -->
+        <!-- Journey Map Toolbar & Map -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0 6px 0;">
+            <span style="font-size:13px; font-weight:700; color:var(--text-secondary);">📍 Live GPS Journey Tracker</span>
+            <div style="display:flex; gap:6px;">
+                <button id="journey-map-satellite-btn" class="btn btn-secondary" onclick="SmartBusMap.toggleSatellite('journey')" style="padding:4px 8px; font-size:11px; border-radius:6px; font-weight:700; border-color:#FF6B00; color:#FF6B00; background:#FFF;" title="Switch Map / Satellite">
+                    🛰️ Satellite
+                </button>
+                <button class="btn btn-secondary" onclick="SmartBusMap.centerOnBus()" style="padding:4px 8px; font-size:11px; border-radius:6px;">
+                    🎯 Bus
+                </button>
+            </div>
+        </div>
         <div id="map"></div>
 
         <!-- Guardian Status Bar -->
@@ -1045,23 +1044,13 @@
                 </div>
             </div>
 
-            <div class="drawer-divider"></div>
-
-            <div class="drawer-item" onclick="SmartBusDrawer.close(); SmartBus.triggerPwaInstall();">
-                <span class="drawer-icon">📲</span>
-                <div class="drawer-text">
-                    <div class="drawer-label">Install App (Remove Browser Bar)</div>
-                    <div class="drawer-sub">Instant Full-Screen PWA Mode</div>
-                </div>
-            </div>
-
-            <div class="drawer-item" onclick="SmartBusDrawer.close(); var a=document.createElement('a'); a.href='/downloads/SmartBus.apk'; a.download='SmartBus.apk'; document.body.appendChild(a); a.click(); document.body.removeChild(a);">
+            <a href="/downloads/SmartBus.apk" download="SmartBus.apk" class="drawer-item" onclick="SmartBusDrawer.close();" style="text-decoration:none; color:inherit; display:flex; align-items:center;">
                 <span class="drawer-icon">🤖</span>
                 <div class="drawer-text">
-                    <div class="drawer-label">Download Android APK (Native)</div>
-                    <div class="drawer-sub">Signed Release APK (Offline & Live GPS)</div>
+                    <div class="drawer-label" style="color:var(--primary); font-weight:800;">Download Android APK (Native)</div>
+                    <div class="drawer-sub">Direct Download (998 KB) • Full Offline & GPS</div>
                 </div>
-            </div>
+            </a>
 
             <div class="drawer-item" onclick="document.getElementById('header-logout-form')?.submit();">
                 <span class="drawer-icon">🚪</span>

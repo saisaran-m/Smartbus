@@ -20,7 +20,13 @@ const SmartBusMap = {
     currentStopIcon: null,
     destinationIcon: null,
 
-    // Tile layers for dynamic light / dark mode
+    // Tile layers for dynamic light / dark mode and satellite view
+    homeRoadmap: null,
+    homeSatellite: null,
+    homeIsSatellite: false,
+    journeyRoadmap: null,
+    journeySatellite: null,
+    journeyIsSatellite: false,
     homeStreetsLayer: null,
     homeDarkLayer: null,
 
@@ -97,26 +103,27 @@ const SmartBusMap = {
             }).setView([11.1271, 78.6569], 7.5);
 
             // Google Roadmap Layer (with mt0-mt3 Google tile subdomains)
-            const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            this.homeRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
                 attribution: '&copy; Google Maps'
             });
 
             // Google Satellite Hybrid Layer
-            const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            this.homeSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
                 attribution: '&copy; Google Maps'
             });
 
             // Default layer: Google Roadmap
-            googleRoadmap.addTo(this.homeMap);
+            this.homeRoadmap.addTo(this.homeMap);
+            this.homeIsSatellite = false;
 
             // 2-option layer switcher: Google Maps & Google Satellite
             L.control.layers({
-                "Google Maps": googleRoadmap,
-                "Google Satellite": googleSatellite
+                "Google Maps (Roadmap)": this.homeRoadmap,
+                "Google Satellite": this.homeSatellite
             }, null, { position: 'topright', collapsed: true }).addTo(this.homeMap);
 
             // Google Watermark
@@ -304,6 +311,68 @@ const SmartBusMap = {
         SmartBus.showToast(this.isFullscreen ? 'Expanded map mode' : 'Normal map mode', 'info');
     },
 
+    toggleSatellite(type = 'home') {
+        if (type === 'home') {
+            if (!this.homeMap || !this.homeRoadmap || !this.homeSatellite) return;
+            this.homeIsSatellite = !this.homeIsSatellite;
+            const btn = document.getElementById('home-map-satellite-btn');
+            if (this.homeIsSatellite) {
+                if (this.homeMap.hasLayer(this.homeRoadmap)) this.homeMap.removeLayer(this.homeRoadmap);
+                this.homeSatellite.addTo(this.homeMap);
+                if (btn) {
+                    btn.innerHTML = '🗺️ Map View';
+                    btn.style.background = '#FF6B00';
+                    btn.style.color = '#FFFFFF';
+                    btn.style.borderColor = '#FF6B00';
+                }
+                if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                    SmartBus.showToast('🛰️ Switched to Google Satellite Mode', 'info');
+                }
+            } else {
+                if (this.homeMap.hasLayer(this.homeSatellite)) this.homeMap.removeLayer(this.homeSatellite);
+                this.homeRoadmap.addTo(this.homeMap);
+                if (btn) {
+                    btn.innerHTML = '🛰️ Satellite';
+                    btn.style.background = '#FFFFFF';
+                    btn.style.color = '#FF6B00';
+                    btn.style.borderColor = '#FF6B00';
+                }
+                if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                    SmartBus.showToast('🗺️ Switched to Google Maps Standard View', 'info');
+                }
+            }
+        } else {
+            if (!this.map || !this.journeyRoadmap || !this.journeySatellite) return;
+            this.journeyIsSatellite = !this.journeyIsSatellite;
+            const btn = document.getElementById('journey-map-satellite-btn');
+            if (this.journeyIsSatellite) {
+                if (this.map.hasLayer(this.journeyRoadmap)) this.map.removeLayer(this.journeyRoadmap);
+                this.journeySatellite.addTo(this.map);
+                if (btn) {
+                    btn.innerHTML = '🗺️ Map View';
+                    btn.style.background = '#FF6B00';
+                    btn.style.color = '#FFFFFF';
+                    btn.style.borderColor = '#FF6B00';
+                }
+                if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                    SmartBus.showToast('🛰️ Switched to Google Satellite Mode', 'info');
+                }
+            } else {
+                if (this.map.hasLayer(this.journeySatellite)) this.map.removeLayer(this.journeySatellite);
+                this.journeyRoadmap.addTo(this.map);
+                if (btn) {
+                    btn.innerHTML = '🛰️ Satellite';
+                    btn.style.background = '#FFFFFF';
+                    btn.style.color = '#FF6B00';
+                    btn.style.borderColor = '#FF6B00';
+                }
+                if (typeof SmartBus !== 'undefined' && SmartBus.showToast) {
+                    SmartBus.showToast('🗺️ Switched to Google Maps Standard View', 'info');
+                }
+            }
+        }
+    },
+
     setMapTheme(isDark) {
         if (this.homeMap && this.homeStreetsLayer && this.homeDarkLayer) {
             if (isDark) {
@@ -349,25 +418,26 @@ const SmartBusMap = {
         }).setView([11.8, 78.8], 8);
 
         // High-definition Google Maps tile layers with fast CDN subdomains
-        const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        this.journeyRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             attribution: '&copy; Google Maps'
         });
 
-        const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+        this.journeySatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             attribution: '&copy; Google Maps'
         });
 
         // Set Google Maps as active base layer
-        googleRoadmap.addTo(this.map);
+        this.journeyRoadmap.addTo(this.map);
+        this.journeyIsSatellite = false;
 
         // 2-option switcher: Google Maps & Google Satellite
         L.control.layers({
-            "Google Maps": googleRoadmap,
-            "Google Satellite": googleSatellite
+            "Google Maps (Roadmap)": this.journeyRoadmap,
+            "Google Satellite": this.journeySatellite
         }, null, { position: 'topright', collapsed: true }).addTo(this.map);
 
         // Google Watermark

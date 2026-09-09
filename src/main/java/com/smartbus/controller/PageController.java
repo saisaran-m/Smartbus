@@ -59,4 +59,23 @@ public class PageController {
         model.addAttribute("username", username);
         return "dashboard";
     }
+
+    @GetMapping("/downloads/SmartBus.apk")
+    @org.springframework.web.bind.annotation.ResponseBody
+    public org.springframework.http.ResponseEntity<org.springframework.core.io.Resource> downloadApk() {
+        try {
+            org.springframework.core.io.Resource resource = new org.springframework.core.io.ClassPathResource("static/downloads/SmartBus.apk");
+            if (!resource.exists()) {
+                return org.springframework.http.ResponseEntity.notFound().build();
+            }
+            return org.springframework.http.ResponseEntity.ok()
+                    .contentType(org.springframework.http.MediaType.parseMediaType("application/vnd.android.package-archive"))
+                    .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"SmartBus.apk\"")
+                    .header(org.springframework.http.HttpHeaders.CONTENT_LENGTH, String.valueOf(resource.contentLength()))
+                    .header(org.springframework.http.HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate")
+                    .body(resource);
+        } catch (java.io.IOException e) {
+            return org.springframework.http.ResponseEntity.internalServerError().build();
+        }
+    }
 }
