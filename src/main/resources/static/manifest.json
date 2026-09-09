@@ -2,10 +2,13 @@
   "name": "SmartBus - Transit & Passenger Assistant",
   "short_name": "SmartBus",
   "description": "AI-powered real-time bus tracking and passenger assistance system for Tamil Nadu",
+  "id": "com.smartbus.transit",
   "start_url": "/dashboard",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "fullscreen", "window-controls-overlay"],
   "orientation": "portrait",
-  "background_color": "#FFFFFF",
+  "background_color": "#FF6B00",
   "theme_color": "#FF6B00",
   "icons": [
     {

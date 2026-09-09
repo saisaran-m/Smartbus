@@ -96,61 +96,27 @@ const SmartBusMap = {
                 maxBoundsViscosity: 0.85
             }).setView([11.1271, 78.6569], 7.5);
 
-            // Primary Tile Layer: OpenStreetMap Standard & CartoDB (100% reliable global tiles)
-            // With Google Maps tile support as selectable layers
-            this.homeStreetsLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
-
-            // CartoDB Dark Matter Layer (for Night Mode)
-            this.homeDarkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                maxZoom: 19,
-                subdomains: 'abcd',
-                attribution: '&copy; CartoDB &copy; OpenStreetMap'
-            });
-
-            // Google Roadmap Layer (with subdomains)
+            // Google Roadmap Layer (with mt0-mt3 Google tile subdomains)
             const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
                 attribution: '&copy; Google Maps'
             });
 
-            // Google Satellite Layer
+            // Google Satellite Hybrid Layer
             const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
                 attribution: '&copy; Google Maps'
             });
 
-            // Google Terrain Layer
-            const googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-                maxZoom: 20,
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                attribution: '&copy; Google Maps'
-            });
+            // Default layer: Google Roadmap
+            googleRoadmap.addTo(this.homeMap);
 
-            // OpenStreetMap
-            const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; OpenStreetMap'
-            });
-
-            // Check if dark theme is currently active
-            const isDark = document.body.classList.contains('dark-mode');
-            if (isDark) {
-                this.homeDarkLayer.addTo(this.homeMap);
-            } else {
-                this.homeStreetsLayer.addTo(this.homeMap);
-            }
-
+            // Clean, uncluttered 2-option layer switcher: Google Maps & Google Satellite only
             L.control.layers({
-                "Google Maps (Road)": this.homeStreetsLayer,
-                "Google Satellite": googleSatellite,
-                "Google Terrain": googleTerrain,
-                "Dark Radar (Night)": this.homeDarkLayer,
-                "OpenStreetMap": osm
+                "Google Maps": googleRoadmap,
+                "Google Satellite": googleSatellite
             }, null, { position: 'topright' }).addTo(this.homeMap);
 
             // Google Watermark
@@ -382,19 +348,8 @@ const SmartBusMap = {
             maxBoundsViscosity: 0.85
         }).setView([11.8, 78.8], 8);
 
-        // Tile layers: OpenStreetMap primary + Google Maps options
-        const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
-        });
-
-        const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            maxZoom: 19,
-            subdomains: 'abcd',
-            attribution: '&copy; CartoDB'
-        });
-
-        const googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        // High-definition Google Maps tile layers with fast CDN subdomains
+        const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             attribution: '&copy; Google Maps'
@@ -406,17 +361,12 @@ const SmartBusMap = {
             attribution: '&copy; Google Maps'
         });
 
-        const isDark = document.body.classList.contains('dark-mode');
-        if (isDark) {
-            darkLayer.addTo(this.map);
-        } else {
-            osm.addTo(this.map);
-        }
+        // Set Google Maps as active base layer
+        googleRoadmap.addTo(this.map);
 
+        // Strict 2-option switcher: Google Maps & Google Satellite only
         L.control.layers({
-            "Standard Map": osm,
-            "Night Radar": darkLayer,
-            "Google Map": googleStreets,
+            "Google Maps": googleRoadmap,
             "Google Satellite": googleSatellite
         }, null, { position: 'topright' }).addTo(this.map);
 

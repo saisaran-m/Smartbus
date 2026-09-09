@@ -2331,13 +2331,20 @@ body.dark-mode .drawer-hamburger span {
   box-shadow: var(--shadow);
 }
 .app-icon {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.app-icon svg {
+  width: 32px;
+  height: 32px;
+  display: block;
 }
 .payment-processing {
   text-align: center;

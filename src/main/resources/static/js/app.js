@@ -13,7 +13,8 @@ const SmartBus = {
         seniorMode: false,
         language: 'en',
         csrfToken: '',
-        csrfHeader: ''
+        csrfHeader: '',
+        deferredPrompt: null
     },
 
     screens: ['home', 'search', 'journey', 'guardian', 'recovery', 'voice', 'senior', 'feedback', 'safety', 'nextbus', 'ai', 'fare', 'ticket', 'boardingpass', 'mytickets', 'driver', 'lostbaggage', 'howtouse'],
@@ -26,6 +27,9 @@ const SmartBus = {
         if (window.SmartBusTheme) {
             SmartBusTheme.init();
         }
+
+        // Setup PWA Install Prompt & Standalone Mode Check
+        this.setupPwaInstall();
 
         // Register Service Worker for Mobile PWA / APK install
         if ('serviceWorker' in navigator) {
@@ -86,6 +90,57 @@ const SmartBus = {
         }
 
         window.scrollTo(0, 0);
+    },
+
+    // ========== PWA STANDALONE & FULLSCREEN HANDLING ==========
+    setupPwaInstall() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                             window.navigator.standalone === true || 
+                             document.referrer.includes('android-app://');
+
+        const banner = document.getElementById('pwa-install-banner');
+
+        // Capture Android beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.state.deferredPrompt = e;
+            if (!isStandalone && banner) {
+                banner.style.display = 'block';
+            }
+        });
+
+        // Show banner on mobile browser if not already installed as standalone
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile && !isStandalone && banner) {
+            banner.style.display = 'block';
+        }
+
+        window.addEventListener('appinstalled', () => {
+            this.state.deferredPrompt = null;
+            if (banner) banner.style.display = 'none';
+            this.showToast('SmartBus installed! Open from home screen for full app mode.', 'success');
+        });
+    },
+
+    async triggerPwaInstall() {
+        if (this.state.deferredPrompt) {
+            this.state.deferredPrompt.prompt();
+            const { outcome } = await this.state.deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                this.showToast('Installing SmartBus in fullscreen app mode...', 'success');
+            }
+            this.state.deferredPrompt = null;
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.style.display = 'none';
+        } else {
+            // If browser doesn't support direct prompt, guide user with exact steps
+            const isChrome = /Chrome/i.test(navigator.userAgent);
+            if (isChrome) {
+                alert("To open as a real full-screen app without browser bar:\n\n1. Tap the three dots (⋮) in top-right of Chrome\n2. Tap 'Install app' or 'Add to Home screen'\n3. Open SmartBus from your phone's home screen!");
+            } else {
+                alert("To install as an app:\n\nTap your browser's menu (⋮ or Share) and select 'Add to Home Screen'.");
+            }
+        }
     },
 
     setupNavigation() {
