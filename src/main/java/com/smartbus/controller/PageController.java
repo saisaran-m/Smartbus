@@ -22,8 +22,19 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String index() {
-        return "redirect:/dashboard";
+    public String index(Principal principal) {
+        if (principal != null) {
+            return "redirect:/dashboard";
+        }
+        return "welcome";
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(Principal principal) {
+        if (principal != null) {
+            return "redirect:/dashboard";
+        }
+        return "welcome";
     }
 
     @GetMapping("/login")

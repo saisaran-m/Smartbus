@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Welcome to SmartBus – Tamil Nadu Smart Transit</title>
+    <!-- PWA & Mobile App Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#FF6B00">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SmartBus">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
+
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FF8C38;
+            --primary-dark: #E55C00;
+            --primary-soft: #FFF7ED;
+            --bg-gradient: linear-gradient(160deg, #FF6B00 0%, #EA580C 50%, #C2410C 100%);
+            --text-main: #FFFFFF;
+            --text-sub: rgba(255, 255, 255, 0.88);
+            --card-bg: #FFFFFF;
+            --card-text: #1E293B;
+            --border: #E2E8F0;
+            --shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-pill: 999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #FF6B00;
+            color: var(--text-main);
+            position: fixed;
+        }
+
+        /* App Shell Wrapper */
+        .onboarding-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg-gradient);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Ambient Background Decorative Circles */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-circle-1 {
+            width: 320px;
+            height: 320px;
+            top: -60px;
+            right: -80px;
+        }
+        .bg-circle-2 {
+            width: 260px;
+            height: 260px;
+            bottom: 120px;
+            left: -80px;
+        }
+
+        /* Header Bar with Skip */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: max(env(safe-area-inset-top, 0px), 16px) 20px 10px;
+            z-index: 10;
+        }
+
+        .brand-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .skip-btn {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 7px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .skip-btn:hover, .skip-btn:active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.96);
+        }
+
+        /* Slider Carousel Track */
+        .slider-viewport {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .slide-item {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 24px 20px;
+            text-align: center;
+            user-select: none;
+        }
+
+        /* Slide Typography */
+        .stat-badge {
+            background: #FFFFFF;
+            color: var(--primary-dark);
+            font-size: 12px;
+            font-weight: 900;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide-title {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-desc {
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: var(--text-sub);
+            max-width: 320px;
+            margin: 0 auto 18px;
+        }
+
+        /* Interactive Graphic Mockup Cards */
+        .mockup-card-container {
+            width: 100%;
+            max-width: 330px;
+            background: var(--card-bg);
+            color: var(--card-text);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            transform: translateY(0);
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Mockup 1: Route Live Radar */
+        .route-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .route-cities {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .live-tag {
+            background: #DCFCE7;
+            color: #166534;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .live-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #22C55E;
+            border-radius: 50%;
+            animation: pulseGlow 1.5s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+        .bus-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 10px;
+        }
+        .route-timeline-bar {
+            height: 6px;
+            background: #E2E8F0;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .route-timeline-fill {
+            height: 100%;
+            width: 68%;
+            background: linear-gradient(90deg, #FF6B00, #F97316);
+            border-radius: 3px;
+            position: relative;
+        }
+        .route-timeline-fill::after {
+            content: '🚌';
+            position: absolute;
+            right: -6px;
+            top: -8px;
+            font-size: 14px;
+        }
+        .route-stops-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        /* Mockup 2: Stop Guardian Alert */
+        .guardian-alert-card {
+            background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+            border: 2px solid #FB923C;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            text-align: center;
+        }
+        .guardian-bell-ring {
+            font-size: 34px;
+            display: inline-block;
+            animation: ringBell 2s ease-in-out infinite;
+        }
+        @keyframes ringBell {
+            0%, 100% { transform: rotate(0); }
+            10%, 30% { transform: rotate(14deg); }
+            20%, 40% { transform: rotate(-14deg); }
+            50% { transform: rotate(0); }
+        }
+        .guardian-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: #9A3412;
+            margin: 4px 0 2px;
+        }
+        .guardian-sub {
+            font-size: 12px;
+            color: #C2410C;
+            font-weight: 600;
+        }
+        .guardian-dist-badge {
+            display: inline-block;
+            margin-top: 8px;
+            background: #EA580C;
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+        }
+
+        /* Mockup 3: Voice AI Assistant */
+        .voice-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: left;
+        }
+        .voice-bubble {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 10px 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin-bottom: 8px;
+            border-left: 3px solid #FF6B00;
+        }
+        .voice-question {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .voice-reply {
+            font-size: 11.5px;
+            color: #059669;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .voice-wave-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: 24px;
+            margin-top: 6px;
+        }
+        .wave-bar {
+            width: 4px;
+            background: #FF6B00;
+            border-radius: 2px;
+            animation: waveBounce 1.2s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { height: 24px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
+        .wave-bar:nth-child(5) { height: 20px; animation-delay: 0.25s; }
+        .wave-bar:nth-child(6) { height: 10px; animation-delay: 0.15s; }
+        @keyframes waveBounce {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* Mockup 4: UPI & Safety */
+        .ticket-preview {
+            border: 2px dashed #CBD5E1;
+            border-radius: var(--radius-md);
+            padding: 12px;
+            background: #FFFFFF;
+        }
+        .ticket-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .ticket-pnr {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748B;
+        }
+        .ticket-verified {
+            font-size: 10.5px;
+            background: #DCFCE7;
+            color: #15803D;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        .upi-icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+            padding: 6px 0;
+            background: #F8FAFC;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        /* Bottom Controls Area */
+        .bottom-action-panel {
+            padding: 16px 24px max(env(safe-area-inset-bottom, 0px), 20px);
+            background: rgba(0, 0, 0, 0.14);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            z-index: 10;
+        }
+
+        /* Pagination Indicator Dots */
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dot.active {
+            width: 28px;
+            background: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Main CTA Button */
+        .cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px;
+            background: #FFFFFF;
+            color: var(--primary-dark);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+        }
+
+        .cta-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Footer Links (Sign in / Register) */
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 12.5px;
+            color: var(--text-sub);
+        }
+
+        .footer-links a {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+            padding-bottom: 1px;
+        }
+
+        .footer-links a:hover {
+            border-bottom-style: solid;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="onboarding-container">
+        <!-- Ambient Decorative Graphics -->
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="brand-badge">
+                <span>🚌</span> SmartBus Tamil Nadu
+            </div>
+            <a href="/login" class="skip-btn" id="skip-link">
+                Skip ➔
+            </a>
+        </header>
+
+        <!-- Slider Viewport -->
+        <main class="slider-viewport" id="slider-viewport">
+            <div class="slider-track" id="slider-track">
+
+                <!-- SLIDE 1: Statewide Live Bus Radar -->
+                <section class="slide-item">
+                    <div class="stat-badge">
+                        <span>🗺️</span> 38 Districts Connected
+                    </div>
+                    <h1 class="slide-title">Statewide Live Bus Radar</h1>
+                    <p class="slide-desc">
+                        Track government, express & deluxe buses in real time with high-accuracy Google Maps GPS.
+                    </p>
+
+                    <!-- Mockup Graphic 1 -->
+                    <div class="mockup-card-container">
+                        <div class="route-header">
+                            <div class="route-cities">
+                                <span>Chennai</span>
+                                <span style="color:#FF6B00;">➔</span>
+                                <span>Madurai</span>
+                            </div>
+                            <span class="live-tag">LIVE GPS</span>
+                        </div>
+                        <div class="bus-meta-row">
+                            <span>TN01-WX-7777 • SETC Deluxe</span>
+                            <span style="color:#FF6B00; font-weight:700;">ETA: 35 mins</span>
+                        </div>
+                        <div class="route-timeline-bar">
+                            <div class="route-timeline-fill"></div>
+                        </div>
+                        <div class="route-stops-row">
+                            <span>Tambaram</span>
+                            <span style="color:#FF6B00;">📍 Tindivanam</span>
+                            <span>Trichy</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 2: Proactive Stop Guardian -->
+                <section class="slide-item">
+                    <div class="stat-badge">
+                        <span>🔔</span> Core USP
+                    </div>
+                    <h1 class="slide-title">Proactive Stop Guardian</h1>
+                    <p class="slide-desc">
+                        Never miss your bus stop again. Smart wake-up alarms notify you 5 km & 1 km before destination.
+                    </p>
+
+                    <!-- Mockup Graphic 2 -->
+                    <div class="mockup-card-container">
+                        <div class="guardian-alert-card">
+                            <div class="guardian-bell-ring">🔔</div>
+                            <div class="guardian-title">Destination Approaching!</div>
+                            <div class="guardian-sub">Wake up & prepare to get down at <strong>Villupuram</strong></div>
+                            <div class="guardian-dist-badge">
+                                ⏳ 2.4 km remaining • ~5 mins
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; font-size:11px; color:#64748B; font-weight:600;">
+                            ✓ Audio chime & strong vibration enabled
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 3: SmartBus Voice AI Assistant -->
+                <section class="slide-item">
+                    <div class="stat-badge">
+                        <span>🎤</span> Voice AI Assistant
+                    </div>
+                    <h1 class="slide-title">Speak in Tamil or English</h1>
+                    <p class="slide-desc">
+                        One-touch microphone assistance for senior citizens & rural passengers. Ask routes, fares & timings.
+                    </p>
+
+                    <!-- Mockup Graphic 3 -->
+                    <div class="mockup-card-container">
+                        <div class="voice-card">
+                            <div class="voice-bubble">
+                                <div class="voice-question">
+                                    <span>🎤</span> "சென்னையிலிருந்து மதுரைக்கு அடுத்த பஸ் எப்போது?"
+                                </div>
+                                <div class="voice-reply">
+                                    🤖 "அடுத்த பேருந்து 07:30 AM புறப்படுகிறது (Platform 3)."
+                                </div>
+                            </div>
+                            <div class="voice-wave-bar">
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; font-size:11px; color:#64748B; font-weight:700;">
+                            🔊 Voice Read-Aloud (Text-to-Speech)
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 4: Instant UPI Ticketing & SOS Safety -->
+                <section class="slide-item">
+                    <div class="stat-badge">
+                        <span>⚡</span> Instant & Secure
+                    </div>
+                    <h1 class="slide-title">Instant UPI Passes & SOS</h1>
+                    <p class="slide-desc">
+                        Zero-fee QR tickets with GPay, PhonePe, Paytm or BHIM, plus 24/7 one-tap emergency safety helplines.
+                    </p>
+
+                    <!-- Mockup Graphic 4 -->
+                    <div class="mockup-card-container">
+                        <div class="ticket-preview">
+                            <div class="ticket-top">
+                                <span class="ticket-pnr">PNR: SB-849201</span>
+                                <span class="ticket-verified">✓ CONFIRMED</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0;">
+                                <div>
+                                    <div style="font-size:14px; font-weight:800; color:#0F172A;">Salem ➔ Chennai</div>
+                                    <div style="font-size:11px; color:#64748B;">Seat 14B (Window) • ₹250</div>
+                                </div>
+                                <div style="font-size:24px;">🎟️</div>
+                            </div>
+                            <div class="upi-icons-row">
+                                <span>GPay</span> • 
+                                <span style="color:#5F259F;">PhonePe</span> • 
+                                <span style="color:#00BAF2;">Paytm</span> • 
+                                <span>BHIM</span>
+                            </div>
+                        </div>
+                        <div style="margin-top:8px; display:flex; justify-content:space-between; font-size:10.5px; color:#64748B; font-weight:700;">
+                            <span>🚨 112 / 1091 SOS Support</span>
+                            <span>🔒 100% Secure</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Bottom Controls & CTA -->
+        <footer class="bottom-action-panel">
+            <!-- Pagination Indicator Dots -->
+            <div class="pagination-bar" id="pagination-dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+            </div>
+
+            <!-- Main Dynamic CTA Button -->
+            <a href="/login" class="cta-btn" id="cta-button">
+                <span>Get Started</span>
+                <span id="cta-arrow">➔</span>
+            </a>
+
+            <!-- Secondary Action Links -->
+            <div class="footer-links">
+                <span>New to SmartBus? <a href="/register">Register</a></span>
+                <span><a href="/login">Sign In directly</a></span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            const track = document.getElementById('slider-track');
+            const dots = document.querySelectorAll('.dot');
+            const ctaBtn = document.getElementById('cta-button');
+            const ctaArrow = document.getElementById('cta-arrow');
+            const viewport = document.getElementById('slider-viewport');
+            
+            let currentIndex = 0;
+            const totalSlides = 4;
+            let autoSlideTimer = null;
+
+            function goToSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+                currentIndex = index;
+
+                // Move track
+                track.style.transform = `translateX(-${currentIndex * 25}%)`;
+
+                // Update active dot
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+
+                // Update CTA text on final slide
+                if (currentIndex === totalSlides - 1) {
+                    ctaBtn.querySelector('span:first-child').textContent = 'Login & Travel Now! 🚀';
+                    ctaArrow.textContent = '';
+                } else {
+                    ctaBtn.querySelector('span:first-child').textContent = 'Get Started';
+                    ctaArrow.textContent = '➔';
+                }
+            }
+
+            // Dot navigation clicks
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    resetAutoSlide();
+                    goToSlide(parseInt(dot.dataset.index));
+                });
+            });
+
+            // Touch Swipe Gestures for Mobile
+            let startX = 0;
+            let currentX = 0;
+            let isSwiping = false;
+
+            viewport.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                currentX = startX;
+                isSwiping = true;
+                stopAutoSlide();
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                currentX = e.touches[0].clientX;
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', () => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                const diff = startX - currentX;
+                const threshold = 45; // min swipe distance in px
+
+                if (diff > threshold) {
+                    // Swiped left -> Next slide
+                    if (currentIndex < totalSlides - 1) {
+                        goToSlide(currentIndex + 1);
+                    } else {
+                        // Swiped left on last slide -> navigate to login
+                        window.location.href = '/login';
+                    }
+                } else if (diff < -threshold) {
+                    // Swiped right -> Previous slide
+                    goToSlide(currentIndex - 1);
+                }
+                resetAutoSlide();
+            });
+
+            // Keyboard navigation (Left / Right arrow keys)
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    resetAutoSlide();
+                    goToSlide(currentIndex + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    resetAutoSlide();
+                    goToSlide(currentIndex - 1);
+                }
+            });
+
+            // Auto-advance every 5 seconds
+            function startAutoSlide() {
+                autoSlideTimer = setInterval(() => {
+                    const next = (currentIndex + 1) % totalSlides;
+                    goToSlide(next);
+                }, 5000);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideTimer) {
+                    clearInterval(autoSlideTimer);
+                    autoSlideTimer = null;
+                }
+            }
+
+            function resetAutoSlide() {
+                stopAutoSlide();
+                startAutoSlide();
+            }
+
+            startAutoSlide();
+        })();
+    </script>
+</body>
+</html>
