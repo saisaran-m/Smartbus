@@ -17,15 +17,16 @@
         :root {
             --primary: #FF6B00;
             --primary-dark: #E55C00;
-            --bg: #F8F9FA;
-            --text-primary: #1A1A2E;
-            --text-secondary: #6C757D;
-            --border: #E9ECEF;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --radius: 16px;
-            --radius-sm: 8px;
-            --success: #28A745;
-            --danger: #DC3545;
+            --primary-light: #FFF7ED;
+            --bg: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 16px 40px -10px rgba(0,0,0,0.12);
+            --radius: 20px;
+            --radius-sm: 10px;
+            --success: #16A34A;
+            --danger: #DC2626;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -36,196 +37,534 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px 16px;
         }
-        .login-card {
+
+        .login-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 440px;
             background: white;
-            padding: 40px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 400px;
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: max-width 0.3s ease;
+        }
+
+        /* Hero Graphic Panel for Desktop */
+        .login-hero-panel {
+            display: none;
+            flex: 1.15;
+            background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+            color: #FFFFFF;
+            padding: 44px 36px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .login-hero-panel::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,107,0,0.3) 0%, rgba(255,107,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            color: #FF8C38;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 26px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            color: #FFFFFF;
+        }
+
+        .hero-title span {
+            color: #FF6B00;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #94A3B8;
+            margin-bottom: 28px;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .hero-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13.5px;
+            color: #E2E8F0;
+            font-weight: 600;
+        }
+
+        .hero-feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .hero-stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-stat-card {
             text-align: center;
         }
+
+        .hero-stat-val {
+            font-size: 18px;
+            font-weight: 900;
+            color: #FF6B00;
+        }
+
+        .hero-stat-lbl {
+            font-size: 11px;
+            color: #94A3B8;
+            margin-top: 2px;
+        }
+
+        /* Form Card Panel */
+        .login-card {
+            flex: 1;
+            padding: 40px 32px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .logo-container {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
         .logo-svg {
-            width: 210px;
+            width: 190px;
             height: auto;
         }
+
+        /* Demo Credentials Quick Box */
+        .demo-cred-card {
+            background: #FFF7ED;
+            border: 1.5px dashed #FB923C;
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .demo-cred-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .demo-cred-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #9A3412;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-cred-badge {
+            background: #FDBA74;
+            color: #7C2D12;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .demo-cred-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #431407;
+            margin-bottom: 10px;
+        }
+
+        .demo-cred-row span code {
+            background: #FFFFFF;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #FED7AA;
+            font-weight: 700;
+            font-family: monospace;
+            color: #EA580C;
+        }
+
+        .btn-autofill {
+            width: 100%;
+            padding: 9px;
+            background: #FF6B00;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(255, 107, 0, 0.25);
+        }
+
+        .btn-autofill:hover {
+            background: #EA580C;
+            transform: translateY(-1px);
+        }
+
         .alert {
             padding: 12px;
             border-radius: var(--radius-sm);
-            margin-bottom: 20px;
-            font-size: 14px;
+            margin-bottom: 18px;
+            font-size: 13.5px;
             text-align: left;
         }
         .alert-error {
-            background: #FFEBEE;
-            color: #C62828;
+            background: #FEF2F2;
+            color: var(--danger);
             border-left: 4px solid var(--danger);
         }
         .alert-success {
-            background: #E8F5E9;
-            color: #2E7D32;
+            background: #F0FDF4;
+            color: var(--success);
             border-left: 4px solid var(--success);
         }
         .alert-info {
-            background: #E3F2FD;
-            color: #1565C0;
-            border-left: 4px solid #1976D2;
+            background: #F0F9FF;
+            color: #0284C7;
+            border-left: 4px solid #0284C7;
         }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             text-align: left;
+            position: relative;
         }
         .form-group label {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
         .form-input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 13px 14px;
             border: 2px solid var(--border);
             border-radius: var(--radius-sm);
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             transition: all 0.2s;
+            color: var(--text-primary);
         }
         .form-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
         }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            color: var(--text-secondary);
+            transition: opacity 0.2s;
+        }
+        .toggle-password-btn:hover {
+            opacity: 0.8;
+        }
+
         .btn-primary {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: var(--radius-sm);
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 800;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.35);
         }
         .btn-primary:hover {
             background: var(--primary-dark);
+            transform: translateY(-1px);
         }
         .btn-primary:active {
             transform: scale(0.98);
         }
+
         .register-link {
-            margin-top: 24px;
-            font-size: 14px;
+            margin-top: 18px;
+            font-size: 13.5px;
             color: var(--text-secondary);
         }
         .register-link a {
             color: var(--primary);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
         }
         .register-link a:hover {
             text-decoration: underline;
         }
-        @media (max-width: 480px) {
-            .login-card { padding: 30px 20px; }
+
+        /* Desktop Breakpoint */
+        @media (min-width: 860px) {
+            .login-wrapper {
+                max-width: 880px;
+            }
+            .login-hero-panel {
+                display: flex;
+            }
+            .login-card {
+                padding: 48px 40px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="login-card">
-    <div class="logo-container">
-        <svg class="logo-svg" viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg">
-            <!-- Modern Aerodynamic Long-Distance Transit Bus -->
-            <g transform="translate(2, 8)">
-                <!-- Shadow underneath -->
-                <ellipse cx="32" cy="38" rx="27" ry="2.5" fill="#000000" opacity="0.12"/>
-                
-                <!-- Roof Air Conditioner (Signature interstate coach feature) -->
-                <rect x="18" y="0" width="22" height="4" rx="2" fill="#D95300"/>
-                
-                <!-- Main Aerodynamic Coach Body -->
-                <path d="M3,34 L3,10 C3,5 6,2 13,2 L48,2 C55,2 59,5 61,11 L63,24 C64,30 61,34 56,34 Z" fill="#FF6B00"/>
-                
-                <!-- Front Aerodynamic Windshield -->
-                <path d="M50,5 L56,11 L57,19 L48,19 L48,5 Z" fill="#FFFFFF"/>
-                
-                <!-- 4 Distinct Passenger Windows -->
-                <rect x="37" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
-                <rect x="26" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
-                <rect x="15" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
-                <rect x="5" y="5" width="7.5" height="14" rx="2" fill="#FFFFFF"/>
+<div class="login-wrapper">
 
-                <!-- Contrast Speed Stripe -->
-                <rect x="3" y="24" width="58" height="2.5" fill="#E55C00"/>
+    <!-- Hero Showcase Panel (Desktop / Laptop View) -->
+    <div class="login-hero-panel">
+        <div>
+            <div class="hero-badge">
+                <span>🛰️</span> Real-Time Transit GPS
+            </div>
+            <h2 class="hero-title">Travel across Tamil Nadu with <span>SmartBus</span></h2>
+            <p class="hero-sub">
+                Live bus radar, proactive Stop Guardian alarms, instant UPI tickets, and AI travel assistance for all 38 districts.
+            </p>
 
-                <!-- Rear Wheel -->
-                <circle cx="15" cy="34" r="6.5" fill="#1E293B"/>
-                <circle cx="15" cy="34" r="3.2" fill="#E2E8F0"/>
-                <circle cx="15" cy="34" r="1.2" fill="#1E293B"/>
+            <div class="hero-features">
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">🗺️</div>
+                    <div>High-Accuracy Google Maps Live Bus Radar</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">🔔</div>
+                    <div>Smart Stop Guardian Audio & Vibration Wake-Up Alert</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">💳</div>
+                    <div>100% Digital QR Boarding Pass (GPay, PhonePe, Paytm)</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">🤖</div>
+                    <div>Bilingual Tamil & English AI Voice Transit Assistant</div>
+                </div>
+            </div>
+        </div>
 
-                <!-- Front Wheel -->
-                <circle cx="49" cy="34" r="6.5" fill="#1E293B"/>
-                <circle cx="49" cy="34" r="3.2" fill="#E2E8F0"/>
-                <circle cx="49" cy="34" r="1.2" fill="#1E293B"/>
-
-                <!-- Amber Front Headlight -->
-                <path d="M62,23 L65,24 L62,26 Z" fill="#FBBF24"/>
-            </g>
-
-            <!-- Clean Modern Typography -->
-            <text x="74" y="37" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#1A1A2E" letter-spacing="-0.5">
-                Smart<tspan fill="#FF6B00">Bus</tspan>
-            </text>
-        </svg>
+        <div>
+            <div class="hero-stats-strip">
+                <div class="hero-stat-card">
+                    <div class="hero-stat-val">38</div>
+                    <div class="hero-stat-lbl">Districts</div>
+                </div>
+                <div class="hero-stat-card">
+                    <div class="hero-stat-val">1000+</div>
+                    <div class="hero-stat-lbl">Active Buses</div>
+                </div>
+                <div class="hero-stat-card">
+                    <div class="hero-stat-val">99.8%</div>
+                    <div class="hero-stat-lbl">GPS Accuracy</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div th:if="${param.error}" class="alert alert-error">
-        Invalid username or password.
-    </div>
-    
-    <div th:if="${param.logout}" class="alert alert-info">
-        You have been logged out successfully.
-    </div>
-    
-    <div th:if="${param.registered}" class="alert alert-success">
-        Registration successful! Please sign in.
-    </div>
+    <!-- Login Form Card -->
+    <div class="login-card">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg">
+                <!-- Modern Aerodynamic Long-Distance Transit Bus -->
+                <g transform="translate(2, 8)">
+                    <ellipse cx="32" cy="38" rx="27" ry="2.5" fill="#000000" opacity="0.12"/>
+                    <rect x="18" y="0" width="22" height="4" rx="2" fill="#D95300"/>
+                    <path d="M3,34 L3,10 C3,5 6,2 13,2 L48,2 C55,2 59,5 61,11 L63,24 C64,30 61,34 56,34 Z" fill="#FF6B00"/>
+                    <path d="M50,5 L56,11 L57,19 L48,19 L48,5 Z" fill="#FFFFFF"/>
+                    <rect x="37" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                    <rect x="26" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                    <rect x="15" y="5" width="8.5" height="14" rx="2" fill="#FFFFFF"/>
+                    <rect x="5" y="5" width="7.5" height="14" rx="2" fill="#FFFFFF"/>
+                    <rect x="3" y="24" width="58" height="2.5" fill="#E55C00"/>
+                    <circle cx="15" cy="34" r="6.5" fill="#1E293B"/>
+                    <circle cx="15" cy="34" r="3.2" fill="#E2E8F0"/>
+                    <circle cx="15" cy="34" r="1.2" fill="#1E293B"/>
+                    <circle cx="49" cy="34" r="6.5" fill="#1E293B"/>
+                    <circle cx="49" cy="34" r="3.2" fill="#E2E8F0"/>
+                    <circle cx="49" cy="34" r="1.2" fill="#1E293B"/>
+                    <path d="M62,23 L65,24 L62,26 Z" fill="#FBBF24"/>
+                </g>
+                <text x="74" y="37" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#1A1A2E" letter-spacing="-0.5">
+                    Smart<tspan fill="#FF6B00">Bus</tspan>
+                </text>
+            </svg>
+        </div>
 
-    <form th:action="@{/login}" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" class="form-input" required autofocus autocomplete="username">
+        <!-- Prominent Demo Account Credentials Box -->
+        <div class="demo-cred-card">
+            <div class="demo-cred-header">
+                <span class="demo-cred-title">🔑 Demo Credentials</span>
+                <span class="demo-cred-badge">INSTANT ACCESS</span>
+            </div>
+            <div class="demo-cred-row">
+                <span>User: <code>demo</code></span>
+                <span>Password: <code>demo123</code></span>
+            </div>
+            <button type="button" class="btn-autofill" onclick="autofillDemoCredentials()">
+                ⚡ 1-Click Autofill & Sign In
+            </button>
+        </div>
+
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username or password. Please use <strong>demo / demo123</strong>.
         </div>
         
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password">
+        <div th:if="${param.logout}" class="alert alert-info">
+            You have been logged out successfully.
         </div>
         
-        <button type="submit" class="btn-primary">Sign In</button>
-    </form>
-    
-    <div class="register-link">
-        New to SmartBus? <a th:href="@{/register}">Create an account</a>
-    </div>
+        <div th:if="${param.registered}" class="alert alert-success">
+            Registration successful! Please sign in with your credentials.
+        </div>
 
-    <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center;">
-        <a href="/downloads/SmartBus.apk" download="SmartBus.apk" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: #FFF3E0; color: #E65100; border: 1.5px solid #FFB74D; border-radius: var(--radius-sm); font-weight: 600; text-decoration: none; font-size: 14px;">
-            <span>📲</span> Download Android App (.apk)
-        </a>
-        <div style="margin-top: 14px;">
-            <a th:href="@{/welcome}" style="color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-                ✨ Explore SmartBus Features (App Tour)
+        <form id="login-form" th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" name="username" class="form-input" placeholder="e.g. demo" required autofocus autocomplete="username">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" class="form-input" placeholder="e.g. demo123" required autocomplete="current-password">
+                    <button type="button" class="toggle-password-btn" id="toggle-pw-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password">
+                        👁️
+                    </button>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-primary" id="sign-in-btn">Sign In ➔</button>
+        </form>
+        
+        <div class="register-link">
+            New to SmartBus? <a th:href="@{/register}">Create an account</a>
+        </div>
+
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); text-align: center;">
+            <a href="/downloads/SmartBus.apk" download="SmartBus.apk" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; background: #FFF3E0; color: #E65100; border: 1.5px solid #FFB74D; border-radius: var(--radius-sm); font-weight: 700; text-decoration: none; font-size: 13.5px;">
+                <span>📲</span> Download Native Android App (.apk)
             </a>
+            <div style="margin-top: 12px;">
+                <a th:href="@{/welcome}" style="color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                    ✨ Explore SmartBus Features (App Tour) ➔
+                </a>
+            </div>
         </div>
     </div>
+
 </div>
+
+<script>
+    function togglePasswordVisibility() {
+        const pwInput = document.getElementById('password');
+        const btn = document.getElementById('toggle-pw-btn');
+        if (!pwInput) return;
+        if (pwInput.type === 'password') {
+            pwInput.type = 'text';
+            btn.textContent = '🙈';
+            btn.title = 'Hide Password';
+        } else {
+            pwInput.type = 'password';
+            btn.textContent = '👁️';
+            btn.title = 'Show Password';
+        }
+    }
+
+    function autofillDemoCredentials() {
+        const userInput = document.getElementById('username');
+        const pwInput = document.getElementById('password');
+        const form = document.getElementById('login-form');
+        const signInBtn = document.getElementById('sign-in-btn');
+        if (userInput && pwInput) {
+            userInput.value = 'demo';
+            pwInput.value = 'demo123';
+            if (signInBtn) {
+                signInBtn.innerHTML = '⏳ Signing in as Demo Passenger...';
+            }
+            if (form) {
+                form.submit();
+            }
+        }
+    }
+</script>
 
 </body>
 </html>

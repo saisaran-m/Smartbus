@@ -103,13 +103,10 @@
         <button class="btn btn-danger header-btn header-sos-btn" onclick="SmartBus.openSosModal()" style="animation:pulse 2s infinite;">
             🚨 SOS
         </button>
-        <button class="btn btn-secondary header-btn header-ai-btn" onclick="SmartBus.showScreen('ai')">
-            🤖 SmartBus AI
-        </button>
         <button id="theme-toggle" class="btn btn-secondary header-btn header-theme-btn" onclick="SmartBusThemeDialog.open()" title="Change Theme Mode">
             🌓 Mode
         </button>
-        <span id="user-greeting" style="font-size:13px; font-weight:600; margin-right:8px; color:var(--text-secondary); display:none;" class="desktop-greeting">Hello, <span th:text="${username}">User</span></span>
+        <span id="user-greeting" style="font-size:13px; font-weight:600; margin-right:8px; color:rgba(255,255,255,0.9); display:none;" class="desktop-greeting">Hello, <span th:text="${username}">User</span></span>
         <button id="senior-toggle" class="btn btn-secondary header-btn header-senior-btn" onclick="SmartBus.toggleSeniorMode()" title="Senior Citizen Mode">👴</button>
         <form id="header-logout-form" th:action="@{/logout}" method="post" style="display:inline; margin:0;">
             <button type="submit" class="btn btn-secondary header-btn header-logout-btn">Logout</button>

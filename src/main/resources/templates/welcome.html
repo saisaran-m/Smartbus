@@ -22,11 +22,11 @@
             --primary-soft: #FFF7ED;
             --bg-gradient: linear-gradient(160deg, #FF6B00 0%, #EA580C 50%, #C2410C 100%);
             --text-main: #FFFFFF;
-            --text-sub: rgba(255, 255, 255, 0.88);
+            --text-sub: rgba(255, 255, 255, 0.9);
             --card-bg: #FFFFFF;
-            --card-text: #1E293B;
+            --card-text: #0F172A;
             --border: #E2E8F0;
-            --shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-pill: 999px;
@@ -42,11 +42,179 @@
         html, body {
             height: 100%;
             width: 100%;
-            overflow: hidden;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #FF6B00;
+            background: #0F172A;
             color: var(--text-main);
-            position: fixed;
+            overflow-x: hidden;
+        }
+
+        /* Desktop Container Layout */
+        .welcome-page-root {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 20%, #1E293B 0%, #0F172A 70%, #020617 100%);
+            padding: 0;
+        }
+
+        .desktop-showcase-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            width: 100%;
+            max-width: 1080px;
+            padding: 24px 20px;
+        }
+
+        /* Left Side Desktop Branding Info */
+        .desktop-showcase-sidebar {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            color: #FFFFFF;
+            max-width: 480px;
+        }
+
+        .sidebar-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            color: #FF8C38;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 34px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .sidebar-title span {
+            color: #FF6B00;
+        }
+
+        .sidebar-desc {
+            font-size: 15px;
+            line-height: 1.55;
+            color: #94A3B8;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .sidebar-feature-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #E2E8F0;
+        }
+
+        .sidebar-feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-demo-badge {
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px dashed rgba(255, 107, 0, 0.4);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: #FED7AA;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-demo-badge code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #FF8C38;
+            font-weight: 700;
+        }
+
+        .sidebar-cta-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .sidebar-cta-btn {
+            padding: 13px 24px;
+            background: #FF6B00;
+            color: #FFFFFF;
+            font-size: 14.5px;
+            font-weight: 800;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.35);
+        }
+
+        .sidebar-cta-btn:hover {
+            background: #EA580C;
+            transform: translateY(-2px);
+        }
+
+        .sidebar-apk-btn {
+            padding: 13px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13.5px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar-apk-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Phone Mockup Outer Frame (Desktop) */
+        .phone-mockup-frame {
+            width: 100%;
+            max-width: 410px;
+            height: 100vh;
+            max-height: 100vh;
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
         }
 
         /* App Shell Wrapper */
@@ -55,11 +223,11 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-            max-width: 440px;
-            margin: 0 auto;
+            width: 100%;
             position: relative;
             background: var(--bg-gradient);
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
         }
 
         /* Ambient Background Decorative Circles */
@@ -130,9 +298,11 @@
             transform: scale(0.96);
         }
 
-        /* Slider Carousel Track */
+        /* Slider Carousel Track: 100% per slide to eliminate any bleed */
         .slider-viewport {
             flex: 1;
+            width: 100%;
+            max-width: 100%;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -142,20 +312,25 @@
 
         .slider-track {
             display: flex;
-            width: 400%;
+            width: 100%;
             height: 100%;
             transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
         }
 
         .slide-item {
-            width: 25%;
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px 24px 20px;
+            padding: 10px 22px 18px;
             text-align: center;
             user-select: none;
         }
@@ -164,11 +339,11 @@
         .stat-badge {
             background: #FFFFFF;
             color: var(--primary-dark);
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 900;
             padding: 4px 12px;
             border-radius: var(--radius-pill);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -178,7 +353,7 @@
         }
 
         .slide-title {
-            font-size: 24px;
+            font-size: 23px;
             font-weight: 900;
             line-height: 1.25;
             margin-bottom: 8px;
@@ -187,17 +362,17 @@
         }
 
         .slide-desc {
-            font-size: 13.5px;
+            font-size: 13px;
             line-height: 1.45;
             color: var(--text-sub);
-            max-width: 320px;
-            margin: 0 auto 18px;
+            max-width: 310px;
+            margin: 0 auto 16px;
         }
 
         /* Interactive Graphic Mockup Cards */
         .mockup-card-container {
             width: 100%;
-            max-width: 330px;
+            max-width: 320px;
             background: var(--card-bg);
             color: var(--card-text);
             border-radius: var(--radius-lg);
@@ -205,13 +380,12 @@
             box-shadow: var(--shadow);
             border: 1px solid rgba(255, 255, 255, 0.8);
             position: relative;
-            transform: translateY(0);
             animation: floatSlow 4s ease-in-out infinite;
         }
 
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Mockup 1: Route Live Radar */
@@ -224,7 +398,7 @@
             border-bottom: 1px solid var(--border);
         }
         .route-cities {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 800;
             color: #0F172A;
             display: flex;
@@ -259,99 +433,104 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 11.5px;
             color: #64748B;
+            font-weight: 600;
             margin-bottom: 10px;
         }
         .route-timeline-bar {
-            height: 6px;
-            background: #E2E8F0;
-            border-radius: 3px;
+            width: 100%;
+            height: 8px;
+            background: #F1F5F9;
+            border-radius: 4px;
             overflow: hidden;
             position: relative;
             margin-bottom: 8px;
         }
         .route-timeline-fill {
             height: 100%;
-            width: 68%;
-            background: linear-gradient(90deg, #FF6B00, #F97316);
-            border-radius: 3px;
-            position: relative;
-        }
-        .route-timeline-fill::after {
-            content: '🚌';
-            position: absolute;
-            right: -6px;
-            top: -8px;
-            font-size: 14px;
+            width: 65%;
+            background: linear-gradient(90deg, #FF6B00 0%, #38BDF8 100%);
+            border-radius: 4px;
         }
         .route-stops-row {
             display: flex;
             justify-content: space-between;
-            font-size: 11px;
+            font-size: 10.5px;
+            color: #94A3B8;
             font-weight: 700;
-            color: #475569;
         }
 
         /* Mockup 2: Stop Guardian Alert */
         .guardian-alert-card {
             background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
-            border: 2px solid #FB923C;
+            border: 2px solid #F97316;
             border-radius: var(--radius-md);
             padding: 14px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         .guardian-bell-ring {
-            font-size: 34px;
-            display: inline-block;
-            animation: ringBell 2s ease-in-out infinite;
+            width: 44px;
+            height: 44px;
+            background: #FF6B00;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 8px;
+            animation: bellRing 1.8s infinite ease-in-out;
+            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.4);
         }
-        @keyframes ringBell {
+        @keyframes bellRing {
             0%, 100% { transform: rotate(0); }
             10%, 30% { transform: rotate(14deg); }
             20%, 40% { transform: rotate(-14deg); }
             50% { transform: rotate(0); }
         }
         .guardian-title {
-            font-size: 15px;
-            font-weight: 900;
+            font-size: 14px;
+            font-weight: 800;
             color: #9A3412;
-            margin: 4px 0 2px;
+            margin-bottom: 4px;
         }
         .guardian-sub {
             font-size: 12px;
             color: #C2410C;
-            font-weight: 600;
+            line-height: 1.4;
         }
         .guardian-dist-badge {
             display: inline-block;
             margin-top: 8px;
             background: #EA580C;
-            color: white;
-            font-size: 12px;
+            color: #FFFFFF;
+            font-size: 11px;
             font-weight: 800;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: var(--radius-pill);
         }
 
-        /* Mockup 3: Voice AI Assistant */
+        /* Mockup 3: Voice AI */
         .voice-card {
             background: #F8FAFC;
-            border: 1px solid #E2E8F0;
+            border: 1.5px solid var(--border);
             border-radius: var(--radius-md);
             padding: 12px;
             text-align: left;
         }
         .voice-bubble {
             background: #FFFFFF;
-            border-radius: 12px;
-            padding: 10px 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
             margin-bottom: 8px;
             border-left: 3px solid #FF6B00;
         }
         .voice-question {
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
             color: #0F172A;
             display: flex;
@@ -359,7 +538,7 @@
             gap: 6px;
         }
         .voice-reply {
-            font-size: 11.5px;
+            font-size: 11px;
             color: #059669;
             margin-top: 4px;
             font-weight: 600;
@@ -369,7 +548,7 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            height: 24px;
+            height: 22px;
             margin-top: 6px;
         }
         .wave-bar {
@@ -380,9 +559,9 @@
         }
         .wave-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
         .wave-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
-        .wave-bar:nth-child(3) { height: 24px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(3) { height: 22px; animation-delay: 0.3s; }
         .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
-        .wave-bar:nth-child(5) { height: 20px; animation-delay: 0.25s; }
+        .wave-bar:nth-child(5) { height: 18px; animation-delay: 0.25s; }
         .wave-bar:nth-child(6) { height: 10px; animation-delay: 0.15s; }
         @keyframes waveBounce {
             0%, 100% { transform: scaleY(0.4); }
@@ -408,7 +587,7 @@
             color: #64748B;
         }
         .ticket-verified {
-            font-size: 10.5px;
+            font-size: 10px;
             background: #DCFCE7;
             color: #15803D;
             padding: 2px 6px;
@@ -418,7 +597,7 @@
         .upi-icons-row {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             padding: 6px 0;
             background: #F8FAFC;
@@ -431,7 +610,7 @@
 
         /* Bottom Controls Area */
         .bottom-action-panel {
-            padding: 16px 24px max(env(safe-area-inset-bottom, 0px), 20px);
+            padding: 14px 20px max(env(safe-area-inset-bottom, 0px), 18px);
             background: rgba(0, 0, 0, 0.14);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
@@ -445,37 +624,37 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .dot {
             width: 8px;
             height: 8px;
-            background: rgba(255, 255, 255, 0.35);
             border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .dot.active {
-            width: 28px;
+            width: 26px;
             background: #FFFFFF;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
 
-        /* Main CTA Button */
+        /* Primary Action Button */
         .cta-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: #FFFFFF;
             color: var(--primary-dark);
             border: none;
             border-radius: var(--radius-md);
-            font-size: 16px;
+            font-size: 15.5px;
             font-weight: 900;
             cursor: pointer;
             text-decoration: none;
@@ -497,8 +676,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
-            font-size: 12.5px;
+            margin-top: 10px;
+            font-size: 12px;
             color: var(--text-sub);
         }
 
@@ -513,189 +692,261 @@
         .footer-links a:hover {
             border-bottom-style: solid;
         }
+
+        /* Desktop Media Query */
+        @media (min-width: 768px) {
+            .desktop-showcase-sidebar {
+                display: flex;
+            }
+            .phone-mockup-frame {
+                max-width: 390px;
+                height: 720px;
+                max-height: 90vh;
+                border-radius: 36px;
+                box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 0 8px #1E293B, 0 0 0 10px rgba(255, 255, 255, 0.12);
+                border: 2px solid rgba(255, 255, 255, 0.15);
+                overflow: hidden;
+            }
+            .onboarding-container {
+                border-radius: 28px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="onboarding-container">
-        <!-- Ambient Decorative Graphics -->
-        <div class="bg-circle bg-circle-1"></div>
-        <div class="bg-circle bg-circle-2"></div>
+    <div class="welcome-page-root">
+        <div class="desktop-showcase-wrapper">
 
-        <!-- Top Navigation -->
-        <header class="top-nav">
-            <div class="brand-badge">
-                <span>🚌</span> SmartBus Tamil Nadu
+            <!-- Desktop Left Showcase Info -->
+            <div class="desktop-showcase-sidebar">
+                <div class="sidebar-badge">
+                    <span>🚌</span> Tamil Nadu Smart Transit
+                </div>
+                <h1 class="sidebar-title">
+                    The Modern Way to Travel Across <span>Tamil Nadu</span>
+                </h1>
+                <p class="sidebar-desc">
+                    Experience state-of-the-art public transit with real-time GPS tracking across 38 districts, proactive Stop Guardian alarms, instant digital QR tickets, and bilingual voice navigation.
+                </p>
+
+                <div class="sidebar-features">
+                    <div class="sidebar-feature-row">
+                        <div class="sidebar-feature-icon">🛰️</div>
+                        <div>Real-Time High Accuracy Google Maps Bus Radar</div>
+                    </div>
+                    <div class="sidebar-feature-row">
+                        <div class="sidebar-feature-icon">🔔</div>
+                        <div>Smart Stop Guardian Audio & Vibration Wake-Up Alarms</div>
+                    </div>
+                    <div class="sidebar-feature-row">
+                        <div class="sidebar-feature-icon">💳</div>
+                        <div>Instant Zero-Fee UPI Ticketing (GPay, PhonePe, Paytm)</div>
+                    </div>
+                    <div class="sidebar-feature-row">
+                        <div class="sidebar-feature-icon">🤖</div>
+                        <div>Tamil & English Bilingual AI Voice Assistant</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-demo-badge">
+                    <span>⚡ Quick Demo Credentials:</span>
+                    <span>User: <code>demo</code> &bull; Password: <code>demo123</code></span>
+                </div>
+
+                <div class="sidebar-cta-group">
+                    <a href="/login" class="sidebar-cta-btn">Sign In to SmartBus ➔</a>
+                    <a href="/downloads/SmartBus.apk" download="SmartBus.apk" class="sidebar-apk-btn">
+                        <span>📲</span> Download Native APK
+                    </a>
+                </div>
             </div>
-            <a href="/login" class="skip-btn" id="skip-link">
-                Skip ➔
-            </a>
-        </header>
 
-        <!-- Slider Viewport -->
-        <main class="slider-viewport" id="slider-viewport">
-            <div class="slider-track" id="slider-track">
+            <!-- Centered Smartphone Showcase Mockup -->
+            <div class="phone-mockup-frame">
+                <div class="onboarding-container">
+                    <!-- Ambient Decorative Graphics -->
+                    <div class="bg-circle bg-circle-1"></div>
+                    <div class="bg-circle bg-circle-2"></div>
 
-                <!-- SLIDE 1: Statewide Live Bus Radar -->
-                <section class="slide-item">
-                    <div class="stat-badge">
-                        <span>🗺️</span> 38 Districts Connected
-                    </div>
-                    <h1 class="slide-title">Statewide Live Bus Radar</h1>
-                    <p class="slide-desc">
-                        Track government, express & deluxe buses in real time with high-accuracy Google Maps GPS.
-                    </p>
-
-                    <!-- Mockup Graphic 1 -->
-                    <div class="mockup-card-container">
-                        <div class="route-header">
-                            <div class="route-cities">
-                                <span>Chennai</span>
-                                <span style="color:#FF6B00;">➔</span>
-                                <span>Madurai</span>
-                            </div>
-                            <span class="live-tag">LIVE GPS</span>
+                    <!-- Top Navigation -->
+                    <header class="top-nav">
+                        <div class="brand-badge">
+                            <span>🚌</span> SmartBus TN
                         </div>
-                        <div class="bus-meta-row">
-                            <span>TN01-WX-7777 • SETC Deluxe</span>
-                            <span style="color:#FF6B00; font-weight:700;">ETA: 35 mins</span>
-                        </div>
-                        <div class="route-timeline-bar">
-                            <div class="route-timeline-fill"></div>
-                        </div>
-                        <div class="route-stops-row">
-                            <span>Tambaram</span>
-                            <span style="color:#FF6B00;">📍 Tindivanam</span>
-                            <span>Trichy</span>
-                        </div>
-                    </div>
-                </section>
+                        <a href="/login" class="skip-btn" id="skip-link">
+                            Skip ➔
+                        </a>
+                    </header>
 
-                <!-- SLIDE 2: Proactive Stop Guardian -->
-                <section class="slide-item">
-                    <div class="stat-badge">
-                        <span>🔔</span> Core USP
-                    </div>
-                    <h1 class="slide-title">Proactive Stop Guardian</h1>
-                    <p class="slide-desc">
-                        Never miss your bus stop again. Smart wake-up alarms notify you 5 km & 1 km before destination.
-                    </p>
+                    <!-- Slider Viewport (100% per slide) -->
+                    <main class="slider-viewport" id="slider-viewport">
+                        <div class="slider-track" id="slider-track">
 
-                    <!-- Mockup Graphic 2 -->
-                    <div class="mockup-card-container">
-                        <div class="guardian-alert-card">
-                            <div class="guardian-bell-ring">🔔</div>
-                            <div class="guardian-title">Destination Approaching!</div>
-                            <div class="guardian-sub">Wake up & prepare to get down at <strong>Villupuram</strong></div>
-                            <div class="guardian-dist-badge">
-                                ⏳ 2.4 km remaining • ~5 mins
-                            </div>
-                        </div>
-                        <div style="margin-top:10px; font-size:11px; color:#64748B; font-weight:600;">
-                            ✓ Audio chime & strong vibration enabled
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SLIDE 3: SmartBus Voice AI Assistant -->
-                <section class="slide-item">
-                    <div class="stat-badge">
-                        <span>🎤</span> Voice AI Assistant
-                    </div>
-                    <h1 class="slide-title">Speak in Tamil or English</h1>
-                    <p class="slide-desc">
-                        One-touch microphone assistance for senior citizens & rural passengers. Ask routes, fares & timings.
-                    </p>
-
-                    <!-- Mockup Graphic 3 -->
-                    <div class="mockup-card-container">
-                        <div class="voice-card">
-                            <div class="voice-bubble">
-                                <div class="voice-question">
-                                    <span>🎤</span> "சென்னையிலிருந்து மதுரைக்கு அடுத்த பஸ் எப்போது?"
+                            <!-- SLIDE 1: Statewide Live Bus Radar -->
+                            <section class="slide-item">
+                                <div class="stat-badge">
+                                    <span>🗺️</span> 38 Districts Connected
                                 </div>
-                                <div class="voice-reply">
-                                    🤖 "அடுத்த பேருந்து 07:30 AM புறப்படுகிறது (Platform 3)."
+                                <h2 class="slide-title">Statewide Live Bus Radar</h2>
+                                <p class="slide-desc">
+                                    Track government, express & deluxe buses in real time with high-accuracy Google Maps GPS.
+                                </p>
+
+                                <!-- Mockup Graphic 1 -->
+                                <div class="mockup-card-container">
+                                    <div class="route-header">
+                                        <div class="route-cities">
+                                            <span>Chennai</span>
+                                            <span style="color:#FF6B00;">➔</span>
+                                            <span>Madurai</span>
+                                        </div>
+                                        <span class="live-tag">LIVE GPS</span>
+                                    </div>
+                                    <div class="bus-meta-row">
+                                        <span>TN01-WX-7777 &bull; SETC Deluxe</span>
+                                        <span style="color:#FF6B00; font-weight:700;">ETA: 35 mins</span>
+                                    </div>
+                                    <div class="route-timeline-bar">
+                                        <div class="route-timeline-fill"></div>
+                                    </div>
+                                    <div class="route-stops-row">
+                                        <span>Tambaram</span>
+                                        <span style="color:#FF6B00;">📍 Tindivanam</span>
+                                        <span>Trichy</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="voice-wave-bar">
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                            </div>
-                        </div>
-                        <div style="margin-top:10px; font-size:11px; color:#64748B; font-weight:700;">
-                            🔊 Voice Read-Aloud (Text-to-Speech)
-                        </div>
-                    </div>
-                </section>
+                            </section>
 
-                <!-- SLIDE 4: Instant UPI Ticketing & SOS Safety -->
-                <section class="slide-item">
-                    <div class="stat-badge">
-                        <span>⚡</span> Instant & Secure
-                    </div>
-                    <h1 class="slide-title">Instant UPI Passes & SOS</h1>
-                    <p class="slide-desc">
-                        Zero-fee QR tickets with GPay, PhonePe, Paytm or BHIM, plus 24/7 one-tap emergency safety helplines.
-                    </p>
-
-                    <!-- Mockup Graphic 4 -->
-                    <div class="mockup-card-container">
-                        <div class="ticket-preview">
-                            <div class="ticket-top">
-                                <span class="ticket-pnr">PNR: SB-849201</span>
-                                <span class="ticket-verified">✓ CONFIRMED</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0;">
-                                <div>
-                                    <div style="font-size:14px; font-weight:800; color:#0F172A;">Salem ➔ Chennai</div>
-                                    <div style="font-size:11px; color:#64748B;">Seat 14B (Window) • ₹250</div>
+                            <!-- SLIDE 2: Proactive Stop Guardian -->
+                            <section class="slide-item">
+                                <div class="stat-badge">
+                                    <span>🔔</span> Core USP
                                 </div>
-                                <div style="font-size:24px;">🎟️</div>
-                            </div>
-                            <div class="upi-icons-row">
-                                <span>GPay</span> • 
-                                <span style="color:#5F259F;">PhonePe</span> • 
-                                <span style="color:#00BAF2;">Paytm</span> • 
-                                <span>BHIM</span>
-                            </div>
+                                <h2 class="slide-title">Proactive Stop Guardian</h2>
+                                <p class="slide-desc">
+                                    Never miss your bus stop again. Smart wake-up alarms notify you 5 km & 1 km before destination.
+                                </p>
+
+                                <!-- Mockup Graphic 2 -->
+                                <div class="mockup-card-container">
+                                    <div class="guardian-alert-card">
+                                        <div class="guardian-bell-ring">🔔</div>
+                                        <div class="guardian-title">Destination Approaching!</div>
+                                        <div class="guardian-sub">Wake up & prepare to get down at <strong>Villupuram</strong></div>
+                                        <div class="guardian-dist-badge">
+                                            ⏳ 2.4 km remaining &bull; ~5 mins
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:8px; font-size:11px; color:#64748B; font-weight:600;">
+                                        ✓ Audio chime & strong vibration enabled
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- SLIDE 3: SmartBus Voice AI Assistant -->
+                            <section class="slide-item">
+                                <div class="stat-badge">
+                                    <span>🎤</span> Voice AI Assistant
+                                </div>
+                                <h2 class="slide-title">Speak in Tamil or English</h2>
+                                <p class="slide-desc">
+                                    One-touch microphone assistance for senior citizens & rural passengers. Ask routes, fares & timings.
+                                </p>
+
+                                <!-- Mockup Graphic 3 -->
+                                <div class="mockup-card-container">
+                                    <div class="voice-card">
+                                        <div class="voice-bubble">
+                                            <div class="voice-question">
+                                                <span>🎤</span> "சென்னையிலிருந்து மதுரைக்கு அடுத்த பஸ் எப்போது?"
+                                            </div>
+                                            <div class="voice-reply">
+                                                🤖 "அடுத்த பேருந்து 07:30 AM புறப்படுகிறது (Platform 3)."
+                                            </div>
+                                        </div>
+                                        <div class="voice-wave-bar">
+                                            <div class="wave-bar"></div>
+                                            <div class="wave-bar"></div>
+                                            <div class="wave-bar"></div>
+                                            <div class="wave-bar"></div>
+                                            <div class="wave-bar"></div>
+                                            <div class="wave-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:8px; font-size:11px; color:#64748B; font-weight:700;">
+                                        🔊 Voice Read-Aloud (Text-to-Speech)
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- SLIDE 4: Instant UPI Ticketing & SOS Safety -->
+                            <section class="slide-item">
+                                <div class="stat-badge">
+                                    <span>⚡</span> Instant & Secure
+                                </div>
+                                <h2 class="slide-title">Instant UPI Passes & SOS</h2>
+                                <p class="slide-desc">
+                                    Zero-fee QR tickets with GPay, PhonePe, Paytm or BHIM, plus 24/7 one-tap emergency safety helplines.
+                                </p>
+
+                                <!-- Mockup Graphic 4 -->
+                                <div class="mockup-card-container">
+                                    <div class="ticket-preview">
+                                        <div class="ticket-top">
+                                            <span class="ticket-pnr">PNR: SB-849201</span>
+                                            <span class="ticket-verified">✓ CONFIRMED</span>
+                                        </div>
+                                        <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0;">
+                                            <div>
+                                                <div style="font-size:13.5px; font-weight:800; color:#0F172A;">Salem ➔ Chennai</div>
+                                                <div style="font-size:11px; color:#64748B;">Seat 14B (Window) &bull; ₹250</div>
+                                            </div>
+                                            <div style="font-size:22px;">🎟️</div>
+                                        </div>
+                                        <div class="upi-icons-row">
+                                            <span>GPay</span> &bull; 
+                                            <span style="color:#5F259F;">PhonePe</span> &bull; 
+                                            <span style="color:#00BAF2;">Paytm</span> &bull; 
+                                            <span>BHIM</span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:8px; display:flex; justify-content:space-between; font-size:10.5px; color:#64748B; font-weight:700;">
+                                        <span>🚨 112 / 1091 SOS Support</span>
+                                        <span>🔒 100% Secure</span>
+                                    </div>
+                                </div>
+                            </section>
+
                         </div>
-                        <div style="margin-top:8px; display:flex; justify-content:space-between; font-size:10.5px; color:#64748B; font-weight:700;">
-                            <span>🚨 112 / 1091 SOS Support</span>
-                            <span>🔒 100% Secure</span>
+                    </main>
+
+                    <!-- Bottom Controls & CTA -->
+                    <footer class="bottom-action-panel">
+                        <!-- Pagination Indicator Dots -->
+                        <div class="pagination-bar" id="pagination-dots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                            <span class="dot" data-index="3"></span>
                         </div>
-                    </div>
-                </section>
 
+                        <!-- Main Dynamic CTA Button -->
+                        <a href="/login" class="cta-btn" id="cta-button">
+                            <span>Get Started</span>
+                            <span id="cta-arrow">➔</span>
+                        </a>
+
+                        <!-- Secondary Action Links -->
+                        <div class="footer-links">
+                            <span>New to SmartBus? <a href="/register">Register</a></span>
+                            <span><a href="/login">Sign In directly</a></span>
+                        </div>
+                    </footer>
+                </div>
             </div>
-        </main>
 
-        <!-- Bottom Controls & CTA -->
-        <footer class="bottom-action-panel">
-            <!-- Pagination Indicator Dots -->
-            <div class="pagination-bar" id="pagination-dots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
-                <span class="dot" data-index="2"></span>
-                <span class="dot" data-index="3"></span>
-            </div>
-
-            <!-- Main Dynamic CTA Button -->
-            <a href="/login" class="cta-btn" id="cta-button">
-                <span>Get Started</span>
-                <span id="cta-arrow">➔</span>
-            </a>
-
-            <!-- Secondary Action Links -->
-            <div class="footer-links">
-                <span>New to SmartBus? <a href="/register">Register</a></span>
-                <span><a href="/login">Sign In directly</a></span>
-            </div>
-        </footer>
+        </div>
     </div>
 
     <script>
@@ -715,8 +966,8 @@
                 if (index >= totalSlides) index = totalSlides - 1;
                 currentIndex = index;
 
-                // Move track
-                track.style.transform = `translateX(-${currentIndex * 25}%)`;
+                // Move track 100% per slide (Zero bleed or overlap)
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
                 // Update active dot
                 dots.forEach((dot, idx) => {
@@ -790,12 +1041,12 @@
                 }
             });
 
-            // Auto-advance every 5 seconds
+            // Auto-advance every 4.5 seconds
             function startAutoSlide() {
                 autoSlideTimer = setInterval(() => {
                     const next = (currentIndex + 1) % totalSlides;
                     goToSlide(next);
-                }, 5000);
+                }, 4500);
             }
 
             function stopAutoSlide() {

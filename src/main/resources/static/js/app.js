@@ -55,6 +55,11 @@ const SmartBus = {
 
         // Check for active journey on load
         this.checkActiveJourney();
+
+        // Pre-warm backend cache in background to eliminate cold start latency
+        setTimeout(() => {
+            fetch('/api/buses/active').catch(() => {});
+        }, 500);
     },
 
     // ========== NAVIGATION ==========
@@ -193,11 +198,16 @@ const SmartBus = {
 
     // ========== API LAYER ==========
     async api(url, options = {}) {
+        const timeoutMs = options.timeout || 22000;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
         const defaults = {
             headers: {
                 'Content-Type': 'application/json',
                 [this.state.csrfHeader]: this.state.csrfToken
-            }
+            },
+            signal: controller.signal
         };
         const config = { ...defaults, ...options };
         if (options.headers) {
@@ -206,6 +216,7 @@ const SmartBus = {
         
         try {
             const response = await fetch(url, config);
+            clearTimeout(timeoutId);
             if (response.status === 403 || response.status === 401) {
                 window.location.href = '/login';
                 return null;
@@ -217,19 +228,21 @@ const SmartBus = {
             const text = await response.text();
             return text ? JSON.parse(text) : null;
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('API Error:', error);
             throw error;
         }
     },
 
-    async apiGet(url) {
-        return this.api(url);
+    async apiGet(url, options = {}) {
+        return this.api(url, options);
     },
 
-    async apiPost(url, body) {
+    async apiPost(url, body, options = {}) {
         return this.api(url, {
             method: 'POST',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            ...options
         });
     },
 
@@ -417,19 +430,49 @@ const SmartBus = {
         }
 
         const searchBtn = document.getElementById('search-btn');
+        let timer1 = null;
+        let timer2 = null;
+
         if (searchBtn) {
             searchBtn.disabled = true;
-            searchBtn.innerHTML = '⏳ Searching...';
+            searchBtn.innerHTML = '⏳ Searching live buses...';
+
+            timer1 = setTimeout(() => {
+                if (searchBtn && searchBtn.disabled) {
+                    searchBtn.innerHTML = '📡 Connecting live GPS radar...';
+                }
+            }, 2500);
+
+            timer2 = setTimeout(() => {
+                if (searchBtn && searchBtn.disabled) {
+                    searchBtn.innerHTML = '⚡ Fetching routes (~8s)...';
+                    this.showToast('Contacting transit GPS radar, please wait a moment...', 'info');
+                }
+            }, 6500);
         }
 
         try {
-            const results = await this.apiGet(`/api/buses/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+            const results = await this.apiGet(`/api/buses/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, { timeout: 25000 });
             this.state.searchResults = results || [];
             this.renderSearchResults(from, to);
             this.showScreen('search');
         } catch (e) {
-            this.showToast('Error searching buses. Please try again.', 'error');
+            console.warn('Search request error:', e);
+            // Quick retry in case server was spinning up
+            try {
+                if (searchBtn) searchBtn.innerHTML = '🔄 Reconnecting...';
+                const retryResults = await this.apiGet(`/api/buses/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, { timeout: 15000 });
+                if (retryResults && retryResults.length > 0) {
+                    this.state.searchResults = retryResults;
+                    this.renderSearchResults(from, to);
+                    this.showScreen('search');
+                    return;
+                }
+            } catch (err2) {}
+            this.showToast('Search response delayed. Please check connection and try again.', 'error');
         } finally {
+            if (timer1) clearTimeout(timer1);
+            if (timer2) clearTimeout(timer2);
             if (searchBtn) {
                 searchBtn.disabled = false;
                 searchBtn.innerHTML = '🔍 Find Buses';

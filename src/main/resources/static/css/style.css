@@ -696,6 +696,16 @@ textarea:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  max-height: 118px;
+  overflow-y: auto;
+  padding: 2px 2px 4px 2px;
+}
+.city-chips-container::-webkit-scrollbar {
+  width: 5px;
+}
+.city-chips-container::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
 }
 
 .city-chip {
@@ -895,29 +905,32 @@ textarea:focus {
 }
 
 .desktop-nav-link {
-  background: transparent;
-  border: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  padding: 8px 14px;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 18px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  white-space: nowrap;
 }
 
 .desktop-nav-link:hover {
-  color: var(--primary);
-  background: rgba(255, 107, 0, 0.08);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
 }
 
 .desktop-nav-link.active {
-  color: white;
-  background: var(--primary);
-  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.35);
+  color: #E65100;
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (min-width: 820px) {
@@ -938,8 +951,9 @@ textarea:focus {
   .desktop-nav {
     display: flex !important;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin-left: 20px;
+    flex-wrap: nowrap;
   }
 
   /* 2-Column Home Layout on Desktop */
@@ -947,7 +961,7 @@ textarea:focus {
     display: grid !important;
     grid-template-columns: 1fr 1.25fr;
     gap: 24px;
-    align-items: stretch;
+    align-items: start;
     margin-bottom: 24px;
   }
 
@@ -957,10 +971,10 @@ textarea:focus {
   }
 
   .home-desktop-grid .search-form {
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 12px;
   }
 
   .home-desktop-grid .map-col {
@@ -969,15 +983,16 @@ textarea:focus {
   }
 
   .home-desktop-grid .map-card {
-    height: 100%;
+    height: auto;
     margin-top: 0 !important;
     display: flex;
     flex-direction: column;
   }
 
   #home-map {
-    flex: 1;
+    width: 100%;
     min-height: 420px !important;
+    height: 420px;
   }
 
   /* Feature Grid 4 columns on desktop */
