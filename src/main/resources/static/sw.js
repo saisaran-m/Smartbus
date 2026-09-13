@@ -1,6 +1,6 @@
 // SmartBus 2.0 Elite — Enhanced Service Worker
 // Caches app shell, tickets, and schedule data for offline access
-const CACHE_NAME = 'smartbus-v14';
+const CACHE_NAME = 'smartbus-v15';
 const ASSETS = [
   '/',
   '/welcome',
