@@ -1242,23 +1242,23 @@
 
     <!-- ==================== BOTTOM NAVIGATION ==================== -->
     <nav class="bottom-nav">
-        <div class="nav-item active" data-screen="home">
+        <div class="nav-item active" data-screen="home" onclick="SmartBus.showScreen('home')">
             <span class="nav-icon">🏠</span>
             <span>Home</span>
         </div>
-        <div class="nav-item" data-screen="search">
+        <div class="nav-item" data-screen="search" onclick="SmartBus.showScreen('search')">
             <span class="nav-icon">🔍</span>
             <span>Search</span>
         </div>
-        <div class="nav-item" data-screen="mytickets" onclick="if(window.SmartBusTicket) SmartBusTicket.loadMyTickets()">
+        <div class="nav-item" data-screen="mytickets" onclick="SmartBus.showScreen('mytickets')">
             <span class="nav-icon">🎫</span>
             <span>Tickets</span>
         </div>
-        <div class="nav-item" data-screen="journey">
+        <div class="nav-item" data-screen="journey" onclick="SmartBus.showScreen('journey')">
             <span class="nav-icon">📍</span>
             <span>Journey</span>
         </div>
-        <div class="nav-item" data-screen="ai">
+        <div class="nav-item" data-screen="ai" onclick="SmartBus.showScreen('ai')">
             <span class="nav-icon">🤖</span>
             <span>AI</span>
         </div>

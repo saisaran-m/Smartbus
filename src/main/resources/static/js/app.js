@@ -75,12 +75,13 @@ const SmartBus = {
         }
 
         // Update bottom nav active state (Mobile)
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        const navMap = { home: 0, search: 1, journey: 2, ai: 3, fare: 4 };
-        const navItems = document.querySelectorAll('.nav-item');
-        if (navMap[screenId] !== undefined && navItems[navMap[screenId]]) {
-            navItems[navMap[screenId]].classList.add('active');
-        }
+        document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
+            if (item.dataset.screen === screenId) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
 
         // Update desktop header nav active state
         document.querySelectorAll('.desktop-nav-link').forEach(link => {
@@ -92,6 +93,22 @@ const SmartBus = {
 
         if (screenId === 'home' && window.SmartBusMap && SmartBusMap.homeMap) {
             setTimeout(() => SmartBusMap.homeMap.invalidateSize(), 80);
+        }
+
+        if (screenId === 'journey' && window.SmartBusMap) {
+            setTimeout(() => {
+                if (SmartBusMap.map) {
+                    SmartBusMap.map.invalidateSize();
+                } else if (this.state.activeJourney) {
+                    SmartBusMap.initMap(this.state.activeJourney.busId, this.state.activeJourney.routeId);
+                } else {
+                    SmartBusMap.initMap(1, 1);
+                }
+            }, 100);
+        }
+
+        if (screenId === 'mytickets' && window.SmartBusTicket) {
+            SmartBusTicket.loadMyTickets();
         }
 
         window.scrollTo(0, 0);
