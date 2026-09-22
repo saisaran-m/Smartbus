@@ -20,15 +20,15 @@
             --primary-light: #FF8C38;
             --primary-dark: #E55C00;
             --primary-soft: #FFF7ED;
-            --bg-gradient: linear-gradient(160deg, #FF6B00 0%, #EA580C 50%, #C2410C 100%);
             --text-main: #FFFFFF;
-            --text-sub: rgba(255, 255, 255, 0.9);
+            --text-sub: rgba(255, 255, 255, 0.88);
             --card-bg: #FFFFFF;
             --card-text: #0F172A;
             --border: #E2E8F0;
             --shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
             --radius-lg: 24px;
             --radius-md: 16px;
+            --radius-sm: 10px;
             --radius-pill: 999px;
         }
 
@@ -48,7 +48,7 @@
             overflow-x: hidden;
         }
 
-        /* Desktop Container Layout */
+        /* ───── Desktop Container Layout ───── */
         .welcome-page-root {
             min-height: 100vh;
             width: 100%;
@@ -69,7 +69,7 @@
             padding: 24px 20px;
         }
 
-        /* Left Side Desktop Branding Info */
+        /* ───── Left Side Desktop Branding Info ───── */
         .desktop-showcase-sidebar {
             display: none;
             flex: 1;
@@ -184,7 +184,7 @@
             background: rgba(255, 255, 255, 0.18);
         }
 
-        /* Phone Mockup Outer Frame (Desktop) */
+        /* ───── Phone Mockup Outer Frame (Desktop) ───── */
         .phone-mockup-frame {
             width: 100%;
             max-width: 410px;
@@ -196,7 +196,7 @@
             flex-direction: column;
         }
 
-        /* App Shell Wrapper */
+        /* ───── App Shell Wrapper ───── */
         .onboarding-container {
             display: flex;
             flex-direction: column;
@@ -204,62 +204,150 @@
             height: 100%;
             width: 100%;
             position: relative;
-            background: var(--bg-gradient);
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.35);
             overflow: hidden;
+            /* Deep bus-night background */
+            background:
+                linear-gradient(160deg, rgba(15,23,42,0.65) 0%, rgba(15,23,42,0.45) 100%),
+                radial-gradient(ellipse at 20% 80%, rgba(255,107,0,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.12) 0%, transparent 55%),
+                linear-gradient(160deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
         }
 
-        /* Ambient Background Decorative Circles */
-        .bg-circle {
+        /* ───── Animated Background Scene ───── */
+        .bg-scene {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Animated road line at bottom */
+        .road-stripe {
+            position: absolute;
+            bottom: 140px;
+            left: 0;
+            width: 200%;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0px, rgba(255,255,255,0.15) 30px, transparent 30px, transparent 60px);
+            animation: roadMove 3s linear infinite;
+        }
+        @keyframes roadMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Floating city silhouette dots */
+        .city-glow {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
-            z-index: 0;
+            background: rgba(255, 107, 0, 0.08);
+            filter: blur(40px);
         }
-        .bg-circle-1 {
-            width: 320px;
-            height: 320px;
-            top: -60px;
-            right: -80px;
-        }
-        .bg-circle-2 {
-            width: 260px;
-            height: 260px;
-            bottom: 120px;
-            left: -80px;
+        .city-glow-1 { width: 200px; height: 200px; top: 10%; right: -40px; animation: pulse1 5s ease-in-out infinite; }
+        .city-glow-2 { width: 160px; height: 160px; bottom: 25%; left: -30px; animation: pulse1 6s ease-in-out infinite 1s; }
+        .city-glow-3 { width: 120px; height: 120px; top: 40%; left: 50%; animation: pulse1 7s ease-in-out infinite 2s; }
+
+        @keyframes pulse1 {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.15); }
         }
 
-        /* Header Bar with Skip */
+        /* Subtle floating particles */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            animation: float-up 8s linear infinite;
+        }
+        .particle:nth-child(1) { left: 15%; animation-delay: 0s; animation-duration: 9s; }
+        .particle:nth-child(2) { left: 35%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(3) { left: 55%; animation-delay: 4s; animation-duration: 10s; }
+        .particle:nth-child(4) { left: 75%; animation-delay: 1s; animation-duration: 8s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 6s; }
+
+        @keyframes float-up {
+            0% { bottom: -10px; opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { bottom: 105%; opacity: 0; }
+        }
+
+        /* Moving bus silhouette */
+        .bus-silhouette {
+            position: absolute;
+            bottom: 128px;
+            animation: busRide 12s linear infinite;
+            opacity: 0.12;
+        }
+        @keyframes busRide {
+            0% { left: -80px; }
+            100% { left: 110%; }
+        }
+
+        /* Animated GPS beacon */
+        .gps-beacon {
+            position: absolute;
+            top: 18%;
+            right: 22%;
+            width: 8px;
+            height: 8px;
+            background: #FF6B00;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .gps-beacon::before, .gps-beacon::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 107, 0, 0.3);
+            inset: -8px;
+            animation: beacon-ring 2s ease-out infinite;
+        }
+        .gps-beacon::after {
+            inset: -16px;
+            animation-delay: 0.5s;
+        }
+        @keyframes beacon-ring {
+            0% { opacity: 1; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+
+        /* ───── Header Bar with Skip ───── */
         .top-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: max(env(safe-area-inset-top, 0px), 16px) 20px 10px;
             z-index: 10;
+            position: relative;
         }
 
         .brand-badge {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             font-size: 13px;
             font-weight: 800;
             letter-spacing: 0.5px;
         }
+        .brand-badge .brand-smart { color: #FFFFFF; }
+        .brand-badge .brand-bus { color: #FF6B00; }
 
         .skip-btn {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 7px 16px;
             border-radius: var(--radius-pill);
             font-size: 13px;
@@ -273,11 +361,11 @@
         }
 
         .skip-btn:hover, .skip-btn:active {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
             transform: scale(0.96);
         }
 
-        /* Slider Carousel Track: 100% per slide to eliminate any bleed */
+        /* ───── Slider Carousel ───── */
         .slider-viewport {
             flex: 1;
             width: 100%;
@@ -293,7 +381,7 @@
             display: flex;
             width: 100%;
             height: 100%;
-            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
         }
 
@@ -314,60 +402,90 @@
             user-select: none;
         }
 
-        /* Slide Typography */
+        /* ───── Slide Entry Animations ───── */
+        .slide-item .stat-badge,
+        .slide-item .slide-title,
+        .slide-item .slide-desc,
+        .slide-item .mockup-card-container {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide-item.active-slide .stat-badge {
+            opacity: 1; transform: translateY(0);
+            transition-delay: 0.05s;
+        }
+        .slide-item.active-slide .slide-title {
+            opacity: 1; transform: translateY(0);
+            transition-delay: 0.12s;
+        }
+        .slide-item.active-slide .slide-desc {
+            opacity: 1; transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+        .slide-item.active-slide .mockup-card-container {
+            opacity: 1; transform: translateY(0);
+            transition-delay: 0.28s;
+        }
+
+        /* ───── Slide Typography ───── */
         .stat-badge {
-            background: #FFFFFF;
-            color: var(--primary-dark);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #FFFFFF;
             font-size: 11.5px;
             font-weight: 900;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: var(--radius-pill);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255,255,255,0.2);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .slide-title {
-            font-size: 23px;
+            font-size: 24px;
             font-weight: 900;
             line-height: 1.25;
             margin-bottom: 8px;
             color: #FFFFFF;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
         }
 
         .slide-desc {
-            font-size: 13px;
-            line-height: 1.45;
+            font-size: 13.5px;
+            line-height: 1.5;
             color: var(--text-sub);
             max-width: 310px;
-            margin: 0 auto 16px;
+            margin: 0 auto 18px;
         }
 
-        /* Interactive Graphic Mockup Cards */
+        /* ───── Interactive Graphic Mockup Cards ───── */
         .mockup-card-container {
             width: 100%;
-            max-width: 320px;
-            background: var(--card-bg);
+            max-width: 310px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             color: var(--card-text);
             border-radius: var(--radius-lg);
             padding: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.1);
             position: relative;
             animation: floatSlow 4s ease-in-out infinite;
         }
 
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-6px); }
         }
 
-        /* Mockup 1: Route Live Radar */
+        /* ──── Mockup 1: Route Live Radar ──── */
         .route-header {
             display: flex;
             justify-content: space-between;
@@ -428,9 +546,13 @@
         }
         .route-timeline-fill {
             height: 100%;
-            width: 65%;
+            width: 0%;
             background: linear-gradient(90deg, #FF6B00 0%, #38BDF8 100%);
             border-radius: 4px;
+            transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .slide-item.active-slide .route-timeline-fill {
+            width: 65%;
         }
         .route-stops-row {
             display: flex;
@@ -440,7 +562,7 @@
             font-weight: 700;
         }
 
-        /* Mockup 2: Stop Guardian Alert */
+        /* ──── Mockup 2: Stop Guardian Alert ──── */
         .guardian-alert-card {
             background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
             border: 2px solid #F97316;
@@ -451,9 +573,9 @@
             overflow: hidden;
         }
         .guardian-bell-ring {
-            width: 44px;
-            height: 44px;
-            background: #FF6B00;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #FF6B00, #EA580C);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -462,7 +584,7 @@
             font-size: 22px;
             margin: 0 auto 8px;
             animation: bellRing 1.8s infinite ease-in-out;
-            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.4);
+            box-shadow: 0 4px 18px rgba(255, 107, 0, 0.45);
         }
         @keyframes bellRing {
             0%, 100% { transform: rotate(0); }
@@ -492,7 +614,7 @@
             border-radius: var(--radius-pill);
         }
 
-        /* Mockup 3: Voice AI */
+        /* ──── Mockup 3: Voice AI ──── */
         .voice-card {
             background: #F8FAFC;
             border: 1.5px solid var(--border);
@@ -547,7 +669,7 @@
             50% { transform: scaleY(1); }
         }
 
-        /* Mockup 4: UPI & Safety */
+        /* ──── Mockup 4: UPI & Safety ──── */
         .ticket-preview {
             border: 2px dashed #CBD5E1;
             border-radius: var(--radius-md);
@@ -587,17 +709,18 @@
             color: #334155;
         }
 
-        /* Bottom Controls Area */
+        /* ───── Bottom Controls Area ───── */
         .bottom-action-panel {
             padding: 14px 20px max(env(safe-area-inset-bottom, 0px), 18px);
-            background: rgba(0, 0, 0, 0.14);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             z-index: 10;
+            position: relative;
         }
 
-        /* Pagination Indicator Dots */
+        /* ───── Pagination Indicator Dots ───── */
         .pagination-bar {
             display: flex;
             justify-content: center;
@@ -610,18 +733,18 @@
             width: 8px;
             height: 8px;
             border-radius: var(--radius-pill);
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .dot.active {
-            width: 26px;
-            background: #FFFFFF;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            width: 28px;
+            background: #FF6B00;
+            box-shadow: 0 0 12px rgba(255, 107, 0, 0.5);
         }
 
-        /* Primary Action Button */
+        /* ───── Primary Action Button ───── */
         .cta-btn {
             display: flex;
             align-items: center;
@@ -629,28 +752,53 @@
             gap: 8px;
             width: 100%;
             padding: 15px;
-            background: #FFFFFF;
-            color: var(--primary-dark);
+            background: linear-gradient(135deg, #FF6B00, #EA580C);
+            color: #FFFFFF;
             border: none;
             border-radius: var(--radius-md);
             font-size: 15.5px;
             font-weight: 900;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s ease;
+            box-shadow: 0 8px 28px rgba(255, 107, 0, 0.4);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         .cta-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+            box-shadow: 0 12px 32px rgba(255, 107, 0, 0.5);
         }
 
         .cta-btn:active {
-            transform: translateY(1px);
+            transform: translateY(1px) scale(0.98);
         }
 
-        /* Footer Links (Sign in / Register) */
+        .cta-btn.final-slide {
+            background: linear-gradient(135deg, #FFFFFF, #F1F5F9);
+            color: #E55C00;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+        }
+        .cta-btn.final-slide:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ───── Footer Links ───── */
         .footer-links {
             display: flex;
             justify-content: space-between;
@@ -661,18 +809,20 @@
         }
 
         .footer-links a {
-            color: #FFFFFF;
+            color: #FF8C38;
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+            border-bottom: 1px dashed rgba(255, 140, 56, 0.5);
             padding-bottom: 1px;
+            transition: color 0.2s;
         }
 
         .footer-links a:hover {
-            border-bottom-style: solid;
+            color: #FFFFFF;
+            border-bottom-color: rgba(255,255,255,0.6);
         }
 
-        /* Desktop Media Query */
+        /* ───── Desktop Media Query ───── */
         @media (min-width: 768px) {
             .desktop-showcase-sidebar {
                 display: flex;
@@ -739,14 +889,36 @@
             <!-- Centered Smartphone Showcase Mockup -->
             <div class="phone-mockup-frame">
                 <div class="onboarding-container">
-                    <!-- Ambient Decorative Graphics -->
-                    <div class="bg-circle bg-circle-1"></div>
-                    <div class="bg-circle bg-circle-2"></div>
+
+                    <!-- Animated Background Scene -->
+                    <div class="bg-scene">
+                        <div class="city-glow city-glow-1"></div>
+                        <div class="city-glow city-glow-2"></div>
+                        <div class="city-glow city-glow-3"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="road-stripe"></div>
+                        <!-- Animated bus SVG silhouette -->
+                        <svg class="bus-silhouette" width="70" height="38" viewBox="0 0 70 38" fill="none">
+                            <rect x="2" y="6" width="60" height="24" rx="6" fill="white"/>
+                            <rect x="8" y="10" width="12" height="10" rx="2" fill="rgba(255,255,255,0.5)"/>
+                            <rect x="24" y="10" width="12" height="10" rx="2" fill="rgba(255,255,255,0.5)"/>
+                            <rect x="40" y="10" width="12" height="10" rx="2" fill="rgba(255,255,255,0.5)"/>
+                            <circle cx="16" cy="32" r="5" fill="white"/>
+                            <circle cx="48" cy="32" r="5" fill="white"/>
+                            <rect x="56" y="14" width="8" height="6" rx="2" fill="rgba(255,107,0,0.5)"/>
+                        </svg>
+                        <div class="gps-beacon"></div>
+                    </div>
 
                     <!-- Top Navigation -->
                     <header class="top-nav">
                         <div class="brand-badge">
-                            <span>🚌</span> SmartBus TN
+                            <span>🚌</span>
+                            <span class="brand-smart">Smart</span><span class="brand-bus">Bus</span>
                         </div>
                         <a href="/login" class="skip-btn" id="skip-link">
                             Skip ➔
@@ -758,7 +930,7 @@
                         <div class="slider-track" id="slider-track">
 
                             <!-- SLIDE 1: Statewide Live Bus Radar -->
-                            <section class="slide-item">
+                            <section class="slide-item active-slide">
                                 <div class="stat-badge">
                                     <span>🗺️</span> 38 Districts Connected
                                 </div>
@@ -905,11 +1077,11 @@
                             <span class="dot" data-index="3"></span>
                         </div>
 
-                        <!-- Main Dynamic CTA Button -->
-                        <a href="/login" class="cta-btn" id="cta-button">
-                            <span>Get Started</span>
+                        <!-- Main Dynamic CTA Button (BUTTON, not anchor — JS controls behavior) -->
+                        <button type="button" class="cta-btn" id="cta-button">
+                            <span id="cta-text">Next</span>
                             <span id="cta-arrow">➔</span>
-                        </a>
+                        </button>
 
                         <!-- Secondary Action Links -->
                         <div class="footer-links">
@@ -928,8 +1100,10 @@
             const track = document.getElementById('slider-track');
             const dots = document.querySelectorAll('.dot');
             const ctaBtn = document.getElementById('cta-button');
+            const ctaText = document.getElementById('cta-text');
             const ctaArrow = document.getElementById('cta-arrow');
             const viewport = document.getElementById('slider-viewport');
+            const slides = document.querySelectorAll('.slide-item');
             
             let currentIndex = 0;
             const totalSlides = 4;
@@ -948,15 +1122,34 @@
                     dot.classList.toggle('active', idx === currentIndex);
                 });
 
-                // Update CTA text on final slide
+                // Update slide active class for entry animations
+                slides.forEach((slide, idx) => {
+                    slide.classList.toggle('active-slide', idx === currentIndex);
+                });
+
+                // Update CTA text based on current slide
                 if (currentIndex === totalSlides - 1) {
-                    ctaBtn.querySelector('span:first-child').textContent = 'Login & Travel Now! 🚀';
+                    ctaText.textContent = 'Login & Travel Now! 🚀';
                     ctaArrow.textContent = '';
+                    ctaBtn.classList.add('final-slide');
                 } else {
-                    ctaBtn.querySelector('span:first-child').textContent = 'Get Started';
+                    ctaText.textContent = 'Next';
                     ctaArrow.textContent = '➔';
+                    ctaBtn.classList.remove('final-slide');
                 }
             }
+
+            // CTA button click: advance to next slide, or navigate to login on last slide
+            ctaBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentIndex < totalSlides - 1) {
+                    resetAutoSlide();
+                    goToSlide(currentIndex + 1);
+                } else {
+                    // Last slide: go to login
+                    window.location.href = '/login';
+                }
+            });
 
             // Dot navigation clicks
             dots.forEach(dot => {
@@ -987,7 +1180,7 @@
                 if (!isSwiping) return;
                 isSwiping = false;
                 const diff = startX - currentX;
-                const threshold = 45; // min swipe distance in px
+                const threshold = 45;
 
                 if (diff > threshold) {
                     // Swiped left -> Next slide
@@ -1008,7 +1201,9 @@
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight') {
                     resetAutoSlide();
-                    goToSlide(currentIndex + 1);
+                    if (currentIndex < totalSlides - 1) {
+                        goToSlide(currentIndex + 1);
+                    }
                 } else if (e.key === 'ArrowLeft') {
                     resetAutoSlide();
                     goToSlide(currentIndex - 1);
@@ -1035,6 +1230,8 @@
                 startAutoSlide();
             }
 
+            // Initialize first slide and start auto
+            goToSlide(0);
             startAutoSlide();
         })();
     </script>
