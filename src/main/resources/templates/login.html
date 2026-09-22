@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SmartBus - Login</title>
     <!-- PWA & Mobile App Support -->
     <link rel="manifest" href="/manifest.json">
@@ -18,20 +18,21 @@
             --primary: #FF6B00;
             --primary-dark: #E55C00;
             --primary-light: #FFF7ED;
-            --bg: #F1F5F9;
+            --bg: #0F172A;
+            --card-bg: #FFFFFF;
             --text-primary: #0F172A;
             --text-secondary: #64748B;
             --border: #E2E8F0;
-            --shadow: 0 16px 40px -10px rgba(0,0,0,0.12);
+            --shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
             --radius: 20px;
             --radius-sm: 10px;
             --success: #16A34A;
             --danger: #DC2626;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
+            background: radial-gradient(circle at 50% 20%, #1E293B 0%, #0F172A 70%, #020617 100%);
             color: var(--text-primary);
             display: flex;
             align-items: center;
@@ -44,11 +45,11 @@
             display: flex;
             width: 100%;
             max-width: 440px;
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             overflow: hidden;
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: max-width 0.3s ease;
         }
 
@@ -169,22 +170,38 @@
         /* Form Card Panel */
         .login-card {
             flex: 1;
-            padding: 40px 32px;
+            padding: 36px 28px;
             width: 100%;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: #FFFFFF;
         }
 
         .logo-container {
             margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .logo-svg {
-            width: 190px;
+            width: 200px;
             height: auto;
         }
-
+        .namma-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: #EA580C;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            background: #FFF7ED;
+            padding: 2px 10px;
+            border-radius: 999px;
+            border: 1px solid #FED7AA;
+        }
 
         .alert {
             padding: 12px;
@@ -230,16 +247,19 @@
 
         .form-input {
             width: 100%;
-            padding: 13px 14px;
+            height: 48px;
+            padding: 0 14px;
             border: 2px solid var(--border);
             border-radius: var(--radius-sm);
             font-size: 15px;
             outline: none;
             transition: all 0.2s;
             color: var(--text-primary);
+            background: #F8FAFC;
         }
         .form-input:focus {
             border-color: var(--primary);
+            background: #FFFFFF;
             box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
         }
 
@@ -250,9 +270,10 @@
             border: none;
             font-size: 16px;
             cursor: pointer;
-            padding: 4px;
+            padding: 6px;
             color: var(--text-secondary);
             transition: opacity 0.2s;
+            user-select: none;
         }
         .toggle-password-btn:hover {
             opacity: 0.8;
@@ -260,19 +281,23 @@
 
         .btn-primary {
             width: 100%;
-            padding: 14px;
-            background: var(--primary);
+            height: 48px;
+            background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
             color: white;
             border: none;
             border-radius: var(--radius-sm);
-            font-size: 15px;
+            font-size: 15.5px;
             font-weight: 800;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
             box-shadow: 0 4px 14px rgba(255, 107, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
             transform: translateY(-1px);
         }
         .btn-primary:active {
@@ -315,7 +340,7 @@
     <div class="login-hero-panel">
         <div>
             <div class="hero-badge">
-                <span>🛰️</span> Real-Time Transit GPS
+                <span>&#128225;</span> Real-Time Transit GPS
             </div>
             <h2 class="hero-title">Travel across Tamil Nadu with <span>SmartBus</span></h2>
             <p class="hero-sub">
@@ -324,19 +349,19 @@
 
             <div class="hero-features">
                 <div class="hero-feature-item">
-                    <div class="hero-feature-icon">🗺️</div>
+                    <div class="hero-feature-icon">&#128506;&#65039;</div>
                     <div>High-Accuracy Google Maps Live Bus Radar</div>
                 </div>
                 <div class="hero-feature-item">
-                    <div class="hero-feature-icon">🔔</div>
+                    <div class="hero-feature-icon">&#128276;</div>
                     <div>Smart Stop Guardian Audio & Vibration Wake-Up Alert</div>
                 </div>
                 <div class="hero-feature-item">
-                    <div class="hero-feature-icon">💳</div>
+                    <div class="hero-feature-icon">&#128179;</div>
                     <div>100% Digital QR Boarding Pass (GPay, PhonePe, Paytm)</div>
                 </div>
                 <div class="hero-feature-item">
-                    <div class="hero-feature-icon">🤖</div>
+                    <div class="hero-feature-icon">&#129302;</div>
                     <div>Bilingual Tamil & English AI Voice Transit Assistant</div>
                 </div>
             </div>
@@ -387,10 +412,11 @@
                     Smart<tspan fill="#FF6B00">Bus</tspan>
                 </text>
             </svg>
+            <span class="namma-tag">&#128652; &#2984;&#2990;&#3021;&#2990; SmartBus &bull; TN Transit</span>
         </div>
 
         <div th:if="${param.error}" class="alert alert-error">
-            Invalid username or password.
+            Invalid username or password. Please check and try again.
         </div>
         
         <div th:if="${param.logout}" class="alert alert-info">
@@ -401,38 +427,41 @@
             Registration successful! Please sign in with your credentials.
         </div>
 
-        <form id="login-form" th:action="@{/login}" method="post">
+        <form id="login-form" action="/login" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <div class="input-wrapper">
-                    <input type="text" id="username" name="username" class="form-input" placeholder="e.g. demo" required autofocus autocomplete="username">
+                    <input type="text" id="username" name="username" class="form-input" placeholder="Enter username" required autofocus autocomplete="username">
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-wrapper">
-                    <input type="password" id="password" name="password" class="form-input" placeholder="e.g. demo123" required autocomplete="current-password">
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter password" required autocomplete="current-password">
                     <button type="button" class="toggle-password-btn" id="toggle-pw-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password">
-                        👁️
+                        &#128065;
                     </button>
                 </div>
             </div>
             
-            <button type="submit" class="btn-primary" id="sign-in-btn">Sign In ➔</button>
+            <button type="submit" class="btn-primary" id="sign-in-btn">
+                <span>Sign In</span>
+                <span>&rarr;</span>
+            </button>
         </form>
         
         <div class="register-link">
-            New to SmartBus? <a th:href="@{/register}">Create an account</a>
+            New to SmartBus? <a href="/register">Create an account</a>
         </div>
 
         <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); text-align: center;">
             <a href="/downloads/SmartBus.apk" download="SmartBus.apk" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; background: #FFF3E0; color: #E65100; border: 1.5px solid #FFB74D; border-radius: var(--radius-sm); font-weight: 700; text-decoration: none; font-size: 13.5px;">
-                <span>📲</span> Download Native Android App (.apk)
+                <span>&#128242;</span> Download Native Android App (.apk)
             </a>
             <div style="margin-top: 12px;">
-                <a th:href="@{/welcome}" style="color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-                    ✨ Explore SmartBus Features (App Tour) ➔
+                <a href="/welcome" style="color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                    &#10024; Explore SmartBus Tour &rarr;
                 </a>
             </div>
         </div>
@@ -447,11 +476,11 @@
         if (!pwInput) return;
         if (pwInput.type === 'password') {
             pwInput.type = 'text';
-            btn.textContent = '🙈';
+            btn.innerHTML = '&#128584;';
             btn.title = 'Hide Password';
         } else {
             pwInput.type = 'password';
-            btn.textContent = '👁️';
+            btn.innerHTML = '&#128065;';
             btn.title = 'Show Password';
         }
     }

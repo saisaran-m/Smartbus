@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Welcome to SmartBus – Tamil Nadu Smart Transit</title>
+    <title>நம்ம SmartBus – Tamil Nadu Smart Transit</title>
     <!-- PWA & Mobile App Support -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#FF6B00">
@@ -25,7 +25,7 @@
             --card-bg: #FFFFFF;
             --card-text: #0F172A;
             --border: #E2E8F0;
-            --shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 10px;
@@ -43,19 +43,19 @@
             height: 100%;
             width: 100%;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #0F172A;
+            background: #0B1120;
             color: var(--text-main);
             overflow-x: hidden;
         }
 
-        /* ───── Desktop Container Layout ───── */
+        /* Desktop Container Layout */
         .welcome-page-root {
             min-height: 100vh;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 50% 20%, #1E293B 0%, #0F172A 70%, #020617 100%);
+            background: radial-gradient(circle at 50% 15%, #1E293B 0%, #0F172A 60%, #020617 100%);
             padding: 0;
         }
 
@@ -65,50 +65,54 @@
             justify-content: center;
             gap: 50px;
             width: 100%;
-            max-width: 1080px;
+            max-width: 1100px;
             padding: 24px 20px;
         }
 
-        /* ───── Left Side Desktop Branding Info ───── */
+        /* Left Side Desktop Branding Info */
         .desktop-showcase-sidebar {
             display: none;
-            flex: 1;
+            flex: 1.1;
             flex-direction: column;
             color: #FFFFFF;
-            max-width: 480px;
+            max-width: 500px;
         }
 
         .sidebar-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: rgba(255, 107, 0, 0.2);
             border: 1px solid rgba(255, 107, 0, 0.4);
             color: #FF8C38;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: var(--radius-pill);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             width: fit-content;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .sidebar-title {
-            font-size: 34px;
+            font-size: 38px;
             font-weight: 900;
             line-height: 1.2;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
         }
 
-        .sidebar-title span {
+        .sidebar-title .tamil-title {
             color: #FF6B00;
+            display: block;
+            font-size: 32px;
+            margin-bottom: 4px;
         }
 
         .sidebar-desc {
-            font-size: 15px;
-            line-height: 1.55;
+            font-size: 15.5px;
+            line-height: 1.6;
             color: #94A3B8;
             margin-bottom: 24px;
         }
@@ -123,68 +127,72 @@
         .sidebar-feature-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 14px;
+            gap: 14px;
+            font-size: 14.5px;
             font-weight: 600;
             color: #E2E8F0;
         }
 
         .sidebar-feature-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .sidebar-cta-group {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             align-items: center;
         }
 
         .sidebar-cta-btn {
-            padding: 13px 24px;
-            background: #FF6B00;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
             color: #FFFFFF;
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 800;
             border-radius: 12px;
             text-decoration: none;
-            transition: all 0.2s;
-            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.35);
+            transition: all 0.25s;
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .sidebar-cta-btn:hover {
-            background: #EA580C;
             transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(255, 107, 0, 0.5);
         }
 
         .sidebar-apk-btn {
-            padding: 13px 20px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 14px 22px;
+            background: rgba(255, 255, 255, 0.08);
             color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 13.5px;
+            font-size: 14px;
             font-weight: 700;
             border-radius: 12px;
             text-decoration: none;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .sidebar-apk-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.16);
         }
 
-        /* ───── Phone Mockup Outer Frame (Desktop) ───── */
+        /* Phone Mockup Outer Frame */
         .phone-mockup-frame {
             width: 100%;
             max-width: 410px;
@@ -196,7 +204,7 @@
             flex-direction: column;
         }
 
-        /* ───── App Shell Wrapper ───── */
+        /* App Shell Wrapper */
         .onboarding-container {
             display: flex;
             flex-direction: column;
@@ -205,15 +213,34 @@
             width: 100%;
             position: relative;
             overflow: hidden;
-            /* Deep bus-night background */
             background:
-                linear-gradient(160deg, rgba(15,23,42,0.65) 0%, rgba(15,23,42,0.45) 100%),
-                radial-gradient(ellipse at 20% 80%, rgba(255,107,0,0.18) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.12) 0%, transparent 55%),
+                linear-gradient(160deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.4) 100%),
+                radial-gradient(ellipse at 20% 80%, rgba(255,107,0,0.22) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.15) 0%, transparent 55%),
                 linear-gradient(160deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
         }
 
-        /* ───── Animated Background Scene ───── */
+        /* Realistic Smartphone Top Status Bar */
+        .phone-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: max(env(safe-area-inset-top, 0px), 8px) 20px 4px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.85);
+            z-index: 15;
+            user-select: none;
+        }
+
+        .phone-status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+        }
+
+        /* Animated Background Scene */
         .bg-scene {
             position: absolute;
             inset: 0;
@@ -222,14 +249,13 @@
             pointer-events: none;
         }
 
-        /* Animated road line at bottom */
         .road-stripe {
             position: absolute;
             bottom: 140px;
             left: 0;
             width: 200%;
             height: 3px;
-            background: repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0px, rgba(255,255,255,0.15) 30px, transparent 30px, transparent 60px);
+            background: repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 30px, transparent 30px, transparent 60px);
             animation: roadMove 3s linear infinite;
         }
         @keyframes roadMove {
@@ -237,61 +263,55 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Floating city silhouette dots */
         .city-glow {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 107, 0, 0.08);
+            background: rgba(255, 107, 0, 0.1);
             filter: blur(40px);
         }
-        .city-glow-1 { width: 200px; height: 200px; top: 10%; right: -40px; animation: pulse1 5s ease-in-out infinite; }
-        .city-glow-2 { width: 160px; height: 160px; bottom: 25%; left: -30px; animation: pulse1 6s ease-in-out infinite 1s; }
-        .city-glow-3 { width: 120px; height: 120px; top: 40%; left: 50%; animation: pulse1 7s ease-in-out infinite 2s; }
+        .city-glow-1 { width: 220px; height: 220px; top: 12%; right: -50px; animation: pulseGlow1 5s ease-in-out infinite; }
+        .city-glow-2 { width: 180px; height: 180px; bottom: 22%; left: -40px; animation: pulseGlow1 6s ease-in-out infinite 1s; }
 
-        @keyframes pulse1 {
+        @keyframes pulseGlow1 {
             0%, 100% { opacity: 0.4; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.15); }
         }
 
-        /* Subtle floating particles */
         .particle {
             position: absolute;
             width: 3px;
             height: 3px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.25);
-            animation: float-up 8s linear infinite;
+            background: rgba(255,255,255,0.3);
+            animation: floatParticle 8s linear infinite;
         }
         .particle:nth-child(1) { left: 15%; animation-delay: 0s; animation-duration: 9s; }
-        .particle:nth-child(2) { left: 35%; animation-delay: 2s; animation-duration: 7s; }
-        .particle:nth-child(3) { left: 55%; animation-delay: 4s; animation-duration: 10s; }
-        .particle:nth-child(4) { left: 75%; animation-delay: 1s; animation-duration: 8s; }
-        .particle:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 6s; }
+        .particle:nth-child(2) { left: 45%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(3) { left: 75%; animation-delay: 4s; animation-duration: 10s; }
+        .particle:nth-child(4) { left: 90%; animation-delay: 1s; animation-duration: 8s; }
 
-        @keyframes float-up {
+        @keyframes floatParticle {
             0% { bottom: -10px; opacity: 0; }
-            20% { opacity: 0.6; }
+            20% { opacity: 0.7; }
             80% { opacity: 0.3; }
             100% { bottom: 105%; opacity: 0; }
         }
 
-        /* Moving bus silhouette */
         .bus-silhouette {
             position: absolute;
             bottom: 128px;
             animation: busRide 12s linear infinite;
-            opacity: 0.12;
+            opacity: 0.16;
         }
         @keyframes busRide {
             0% { left: -80px; }
             100% { left: 110%; }
         }
 
-        /* Animated GPS beacon */
         .gps-beacon {
             position: absolute;
-            top: 18%;
-            right: 22%;
+            top: 22%;
+            right: 20%;
             width: 8px;
             height: 8px;
             background: #FF6B00;
@@ -302,25 +322,25 @@
             content: '';
             position: absolute;
             border-radius: 50%;
-            border: 2px solid rgba(255, 107, 0, 0.3);
+            border: 2px solid rgba(255, 107, 0, 0.4);
             inset: -8px;
-            animation: beacon-ring 2s ease-out infinite;
+            animation: beaconRing 2s ease-out infinite;
         }
         .gps-beacon::after {
             inset: -16px;
             animation-delay: 0.5s;
         }
-        @keyframes beacon-ring {
+        @keyframes beaconRing {
             0% { opacity: 1; transform: scale(0.5); }
             100% { opacity: 0; transform: scale(1.5); }
         }
 
-        /* ───── Header Bar with Skip ───── */
+        /* Top App Navigation */
         .top-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: max(env(safe-area-inset-top, 0px), 16px) 20px 10px;
+            padding: 10px 20px 8px;
             z-index: 10;
             position: relative;
         }
@@ -329,26 +349,27 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.14);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 6px 14px;
             border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-size: 13.5px;
             font-weight: 800;
             letter-spacing: 0.5px;
         }
+        .brand-badge .brand-tamil { color: #FFD166; font-size: 12.5px; margin-right: 2px; }
         .brand-badge .brand-smart { color: #FFFFFF; }
         .brand-badge .brand-bus { color: #FF6B00; }
 
         .skip-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 7px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
             border-radius: var(--radius-pill);
             font-size: 13px;
             font-weight: 700;
@@ -365,7 +386,7 @@
             transform: scale(0.96);
         }
 
-        /* ───── Slider Carousel ───── */
+        /* Slider Carousel Viewport */
         .slider-viewport {
             flex: 1;
             width: 100%;
@@ -381,7 +402,7 @@
             display: flex;
             width: 100%;
             height: 100%;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
         }
 
@@ -397,95 +418,66 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px 22px 18px;
+            padding: 6px 20px 14px;
             text-align: center;
             user-select: none;
         }
 
-        /* ───── Slide Entry Animations ───── */
-        .slide-item .stat-badge,
-        .slide-item .slide-title,
-        .slide-item .slide-desc,
-        .slide-item .mockup-card-container {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .slide-item.active-slide .stat-badge {
-            opacity: 1; transform: translateY(0);
-            transition-delay: 0.05s;
-        }
-        .slide-item.active-slide .slide-title {
-            opacity: 1; transform: translateY(0);
-            transition-delay: 0.12s;
-        }
-        .slide-item.active-slide .slide-desc {
-            opacity: 1; transform: translateY(0);
-            transition-delay: 0.2s;
-        }
-        .slide-item.active-slide .mockup-card-container {
-            opacity: 1; transform: translateY(0);
-            transition-delay: 0.28s;
-        }
-
-        /* ───── Slide Typography ───── */
+        /* Slide Typography */
         .stat-badge {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.16);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: #FFFFFF;
             font-size: 11.5px;
             font-weight: 900;
-            padding: 5px 14px;
+            padding: 4px 14px;
             border-radius: var(--radius-pill);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.22);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .slide-title {
-            font-size: 24px;
+            font-size: 23px;
             font-weight: 900;
             line-height: 1.25;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #FFFFFF;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
         }
 
         .slide-desc {
-            font-size: 13.5px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.45;
             color: var(--text-sub);
-            max-width: 310px;
-            margin: 0 auto 18px;
+            max-width: 320px;
+            margin: 0 auto 14px;
         }
 
-        /* ───── Interactive Graphic Mockup Cards ───── */
+        /* Interactive Real-App Graphic Mockup Cards */
         .mockup-card-container {
             width: 100%;
-            max-width: 310px;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            max-width: 320px;
+            background: #FFFFFF;
             color: var(--card-text);
             border-radius: var(--radius-lg);
             padding: 16px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
             position: relative;
             animation: floatSlow 4s ease-in-out infinite;
         }
 
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-5px); }
         }
 
-        /* ──── Mockup 1: Route Live Radar ──── */
+        /* Mockup 1: Route Live Radar */
         .route-header {
             display: flex;
             justify-content: space-between;
@@ -507,7 +499,7 @@
             color: #166534;
             font-size: 10px;
             font-weight: 800;
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: var(--radius-pill);
             display: inline-flex;
             align-items: center;
@@ -546,13 +538,9 @@
         }
         .route-timeline-fill {
             height: 100%;
-            width: 0%;
+            width: 68%;
             background: linear-gradient(90deg, #FF6B00 0%, #38BDF8 100%);
             border-radius: 4px;
-            transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .slide-item.active-slide .route-timeline-fill {
-            width: 65%;
         }
         .route-stops-row {
             display: flex;
@@ -562,7 +550,7 @@
             font-weight: 700;
         }
 
-        /* ──── Mockup 2: Stop Guardian Alert ──── */
+        /* Mockup 2: Stop Guardian Alert */
         .guardian-alert-card {
             background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
             border: 2px solid #F97316;
@@ -573,8 +561,8 @@
             overflow: hidden;
         }
         .guardian-bell-ring {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             background: linear-gradient(135deg, #FF6B00, #EA580C);
             color: white;
             border-radius: 50%;
@@ -584,7 +572,7 @@
             font-size: 22px;
             margin: 0 auto 8px;
             animation: bellRing 1.8s infinite ease-in-out;
-            box-shadow: 0 4px 18px rgba(255, 107, 0, 0.45);
+            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.4);
         }
         @keyframes bellRing {
             0%, 100% { transform: rotate(0); }
@@ -614,7 +602,7 @@
             border-radius: var(--radius-pill);
         }
 
-        /* ──── Mockup 3: Voice AI ──── */
+        /* Mockup 3: Voice AI */
         .voice-card {
             background: #F8FAFC;
             border: 1.5px solid var(--border);
@@ -669,7 +657,7 @@
             50% { transform: scaleY(1); }
         }
 
-        /* ──── Mockup 4: UPI & Safety ──── */
+        /* Mockup 4: UPI & Safety */
         .ticket-preview {
             border: 2px dashed #CBD5E1;
             border-radius: var(--radius-md);
@@ -709,31 +697,31 @@
             color: #334155;
         }
 
-        /* ───── Bottom Controls Area ───── */
+        /* Bottom Controls Area */
         .bottom-action-panel {
             padding: 14px 20px max(env(safe-area-inset-bottom, 0px), 18px);
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 10;
             position: relative;
         }
 
-        /* ───── Pagination Indicator Dots ───── */
+        /* Pagination Indicator Dots */
         .pagination-bar {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .dot {
             width: 8px;
             height: 8px;
             border-radius: var(--radius-pill);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -741,70 +729,45 @@
         .dot.active {
             width: 28px;
             background: #FF6B00;
-            box-shadow: 0 0 12px rgba(255, 107, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 107, 0, 0.6);
         }
 
-        /* ───── Primary Action Button ───── */
+        /* Main Dynamic CTA Button: DIRECT LINK TO /login */
         .cta-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #FF6B00, #EA580C);
+            height: 50px;
+            background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
             color: #FFFFFF;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 15.5px;
+            font-size: 16px;
             font-weight: 900;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 8px 28px rgba(255, 107, 0, 0.4);
-            transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            transition: left 0.5s;
-        }
-        .cta-btn:hover::before {
-            left: 100%;
+            box-shadow: 0 8px 24px rgba(255, 107, 0, 0.45);
+            transition: all 0.2s ease;
         }
 
         .cta-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(255, 107, 0, 0.5);
+            box-shadow: 0 12px 28px rgba(255, 107, 0, 0.55);
         }
 
         .cta-btn:active {
-            transform: translateY(1px) scale(0.98);
+            transform: translateY(1px);
         }
 
-        .cta-btn.final-slide {
-            background: linear-gradient(135deg, #FFFFFF, #F1F5F9);
-            color: #E55C00;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
-        }
-        .cta-btn.final-slide:hover {
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        /* ───── Footer Links ───── */
+        /* Footer Links */
         .footer-links {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
-            font-size: 12px;
+            font-size: 12.5px;
             color: var(--text-sub);
         }
 
@@ -819,10 +782,10 @@
 
         .footer-links a:hover {
             color: #FFFFFF;
-            border-bottom-color: rgba(255,255,255,0.6);
+            border-bottom-color: rgba(255,255,255,0.8);
         }
 
-        /* ───── Desktop Media Query ───── */
+        /* Desktop Media Query */
         @media (min-width: 768px) {
             .desktop-showcase-sidebar {
                 display: flex;
@@ -850,9 +813,10 @@
             <!-- Desktop Left Showcase Info -->
             <div class="desktop-showcase-sidebar">
                 <div class="sidebar-badge">
-                    <span>🚌</span> Tamil Nadu Smart Transit
+                    <span>&#128652;</span> &#2984;&#2990;&#3021;&#2990; SmartBus &bull; Tamil Nadu Transit
                 </div>
                 <h1 class="sidebar-title">
+                    <span class="tamil-title">&#2984;&#2990;&#3021;&#2990; SmartBus</span>
                     The Modern Way to Travel Across <span>Tamil Nadu</span>
                 </h1>
                 <p class="sidebar-desc">
@@ -861,27 +825,30 @@
 
                 <div class="sidebar-features">
                     <div class="sidebar-feature-row">
-                        <div class="sidebar-feature-icon">🛰️</div>
+                        <div class="sidebar-feature-icon">&#128506;&#65039;</div>
                         <div>Real-Time High Accuracy Google Maps Bus Radar</div>
                     </div>
                     <div class="sidebar-feature-row">
-                        <div class="sidebar-feature-icon">🔔</div>
+                        <div class="sidebar-feature-icon">&#128276;</div>
                         <div>Smart Stop Guardian Audio & Vibration Wake-Up Alarms</div>
                     </div>
                     <div class="sidebar-feature-row">
-                        <div class="sidebar-feature-icon">💳</div>
+                        <div class="sidebar-feature-icon">&#128179;</div>
                         <div>Instant Zero-Fee UPI Ticketing (GPay, PhonePe, Paytm)</div>
                     </div>
                     <div class="sidebar-feature-row">
-                        <div class="sidebar-feature-icon">🤖</div>
+                        <div class="sidebar-feature-icon">&#129302;</div>
                         <div>Tamil & English Bilingual AI Voice Assistant</div>
                     </div>
                 </div>
 
                 <div class="sidebar-cta-group">
-                    <a href="/login" class="sidebar-cta-btn">Sign In to SmartBus ➔</a>
+                    <a href="/login" class="sidebar-cta-btn">
+                        <span>Get Started / Sign In</span>
+                        <span>&rarr;</span>
+                    </a>
                     <a href="/downloads/SmartBus.apk" download="SmartBus.apk" class="sidebar-apk-btn">
-                        <span>📲</span> Download Native APK
+                        <span>&#128242;</span> Download Native APK
                     </a>
                 </div>
             </div>
@@ -890,18 +857,25 @@
             <div class="phone-mockup-frame">
                 <div class="onboarding-container">
 
+                    <!-- Smartphone Status Bar -->
+                    <div class="phone-status-bar">
+                        <span id="phone-clock">09:41</span>
+                        <div class="phone-status-icons">
+                            <span>5G</span>
+                            <span>&#9679;&#9679;&#9679;&#9679;</span>
+                            <span>&#128267; 100%</span>
+                        </div>
+                    </div>
+
                     <!-- Animated Background Scene -->
                     <div class="bg-scene">
                         <div class="city-glow city-glow-1"></div>
                         <div class="city-glow city-glow-2"></div>
-                        <div class="city-glow city-glow-3"></div>
-                        <div class="particle"></div>
                         <div class="particle"></div>
                         <div class="particle"></div>
                         <div class="particle"></div>
                         <div class="particle"></div>
                         <div class="road-stripe"></div>
-                        <!-- Animated bus SVG silhouette -->
                         <svg class="bus-silhouette" width="70" height="38" viewBox="0 0 70 38" fill="none">
                             <rect x="2" y="6" width="60" height="24" rx="6" fill="white"/>
                             <rect x="8" y="10" width="12" height="10" rx="2" fill="rgba(255,255,255,0.5)"/>
@@ -914,25 +888,26 @@
                         <div class="gps-beacon"></div>
                     </div>
 
-                    <!-- Top Navigation -->
+                    <!-- Top App Navigation -->
                     <header class="top-nav">
                         <div class="brand-badge">
-                            <span>🚌</span>
+                            <span>&#128652;</span>
+                            <span class="brand-tamil">&#2984;&#2990;&#3021;&#2990;</span>
                             <span class="brand-smart">Smart</span><span class="brand-bus">Bus</span>
                         </div>
                         <a href="/login" class="skip-btn" id="skip-link">
-                            Skip ➔
+                            Skip &rarr;
                         </a>
                     </header>
 
-                    <!-- Slider Viewport (100% per slide) -->
+                    <!-- Slider Viewport -->
                     <main class="slider-viewport" id="slider-viewport">
                         <div class="slider-track" id="slider-track">
 
                             <!-- SLIDE 1: Statewide Live Bus Radar -->
-                            <section class="slide-item active-slide">
+                            <section class="slide-item">
                                 <div class="stat-badge">
-                                    <span>🗺️</span> 38 Districts Connected
+                                    <span>&#128506;&#65039;</span> 38 Districts Connected
                                 </div>
                                 <h2 class="slide-title">Statewide Live Bus Radar</h2>
                                 <p class="slide-desc">
@@ -944,7 +919,7 @@
                                     <div class="route-header">
                                         <div class="route-cities">
                                             <span>Chennai</span>
-                                            <span style="color:#FF6B00;">➔</span>
+                                            <span style="color:#FF6B00;">&rarr;</span>
                                             <span>Madurai</span>
                                         </div>
                                         <span class="live-tag">LIVE GPS</span>
@@ -958,7 +933,7 @@
                                     </div>
                                     <div class="route-stops-row">
                                         <span>Tambaram</span>
-                                        <span style="color:#FF6B00;">📍 Tindivanam</span>
+                                        <span style="color:#FF6B00;">&#128205; Tindivanam</span>
                                         <span>Trichy</span>
                                     </div>
                                 </div>
@@ -967,7 +942,7 @@
                             <!-- SLIDE 2: Proactive Stop Guardian -->
                             <section class="slide-item">
                                 <div class="stat-badge">
-                                    <span>🔔</span> Core USP
+                                    <span>&#128276;</span> Core USP
                                 </div>
                                 <h2 class="slide-title">Proactive Stop Guardian</h2>
                                 <p class="slide-desc">
@@ -977,15 +952,15 @@
                                 <!-- Mockup Graphic 2 -->
                                 <div class="mockup-card-container">
                                     <div class="guardian-alert-card">
-                                        <div class="guardian-bell-ring">🔔</div>
+                                        <div class="guardian-bell-ring">&#128276;</div>
                                         <div class="guardian-title">Destination Approaching!</div>
                                         <div class="guardian-sub">Wake up & prepare to get down at <strong>Villupuram</strong></div>
                                         <div class="guardian-dist-badge">
-                                            ⏳ 2.4 km remaining &bull; ~5 mins
+                                            &#9203; 2.4 km remaining &bull; ~5 mins
                                         </div>
                                     </div>
                                     <div style="margin-top:8px; font-size:11px; color:#64748B; font-weight:600;">
-                                        ✓ Audio chime & strong vibration enabled
+                                        &check; Audio chime & strong vibration enabled
                                     </div>
                                 </div>
                             </section>
@@ -993,7 +968,7 @@
                             <!-- SLIDE 3: SmartBus Voice AI Assistant -->
                             <section class="slide-item">
                                 <div class="stat-badge">
-                                    <span>🎤</span> Voice AI Assistant
+                                    <span>&#127908;</span> Voice AI Assistant
                                 </div>
                                 <h2 class="slide-title">Speak in Tamil or English</h2>
                                 <p class="slide-desc">
@@ -1005,10 +980,10 @@
                                     <div class="voice-card">
                                         <div class="voice-bubble">
                                             <div class="voice-question">
-                                                <span>🎤</span> "சென்னையிலிருந்து மதுரைக்கு அடுத்த பஸ் எப்போது?"
+                                                <span>&#127908;</span> "&#2970;&#3014;&#2985;&#3021;&#2985;&#3016;&#2991;&#3007;&#2994;&#3007;&#2992;&#3009;&#2984;&#3021;&#2980;&#3009; &#2990;&#2980;&#3009;&#2992;&#3016;&#2965;&#3021;&#2965;&#3009; &#2950;&#2975;&#3009;&#2980;&#3021;&#2980; &#2986;&#2986;&#3021;&#2975;&#3007; &#2958;&#2986;&#3021;&#2986;&#3019;&#2980;&#3009;?"
                                             </div>
                                             <div class="voice-reply">
-                                                🤖 "அடுத்த பேருந்து 07:30 AM புறப்படுகிறது (Platform 3)."
+                                                &#129302; "&#2950;&#2975;&#3009;&#2980;&#3021;&#2980; &#2986;&#3015;&#2992;&#3009;&#2984;&#3021;&#2980;&#3009; 07:30 AM &#2986;&#3009;&#2993;&#2986;&#3021;&#2986;&#2975;&#3009;&#2965;&#3007;&#2993;&#2980;&#3009; (Platform 3)."
                                             </div>
                                         </div>
                                         <div class="voice-wave-bar">
@@ -1021,7 +996,7 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:8px; font-size:11px; color:#64748B; font-weight:700;">
-                                        🔊 Voice Read-Aloud (Text-to-Speech)
+                                        &#128266; Voice Read-Aloud (Text-to-Speech)
                                     </div>
                                 </div>
                             </section>
@@ -1029,7 +1004,7 @@
                             <!-- SLIDE 4: Instant UPI Ticketing & SOS Safety -->
                             <section class="slide-item">
                                 <div class="stat-badge">
-                                    <span>⚡</span> Instant & Secure
+                                    <span>&#9889;</span> Instant & Secure
                                 </div>
                                 <h2 class="slide-title">Instant UPI Passes & SOS</h2>
                                 <p class="slide-desc">
@@ -1041,14 +1016,14 @@
                                     <div class="ticket-preview">
                                         <div class="ticket-top">
                                             <span class="ticket-pnr">PNR: SB-849201</span>
-                                            <span class="ticket-verified">✓ CONFIRMED</span>
+                                            <span class="ticket-verified">&check; CONFIRMED</span>
                                         </div>
                                         <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0;">
                                             <div>
-                                                <div style="font-size:13.5px; font-weight:800; color:#0F172A;">Salem ➔ Chennai</div>
-                                                <div style="font-size:11px; color:#64748B;">Seat 14B (Window) &bull; ₹250</div>
+                                                <div style="font-size:13.5px; font-weight:800; color:#0F172A;">Salem &rarr; Chennai</div>
+                                                <div style="font-size:11px; color:#64748B;">Seat 14B (Window) &bull; &#8377;250</div>
                                             </div>
-                                            <div style="font-size:22px;">🎟️</div>
+                                            <div style="font-size:22px;">&#127919;</div>
                                         </div>
                                         <div class="upi-icons-row">
                                             <span>GPay</span> &bull; 
@@ -1058,8 +1033,8 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:8px; display:flex; justify-content:space-between; font-size:10.5px; color:#64748B; font-weight:700;">
-                                        <span>🚨 112 / 1091 SOS Support</span>
-                                        <span>🔒 100% Secure</span>
+                                        <span>&#128680; 112 / 1091 SOS Support</span>
+                                        <span>&#128274; 100% Secure</span>
                                     </div>
                                 </div>
                             </section>
@@ -1067,21 +1042,21 @@
                         </div>
                     </main>
 
-                    <!-- Bottom Controls & CTA -->
+                    <!-- Bottom Controls & Direct CTA -->
                     <footer class="bottom-action-panel">
                         <!-- Pagination Indicator Dots -->
                         <div class="pagination-bar" id="pagination-dots">
-                            <span class="dot active" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
-                            <span class="dot" data-index="3"></span>
+                            <span class="dot active" data-index="0" title="Slide 1"></span>
+                            <span class="dot" data-index="1" title="Slide 2"></span>
+                            <span class="dot" data-index="2" title="Slide 3"></span>
+                            <span class="dot" data-index="3" title="Slide 4"></span>
                         </div>
 
-                        <!-- Main Dynamic CTA Button (BUTTON, not anchor — JS controls behavior) -->
-                        <button type="button" class="cta-btn" id="cta-button">
-                            <span id="cta-text">Next</span>
-                            <span id="cta-arrow">➔</span>
-                        </button>
+                        <!-- Main Direct Action Button: Goes DIRECTLY to /login -->
+                        <a href="/login" class="cta-btn" id="cta-button">
+                            <span>Get Started</span>
+                            <span>&rarr;</span>
+                        </a>
 
                         <!-- Secondary Action Links -->
                         <div class="footer-links">
@@ -1097,13 +1072,21 @@
 
     <script>
         (function() {
+            // Live clock in phone status bar
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const el = document.getElementById('phone-clock');
+                if (el) el.textContent = hours + ':' + minutes;
+            }
+            updateClock();
+            setInterval(updateClock, 30000);
+
+            // Carousel Logic
             const track = document.getElementById('slider-track');
             const dots = document.querySelectorAll('.dot');
-            const ctaBtn = document.getElementById('cta-button');
-            const ctaText = document.getElementById('cta-text');
-            const ctaArrow = document.getElementById('cta-arrow');
             const viewport = document.getElementById('slider-viewport');
-            const slides = document.querySelectorAll('.slide-item');
             
             let currentIndex = 0;
             const totalSlides = 4;
@@ -1111,49 +1094,21 @@
 
             function goToSlide(index) {
                 if (index < 0) index = 0;
-                if (index >= totalSlides) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
                 currentIndex = index;
 
-                // Move track 100% per slide (Zero bleed or overlap)
-                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                // Move track exactly 100% per slide
+                track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
 
                 // Update active dot
-                dots.forEach((dot, idx) => {
+                dots.forEach(function(dot, idx) {
                     dot.classList.toggle('active', idx === currentIndex);
                 });
-
-                // Update slide active class for entry animations
-                slides.forEach((slide, idx) => {
-                    slide.classList.toggle('active-slide', idx === currentIndex);
-                });
-
-                // Update CTA text based on current slide
-                if (currentIndex === totalSlides - 1) {
-                    ctaText.textContent = 'Login & Travel Now! 🚀';
-                    ctaArrow.textContent = '';
-                    ctaBtn.classList.add('final-slide');
-                } else {
-                    ctaText.textContent = 'Next';
-                    ctaArrow.textContent = '➔';
-                    ctaBtn.classList.remove('final-slide');
-                }
             }
 
-            // CTA button click: advance to next slide, or navigate to login on last slide
-            ctaBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (currentIndex < totalSlides - 1) {
-                    resetAutoSlide();
-                    goToSlide(currentIndex + 1);
-                } else {
-                    // Last slide: go to login
-                    window.location.href = '/login';
-                }
-            });
-
             // Dot navigation clicks
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function() {
                     resetAutoSlide();
                     goToSlide(parseInt(dot.dataset.index));
                 });
@@ -1164,58 +1119,50 @@
             let currentX = 0;
             let isSwiping = false;
 
-            viewport.addEventListener('touchstart', (e) => {
+            viewport.addEventListener('touchstart', function(e) {
                 startX = e.touches[0].clientX;
                 currentX = startX;
                 isSwiping = true;
                 stopAutoSlide();
             }, { passive: true });
 
-            viewport.addEventListener('touchmove', (e) => {
+            viewport.addEventListener('touchmove', function(e) {
                 if (!isSwiping) return;
                 currentX = e.touches[0].clientX;
             }, { passive: true });
 
-            viewport.addEventListener('touchend', () => {
+            viewport.addEventListener('touchend', function() {
                 if (!isSwiping) return;
                 isSwiping = false;
                 const diff = startX - currentX;
-                const threshold = 45;
+                const threshold = 40;
 
                 if (diff > threshold) {
                     // Swiped left -> Next slide
-                    if (currentIndex < totalSlides - 1) {
-                        goToSlide(currentIndex + 1);
-                    } else {
-                        // Swiped left on last slide -> navigate to login
-                        window.location.href = '/login';
-                    }
+                    goToSlide((currentIndex + 1) % totalSlides);
                 } else if (diff < -threshold) {
                     // Swiped right -> Previous slide
-                    goToSlide(currentIndex - 1);
+                    goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
                 }
                 resetAutoSlide();
             });
 
             // Keyboard navigation (Left / Right arrow keys)
-            window.addEventListener('keydown', (e) => {
+            window.addEventListener('keydown', function(e) {
                 if (e.key === 'ArrowRight') {
                     resetAutoSlide();
-                    if (currentIndex < totalSlides - 1) {
-                        goToSlide(currentIndex + 1);
-                    }
+                    goToSlide((currentIndex + 1) % totalSlides);
                 } else if (e.key === 'ArrowLeft') {
                     resetAutoSlide();
-                    goToSlide(currentIndex - 1);
+                    goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
                 }
             });
 
-            // Auto-advance every 4.5 seconds
+            // Auto-advance every 5 seconds
             function startAutoSlide() {
-                autoSlideTimer = setInterval(() => {
-                    const next = (currentIndex + 1) % totalSlides;
-                    goToSlide(next);
-                }, 4500);
+                autoSlideTimer = setInterval(function() {
+                    goToSlide((currentIndex + 1) % totalSlides);
+                }, 5000);
             }
 
             function stopAutoSlide() {
@@ -1230,8 +1177,6 @@
                 startAutoSlide();
             }
 
-            // Initialize first slide and start auto
-            goToSlide(0);
             startAutoSlide();
         })();
     </script>

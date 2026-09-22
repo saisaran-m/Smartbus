@@ -23,13 +23,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/**", "/h2-console/**")
+                .ignoringRequestMatchers("/api/**", "/h2-console/**", "/login")
             )
             .headers(headers -> headers
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/dashboard", "/manifest.json", "/sw.js", "/css/**", "/js/**", "/images/**", "/downloads/**", "/api/**", "/driver", "/h2-console/**").permitAll()
+                .requestMatchers("/", "/welcome", "/login", "/register", "/dashboard", "/manifest.json", "/sw.js", "/css/**", "/js/**", "/images/**", "/downloads/**", "/api/**", "/driver", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
