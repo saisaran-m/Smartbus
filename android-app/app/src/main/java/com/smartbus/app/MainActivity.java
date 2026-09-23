@@ -84,6 +84,20 @@ public class MainActivity extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && (url.startsWith("upi:") || url.startsWith("tez:") || url.startsWith("phonepe:") || url.startsWith("paytmmp:"))) {
+                    try {
+                        android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                        startActivity(intent);
+                        return true;
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, "UPI app not found on device", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 progressBar.setVisibility(View.VISIBLE);
             }

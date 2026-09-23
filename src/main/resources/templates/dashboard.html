@@ -103,10 +103,13 @@
         <button class="btn btn-danger header-btn header-sos-btn" onclick="SmartBus.openSosModal()" style="animation:pulse 2s infinite;">
             🚨 SOS
         </button>
+        <button class="btn btn-secondary header-btn header-ai-btn" onclick="SmartBus.showScreen('ai')">
+            🤖 SmartBus AI
+        </button>
         <button id="theme-toggle" class="btn btn-secondary header-btn header-theme-btn" onclick="SmartBusThemeDialog.open()" title="Change Theme Mode">
             🌓 Mode
         </button>
-        <span id="user-greeting" style="font-size:13px; font-weight:600; margin-right:8px; color:rgba(255,255,255,0.9); display:none;" class="desktop-greeting">Hello, <span th:text="${username}">User</span></span>
+        <span id="user-greeting" style="font-size:13px; font-weight:600; margin-right:8px; color:var(--text-secondary); display:none;" class="desktop-greeting">Hello, <span th:text="${username}">User</span></span>
         <button id="senior-toggle" class="btn btn-secondary header-btn header-senior-btn" onclick="SmartBus.toggleSeniorMode()" title="Senior Citizen Mode">👴</button>
         <form id="header-logout-form" th:action="@{/logout}" method="post" style="display:inline; margin:0;">
             <button type="submit" class="btn btn-secondary header-btn header-logout-btn">Logout</button>
@@ -852,7 +855,7 @@
                 <ol style="padding-left:20px; font-size:14px; color:var(--text-primary); line-height:1.8;">
                     <li>Tap <strong>"🎫 Book Seat"</strong> on any bus.</li>
                     <li>Pick your preferred window or aisle seat in the visual bus layout.</li>
-                    <li>Select your UPI App (<strong>Google Pay, PhonePe, Paytm, or BHIM</strong>) to pay directly to <code>saisaran0070@oksbi</code>.</li>
+                    <li>Select your UPI App (<strong>Google Pay, PhonePe, Paytm, or BHIM</strong>) to pay directly to <code>9345219076@pthdfc</code> (Saravanesh Ds).</li>
                     <li>Enter your 12-digit UPI UTR reference to verify and issue your confirmed Digital Boarding Pass with scannable QR code.</li>
                     <li>Your ticket stays saved offline in <strong>"My Tickets"</strong> even without internet.</li>
                 </ol>
@@ -1242,23 +1245,23 @@
 
     <!-- ==================== BOTTOM NAVIGATION ==================== -->
     <nav class="bottom-nav">
-        <div class="nav-item active" data-screen="home" onclick="SmartBus.showScreen('home')">
+        <div class="nav-item active" data-screen="home">
             <span class="nav-icon">🏠</span>
             <span>Home</span>
         </div>
-        <div class="nav-item" data-screen="search" onclick="SmartBus.showScreen('search')">
+        <div class="nav-item" data-screen="search">
             <span class="nav-icon">🔍</span>
             <span>Search</span>
         </div>
-        <div class="nav-item" data-screen="mytickets" onclick="SmartBus.showScreen('mytickets')">
+        <div class="nav-item" data-screen="mytickets" onclick="if(window.SmartBusTicket) SmartBusTicket.loadMyTickets()">
             <span class="nav-icon">🎫</span>
             <span>Tickets</span>
         </div>
-        <div class="nav-item" data-screen="journey" onclick="SmartBus.showScreen('journey')">
+        <div class="nav-item" data-screen="journey">
             <span class="nav-icon">📍</span>
             <span>Journey</span>
         </div>
-        <div class="nav-item" data-screen="ai" onclick="SmartBus.showScreen('ai')">
+        <div class="nav-item" data-screen="ai">
             <span class="nav-icon">🤖</span>
             <span>AI</span>
         </div>
@@ -1269,7 +1272,7 @@
 
     <!-- ==================== SCRIPTS ==================== -->
     <script src="/js/map.js"></script>
-    <script src="/js/ticket.js"></script>
+    <script src="/js/ticket.js?v=2.1"></script>
     <script src="/js/driver.js"></script>
     <script src="/js/tracking.js"></script>
     <script src="/js/guardian.js"></script>
